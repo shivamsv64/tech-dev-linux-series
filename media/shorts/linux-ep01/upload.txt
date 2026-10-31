@@ -1,0 +1,13 @@
+TITLE
+5 Linux Commands Every Beginner Needs #shorts #linux
+
+DESCRIPTION
+whoami, hostname, uname -r, echo $SHELL and /etc/os-release: the first 5 commands to run on any new Linux server, plus the case-sensitive mistake every beginner makes.
+
+Full episode: "Linux for Beginners: Your First 5 Commands | Linux Zero to Hero Ep 1" on the Tech-dev channel.
+New Linux episode every day at 5 PM IST.
+
+#shorts #Linux #DevOps #SRE #LinuxCommands #TechDev
+
+TAGS
+linux, linux commands, linux for beginners, shorts, whoami, uname, linux tutorial, devops, sre, bash, ubuntu, linux zero to hero, tech-dev
