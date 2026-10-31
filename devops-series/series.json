@@ -10,7 +10,11 @@
       "phase": "1 Foundations",
       "topic": "What is DevOps? Culture + 4 pillars",
       "lead": "Ollie",
-      "status": "planned"
+      "status": "scheduled",
+      "title": "What is DevOps? Explained with Animals | DevOps & SRE Zero to Hero Day 1",
+      "live": "2026-11-01T20:00:00+05:30",
+      "planner": "https://app.metricool.com/planner/calendar?blogId=7777398&openWithPostUuid=-6107331404039306841",
+      "metricool_id": 412203152
     },
     {
       "day": 2,
