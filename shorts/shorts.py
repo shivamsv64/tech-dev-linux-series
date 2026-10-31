@@ -27,7 +27,7 @@ MUTED = (148, 163, 184); SOFT = (203, 213, 225); PANEL = (17, 24, 45); TERM = (8
 SERIES = {  # accent, label
     'linux': (GREEN, 'LINUX ZERO TO HERO'),
     'git': (AMBER, 'GIT & GITHUB'),
-    'devops': (CYAN, 'DEVOPS & SRE ZERO TO HERO'),
+    'devops': (CYAN, 'DEVOPS & SRE'),
 }
 
 GF = '/usr/share/fonts/truetype/google-fonts/'
@@ -329,7 +329,7 @@ def frame(spec, beats, total, gt):
                 continue
             cx = 300 + i * 440
             cast.draw_animal(img, w, cx, int(1600 + (1 - p) * 500), 480, mood='happy',
-                             arms='wave' if i == 0 else 'up', t=gt, talking=age > delay + 0.3 and age < delay + 1.4,
+                             arms='wave' if (i == 0 and w != 'ollie') else 'up', t=gt, talking=age > delay + 0.3 and age < delay + 1.4,
                              flip=(i == 1))
         chrome(img, d, spec, gt, total)
         return img
@@ -359,7 +359,7 @@ def frame(spec, beats, total, gt):
             p = back(clamp((age - 0.2 - i * 0.15) / 0.5))
             if p <= 0:
                 continue
-            cx = W / 2 + (i - (n - 1) / 2) * min(330, 900 / max(1, n - 1) if n > 1 else 0)
+            cx = W / 2 + (i - (n - 1) / 2) * (min(330, 800 / (n - 1)) if n > 1 else 0)
             cast.draw_animal(img, w, cx, int(1520 + (1 - p) * 500), 420 if n <= 3 else 340, mood='celebrate',
                              arms='up', t=gt + i, talking=False, flip=cx > W / 2)
         chrome(img, d, spec, gt, total)
