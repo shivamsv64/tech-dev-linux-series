@@ -14,7 +14,14 @@
       "title": "What is DevOps? Explained with Animals | DevOps & SRE Zero to Hero Day 1",
       "live": "2026-11-01T20:00:00+05:30",
       "planner": "https://app.metricool.com/planner/calendar?blogId=7777398&openWithPostUuid=-6107331404039306841",
-      "metricool_id": 412203152
+      "metricool_id": 412203152,
+      "short": {
+        "status": "scheduled",
+        "live": "2026-11-02T13:30:00+05:30",
+        "metricool_id": 412218378,
+        "planner": "https://app.metricool.com/planner/calendar?blogId=7777398&openWithPostUuid=9016199207324830369",
+        "title": "What is DevOps? Explained with Animals #shorts #devops"
+      }
     },
     {
       "day": 2,
