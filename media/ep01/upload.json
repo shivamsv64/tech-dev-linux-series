@@ -1,0 +1,77 @@
+{
+  "title": "Linux for Beginners: Your First 5 Commands | Linux Zero to Hero Ep 1",
+  "description": "New to Linux? Start here. In 6 minutes you will learn the first 5 commands every DevOps and SRE engineer runs on a new server: whoami, hostname, uname, echo $SHELL and cat /etc/os-release.\n\nI'm Shivam Singh Verma, a DevOps & SRE engineer with 5 years of experience building CI/CD pipelines, running cloud infrastructure on AWS & GCP, and managing projects.\n\n📺 Linux Zero to Hero: a new episode every day at 5 PM IST.\n\n⏱️ Chapters\n0:00 Intro\n0:42 What is Linux?\n1:46 Series roadmap\n2:04 whoami\n2:29 hostname\n2:44 uname\n3:18 echo $SHELL\n3:36 cat /etc/os-release\n3:55 Common mistake\n4:20 Real DevOps use\n4:50 Quiz\n5:06 Recap\n5:31 Next episode\n\n🔑 What you'll learn\n• How Linux is built: hardware, kernel, shell, terminal\n• Why the same commands work on Ubuntu, Red Hat and Amazon Linux\n• whoami, hostname, uname (-r, -m, -a), echo $SHELL, cat /etc/os-release\n• The case-sensitivity mistake every beginner makes\n• A real \"first 30 seconds on an EC2 server\" checklist\n\n🧾 Cheat sheet (copy & practice)\nwhoami\nsudo whoami\nhostname\nhostname -I\nuname\nuname -r\nuname -m\nuname -a\necho $SHELL\necho \"Hello, Linux\"\ncat /etc/os-release\nwhoami; hostname; uname -r\ngrep PRETTY /etc/os-release\n\n📝 Homework: run uname -m and comment your answer (x86_64 or aarch64?)\n\n➡️ Next: Ep 2: pwd, cd and ls, moving around the filesystem (tomorrow, 5 PM IST)\n\n🔔 Subscribe to Tech-dev for practical DevOps, SRE & Cloud videos.\n\n💬 Which Linux distro are you practising on? Tell me in the comments.\n\n#Linux #DevOps #SRE #LinuxCommands #TechDev",
+  "tags": [
+    "linux commands",
+    "linux for beginners",
+    "linux tutorial",
+    "linux zero to hero",
+    "whoami command",
+    "uname command",
+    "hostname command",
+    "linux basics",
+    "linux for devops",
+    "bash",
+    "terminal",
+    "command line",
+    "sre",
+    "devops",
+    "ubuntu",
+    "tech-dev"
+  ],
+  "duration": 352.1,
+  "chapters": [
+    [
+      0,
+      "Intro"
+    ],
+    [
+      42.72,
+      "What is Linux?"
+    ],
+    [
+      106.08999999999999,
+      "Series roadmap"
+    ],
+    [
+      124.51999999999998,
+      "whoami"
+    ],
+    [
+      149.27999999999997,
+      "hostname"
+    ],
+    [
+      164.89,
+      "uname"
+    ],
+    [
+      198.79999999999998,
+      "echo $SHELL"
+    ],
+    [
+      216.76,
+      "cat /etc/os-release"
+    ],
+    [
+      235.66,
+      "Common mistake"
+    ],
+    [
+      260.89,
+      "Real DevOps use"
+    ],
+    [
+      290.82,
+      "Quiz"
+    ],
+    [
+      306.43,
+      "Recap"
+    ],
+    [
+      331.31,
+      "Next episode"
+    ]
+  ]
+}

@@ -1,0 +1,59 @@
+TITLE
+Linux for Beginners: Your First 5 Commands | Linux Zero to Hero Ep 1
+
+DESCRIPTION
+New to Linux? Start here. In 6 minutes you will learn the first 5 commands every DevOps and SRE engineer runs on a new server: whoami, hostname, uname, echo $SHELL and cat /etc/os-release.
+
+I'm Shivam Singh Verma, a DevOps & SRE engineer with 5 years of experience building CI/CD pipelines, running cloud infrastructure on AWS & GCP, and managing projects.
+
+📺 Linux Zero to Hero: a new episode every day at 5 PM IST.
+
+⏱️ Chapters
+0:00 Intro
+0:42 What is Linux?
+1:46 Series roadmap
+2:04 whoami
+2:29 hostname
+2:44 uname
+3:18 echo $SHELL
+3:36 cat /etc/os-release
+3:55 Common mistake
+4:20 Real DevOps use
+4:50 Quiz
+5:06 Recap
+5:31 Next episode
+
+🔑 What you'll learn
+• How Linux is built: hardware, kernel, shell, terminal
+• Why the same commands work on Ubuntu, Red Hat and Amazon Linux
+• whoami, hostname, uname (-r, -m, -a), echo $SHELL, cat /etc/os-release
+• The case-sensitivity mistake every beginner makes
+• A real "first 30 seconds on an EC2 server" checklist
+
+🧾 Cheat sheet (copy & practice)
+whoami
+sudo whoami
+hostname
+hostname -I
+uname
+uname -r
+uname -m
+uname -a
+echo $SHELL
+echo "Hello, Linux"
+cat /etc/os-release
+whoami; hostname; uname -r
+grep PRETTY /etc/os-release
+
+📝 Homework: run uname -m and comment your answer (x86_64 or aarch64?)
+
+➡️ Next: Ep 2: pwd, cd and ls, moving around the filesystem (tomorrow, 5 PM IST)
+
+🔔 Subscribe to Tech-dev for practical DevOps, SRE & Cloud videos.
+
+💬 Which Linux distro are you practising on? Tell me in the comments.
+
+#Linux #DevOps #SRE #LinuxCommands #TechDev
+
+TAGS
+linux commands, linux for beginners, linux tutorial, linux zero to hero, whoami command, uname command, hostname command, linux basics, linux for devops, bash, terminal, command line, sre, devops, ubuntu, tech-dev
