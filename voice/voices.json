@@ -1,0 +1,26 @@
+{
+  "plan": "ElevenLabs 30,000 credits/month (about 1 credit per character on every model)",
+  "model_id": "eleven_flash_v2_5",
+  "budget": {
+    "per_series_per_day_chars": 250,
+    "line_chars": {"long_intro": 90, "short_hook": 80, "short_line": 80},
+    "rules": [
+      "generations_count = 1, never retry a generation call, never make test takes",
+      "voice only: long-video intro line, Short hook, one key Short line; everything else stays captions + animal sounds",
+      "the CTA clip (assets/cta.mp3) is generated once and reused forever"
+    ]
+  },
+  "cta": {"text": "Watch the full episode on Tech-dev, and subscribe!"},
+  "cast": {
+    "narrator": {"voice_id": "1Ldxg5RgFoi1bX6vz2rB", "name": "Bhargav", "style": "deep, confident Indian English, filmy-hero energy (original voice, not modelled on any actor)"},
+    "mitthu": {"voice_id": "Nggzl2QAXh3OijoXD116", "name": "Candy", "style": "chirpy cartoon parrot"},
+    "ollie": {"voice_id": "6sFKzaJr574YWVu4UuJF", "name": "Cornelius", "style": "wise old owl"},
+    "kaalu": {"voice_id": "N2lVS1w4EtoT3dr4eOWO", "name": "Callum", "style": "husky trickster crow (villain)"},
+    "gajju": {"voice_id": "niLTODfB1j2nXIbp3M14", "name": "Pranab", "style": "warm resonant Indian elephant"},
+    "bablu": {"voice_id": "6IwYbsNENZgAB1dtBZDp", "name": "Jett", "style": "spunky builder beaver"},
+    "kukdu": {"voice_id": "SOYHLrjzK2X1ezoPC6cr", "name": "Harry", "style": "loud alarm rooster"},
+    "ashtu": {"voice_id": "WtA85syCrJwasGeHGH2p", "name": "Ember", "style": "energetic octopus"},
+    "tortoise": {"voice_id": "6sFKzaJr574YWVu4UuJF", "name": "Cornelius", "style": "slow and steady"},
+    "cheetah": {"voice_id": "6IwYbsNENZgAB1dtBZDp", "name": "Jett", "style": "fast and eager"}
+  }
+}

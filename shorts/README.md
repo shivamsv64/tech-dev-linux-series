@@ -4,7 +4,8 @@ One vertical YouTube Short (1080x1920, 30–50 s) per long episode, taught by th
 
 Render: `python3 shorts/shorts.py shorts/specs/<series>-<ep>.py out/short-<series>-<ep>` (needs ffmpeg, Pillow, numpy, scipy).
 Preview first: add `--stills 2,8,15,...` and look at the JPGs.
-Outputs: `short.mp4`, `cover.jpg`, `upload.json`, `upload.txt`. Publish to `media/shorts/<series>-<ep>/`.
+Outputs: `short.mp4`, `cover.jpg`, `upload.json`, `upload.txt`.
+Human voices (ElevenLabs, credit-capped): mark the most important beat with `'voice': True`, then follow `voice/README.md` and render with `--vo out/vo-<id>/manifest.json`. Publish to `media/shorts/<series>-<ep>/`.
 
 ## Schedule (Metricool brand 7777398, Tech-Dev channel only)
 The daily maker task renders the Short together with its episode and schedules it for **the next day**:

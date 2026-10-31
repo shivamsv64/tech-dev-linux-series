@@ -287,13 +287,32 @@ def beat_duration(b):
     return round(clamp(d + b.get('extra', 0), 3.4, 8.0), 2)
 
 
-def build(spec):
+VO_OFFSET = {'hook': 1.0, 'beat': 0.2, 'cta': 0.5}
+
+
+def load_clip(path):
+    """Decode an mp3/wav voice clip to mono float32 at SR."""
+    raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', path, '-af', 'loudnorm=I=-15:TP=-1.5:LRA=11', '-f', 's16le', '-ac', '1', '-ar', str(SR), '-'],
+                         capture_output=True, check=True).stdout
+    return np.frombuffer(raw, np.int16).astype(np.float32) / 32768.0
+
+
+def build(spec, vo=None):
+    """vo: {'hook': clip, 'beat3': clip, 'cta': clip} (ElevenLabs lines, see voice/vo.py)."""
+    vo = vo or {}
     beats = [dict(kind='hook', **spec['hook'])] + [dict(kind='beat', **b) for b in spec['beats']] + \
             [dict(kind='cta', **spec['cta'])]
+    nb = len(spec['beats'])
     t = 0.0
-    for b in beats:
+    for i, b in enumerate(beats):
         b['t0'] = t
         b['dur'] = beat_duration(b)
+        b.pop('vo', None)
+        key = 'hook' if i == 0 else ('cta' if i == nb + 1 else f'beat{i - 1}')
+        if key in vo:
+            b['vo'] = vo[key]
+            b['vo_len'] = len(vo[key]) / SR
+            b['dur'] = round(max(b['dur'], VO_OFFSET[b['kind']] + b['vo_len'] + 0.5), 2)
         t += b['dur']
     return beats, t
 
@@ -379,7 +398,10 @@ def frame(spec, beats, total, gt):
     who = b['who']
     same = prev is not None and prev['kind'] == 'beat' and prev['who'] == who
     p = 1.0 if same else back(clamp(age / 0.45))
-    talking = age < cast.voice_len(who, cast.syllables_for(b['say'])) + 0.2
+    if b.get('vo') is not None:
+        talking = VO_OFFSET['beat'] < age < VO_OFFSET['beat'] + b['vo_len']
+    else:
+        talking = age < cast.voice_len(who, cast.syllables_for(b['say'])) + 0.2
     cast.draw_animal(img, who, 300, int(1600 + (1 - p) * 560), 520, mood=b.get('mood', 'normal'),
                      arms=b.get('arms', 'point' if b.get('cmd') else 'rest'), t=gt, talking=talking)
     name_tag(d, who, accent_c, 1.0 if same else age)
@@ -472,22 +494,28 @@ def make_audio(beats, total, path, seed=11):
     for b in beats:
         t0 = b['t0']
         add(mixb, sfx('whoosh', rng), max(0, t0 - 0.12))
+        hv = b.get('vo') is not None
+        if hv:  # human (ElevenLabs) voice line
+            add(voc, b['vo'], t0 + VO_OFFSET[b['kind']], 1.0)
         if b['kind'] == 'hook':
             for i, w in enumerate(b['who'][:2]):
-                add(voc, cast.call(w, rng), t0 + 0.3 + i * 0.45, 0.9)
+                add(voc, cast.call(w, rng), t0 + 0.3 + i * 0.45, 0.45 if hv else 0.9)
                 seen.add(w)
         elif b['kind'] == 'cta':
             add(mixb, sfx('ding', rng), t0 + 0.9)
             for i, w in enumerate(b['who']):
-                add(voc, cast.call(w, rng) * 0.6, t0 + 0.3 + i * 0.35)
+                add(voc, cast.call(w, rng) * (0.25 if hv else 0.6), t0 + 0.3 + i * 0.35)
         else:
             w = b['who']
-            if w not in seen:
+            if hv:
+                seen.add(w)
+            elif w not in seen:
                 add(voc, cast.call(w, rng), t0 + 0.05, 0.85); seen.add(w)
                 vstart = t0 + 0.05 + len(cast.call(w, np.random.default_rng(1))) / SR * 0.6
             else:
                 vstart = t0 + 0.15
-            add(voc, cast.voice(w, cast.syllables_for(b['say']), rng), vstart, 0.95)
+            if not hv:
+                add(voc, cast.voice(w, cast.syllables_for(b['say']), rng), vstart, 0.95)
             if b.get('cmd'):
                 for i in range(len(b['cmd'])):
                     add(mixb, sfx('key', rng), t0 + 0.35 + i / 15 + rng.uniform(0, 0.02))
@@ -532,7 +560,12 @@ def main():
         print(__doc__); sys.exit(1)
     spec = load(sys.argv[1]); outdir = sys.argv[2]
     os.makedirs(outdir, exist_ok=True)
-    beats, total = build(spec)
+    vo = {}
+    if '--vo' in sys.argv:  # manifest.json from voice/vo.py: {"hook": path, "beat3": path, "cta": path}
+        man = json.load(open(sys.argv[sys.argv.index('--vo') + 1]))
+        vo = {k: load_clip(v) for k, v in man.items() if v and os.path.exists(v)}
+        print('voice lines:', ', '.join(f"{k} {len(c) / SR:.1f}s" for k, c in vo.items()) or 'none')
+    beats, total = build(spec, vo)
     print(f"Short length: {total:.1f}s")
     for b in beats:
         print(f"  {b['t0']:5.1f}s  {b['dur']:.1f}s  {b['kind']:5s} {b.get('who', '')} {b.get('cmd', b.get('big', b.get('text', '')))}")
