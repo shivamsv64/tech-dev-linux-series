@@ -9,7 +9,14 @@
       "title": "Linux for Beginners: Your First 5 Commands | Linux Zero to Hero Ep 1",
       "live": "2026-10-31T19:30:00+05:30",
       "planner": "https://app.metricool.com/planner/calendar?blogId=7777398&openWithPostUuid=-8818422189985938384",
-      "metricool_id": 412166596
+      "metricool_id": 412166596,
+      "short": {
+        "status": "scheduled",
+        "live": "2026-11-01T12:30:00+05:30",
+        "metricool_id": 412214864,
+        "planner": "https://app.metricool.com/planner/calendar?blogId=7777398&openWithPostUuid=-1921574723455137908",
+        "title": "5 Linux Commands Every Beginner Needs #shorts #linux"
+      }
     },
     {
       "ep": 2,
