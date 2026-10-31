@@ -1,0 +1,53 @@
+TITLE
+What is DevOps? Explained with Animals | DevOps & SRE Zero to Hero Day 1
+
+DESCRIPTION
+What is DevOps, really? Not a tool, not just a job title. In Day 1 of this free 100-day course, Ollie the Owl and friends explain DevOps as a culture, its 4 pillars, and how to answer "What is DevOps?" in an interview.
+
+I'm Shivam Singh Verma, a DevOps & SRE engineer with 5 years of experience building CI/CD pipelines, running cloud infrastructure on AWS & GCP, and managing projects.
+
+📺 Day 1 of 100 · DevOps & SRE Zero to Hero: a free course with a new episode every day at 8 PM IST.
+
+⏱️ Chapters
+0:00 Intro
+1:07 Meet the cast
+2:00 Life before DevOps
+2:40 What is DevOps?
+3:08 The 4 pillars
+4:23 Hands-on: automation
+4:59 Real-world story
+5:40 Interview corner
+6:12 Quiz
+6:30 Recap
+6:48 Next episode
+
+🔑 What you'll learn
+• Why DevOps exists: life before DevOps and the 10-day release
+• A clear definition: DevOps is a culture that improves delivery
+• The 4 pillars: automation, quality, monitoring, testing
+• Automation in its simplest form: a deploy script with set -e
+• A real-world story: how a pipeline stops a bad release
+• A 30-second interview answer you can reuse
+
+🧾 Cheat sheet (copy & practice)
+cat deploy.sh
+bash deploy.sh
+
+🎤 Interview question: In your own words, what is DevOps? (culture + 4 pillars + one real example, under 30 seconds)
+
+🧠 Quiz: Which is NOT one of the 4 DevOps pillars: Automation, Monitoring, Manual hand-offs, Testing? (answer in the comments, reveal tomorrow)
+
+🐾 Cast: Ollie the Owl, Mitthu the Parrot, Bablu the Beaver, Gajju the Elephant, Ashtu the Octopus, Kukdu the Rooster and Kaalu the Crow.
+
+📝 Homework: Write your own one-line definition of DevOps in the comments.
+
+➡️ Next: Day 2: Why DevOps exists, the 10-day release problem (tomorrow, 8 PM IST)
+
+🔔 Subscribe to Tech-dev for practical DevOps, SRE & Cloud videos.
+
+💬 How long does a release take at your company or in your projects today?
+
+#DevOps #SRE #DevOpsZeroToHero #CloudComputing #TechDev #WhatIsDevOps
+
+TAGS
+what is devops, devops explained, devops for beginners, devops course, free devops course, devops zero to hero, devops day 1, devops tutorial, sre course, devops pillars, devops culture, devops interview questions, devops roadmap 2026, learn devops, tech-dev

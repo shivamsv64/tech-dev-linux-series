@@ -1,0 +1,808 @@
+{
+  "series": "DevOps & SRE Zero to Hero",
+  "channel": "UCkMTPE1hLFUG1-4ccCDmP9w",
+  "metricool_brand": "7777398",
+  "live_time_ist": "20:00",
+  "episodes": [
+    {
+      "day": 1,
+      "date": "2026-11-01",
+      "phase": "1 Foundations",
+      "topic": "What is DevOps? Culture + 4 pillars",
+      "lead": "Ollie",
+      "status": "planned"
+    },
+    {
+      "day": 2,
+      "date": "2026-11-02",
+      "phase": "1 Foundations",
+      "topic": "Why DevOps exists: the 10-day release problem",
+      "lead": "Tortoise vs Cheetah",
+      "status": "planned"
+    },
+    {
+      "day": 3,
+      "date": "2026-11-03",
+      "phase": "1 Foundations",
+      "topic": "SDLC and where DevOps fits",
+      "lead": "Ollie",
+      "status": "planned"
+    },
+    {
+      "day": 4,
+      "date": "2026-11-04",
+      "phase": "1 Foundations",
+      "topic": "Agile, Scrum and Jira for DevOps teams",
+      "lead": "Bablu",
+      "status": "planned"
+    },
+    {
+      "day": 5,
+      "date": "2026-11-05",
+      "phase": "1 Foundations",
+      "topic": "DevOps vs SRE vs CloudOps: roles and career map",
+      "lead": "Ollie",
+      "status": "planned"
+    },
+    {
+      "day": 6,
+      "date": "2026-11-06",
+      "phase": "1 Foundations",
+      "topic": "Should you learn DevOps and Cloud in 2027?",
+      "lead": "Kukdu",
+      "status": "planned"
+    },
+    {
+      "day": 7,
+      "date": "2026-11-07",
+      "phase": "1 Foundations",
+      "topic": "Roadmap + how to introduce yourself + a DevOps engineer's day",
+      "lead": "Mitthu",
+      "status": "planned"
+    },
+    {
+      "day": 8,
+      "date": "2026-11-08",
+      "phase": "2 Linux & scripting",
+      "topic": "Linux for DevOps: why servers run Linux, filesystem tree",
+      "lead": "Gajju",
+      "status": "planned"
+    },
+    {
+      "day": 9,
+      "date": "2026-11-09",
+      "phase": "2 Linux & scripting",
+      "topic": "Users, groups, sudo and permissions",
+      "lead": "Kaalu",
+      "status": "planned"
+    },
+    {
+      "day": 10,
+      "date": "2026-11-10",
+      "phase": "2 Linux & scripting",
+      "topic": "Processes, services and systemd",
+      "lead": "Ashtu",
+      "status": "planned"
+    },
+    {
+      "day": 11,
+      "date": "2026-11-11",
+      "phase": "2 Linux & scripting",
+      "topic": "Logs: /var/log, journalctl, tail -f",
+      "lead": "Gajju",
+      "status": "planned"
+    },
+    {
+      "day": 12,
+      "date": "2026-11-12",
+      "phase": "2 Linux & scripting",
+      "topic": "Packages + install nginx/httpd web server",
+      "lead": "Bablu",
+      "status": "planned"
+    },
+    {
+      "day": 13,
+      "date": "2026-11-13",
+      "phase": "2 Linux & scripting",
+      "topic": "Shell scripting 1: variables, if, loops",
+      "lead": "Mitthu",
+      "status": "planned"
+    },
+    {
+      "day": 14,
+      "date": "2026-11-14",
+      "phase": "2 Linux & scripting",
+      "topic": "Shell scripting 2: health-check script + cron",
+      "lead": "Kukdu",
+      "status": "planned"
+    },
+    {
+      "day": 15,
+      "date": "2026-11-15",
+      "phase": "2 Linux & scripting",
+      "topic": "grep, awk, sed: log triage drill",
+      "lead": "Gajju",
+      "status": "planned"
+    },
+    {
+      "day": 16,
+      "date": "2026-11-16",
+      "phase": "3 Networking",
+      "topic": "How the internet works",
+      "lead": "Pigeon",
+      "status": "planned"
+    },
+    {
+      "day": 17,
+      "date": "2026-11-17",
+      "phase": "3 Networking",
+      "topic": "OSI vs TCP/IP model",
+      "lead": "Ollie",
+      "status": "planned"
+    },
+    {
+      "day": 18,
+      "date": "2026-11-18",
+      "phase": "3 Networking",
+      "topic": "IP addresses: public, private, NAT",
+      "lead": "Pigeon",
+      "status": "planned"
+    },
+    {
+      "day": 19,
+      "date": "2026-11-19",
+      "phase": "3 Networking",
+      "topic": "Subnets and CIDR made easy",
+      "lead": "Ollie",
+      "status": "planned"
+    },
+    {
+      "day": 20,
+      "date": "2026-11-20",
+      "phase": "3 Networking",
+      "topic": "DNS deep dive",
+      "lead": "Pigeon",
+      "status": "planned"
+    },
+    {
+      "day": 21,
+      "date": "2026-11-21",
+      "phase": "3 Networking",
+      "topic": "HTTP, HTTPS and status codes",
+      "lead": "Kukdu",
+      "status": "planned"
+    },
+    {
+      "day": 22,
+      "date": "2026-11-22",
+      "phase": "3 Networking",
+      "topic": "TCP vs UDP, ports and sockets",
+      "lead": "Mitthu",
+      "status": "planned"
+    },
+    {
+      "day": 23,
+      "date": "2026-11-23",
+      "phase": "3 Networking",
+      "topic": "TLS, certificates and internet security",
+      "lead": "Kaalu",
+      "status": "planned"
+    },
+    {
+      "day": 24,
+      "date": "2026-11-24",
+      "phase": "3 Networking",
+      "topic": "Routers, switches, load balancers, reverse proxies",
+      "lead": "Honeybees",
+      "status": "planned"
+    },
+    {
+      "day": 25,
+      "date": "2026-11-25",
+      "phase": "3 Networking",
+      "topic": "Data centers, CDN and edge locations",
+      "lead": "Squirrel",
+      "status": "planned"
+    },
+    {
+      "day": 26,
+      "date": "2026-11-26",
+      "phase": "3 Networking",
+      "topic": "Network troubleshooting toolkit: ping, curl, dig, traceroute, ss",
+      "lead": "Mitthu",
+      "status": "planned"
+    },
+    {
+      "day": 27,
+      "date": "2026-11-27",
+      "phase": "3 Networking",
+      "topic": "System design fundamentals for DevOps",
+      "lead": "Ollie",
+      "status": "planned"
+    },
+    {
+      "day": 28,
+      "date": "2026-11-28",
+      "phase": "4 Git",
+      "topic": "Version control: centralized vs distributed",
+      "lead": "Gajju",
+      "status": "planned"
+    },
+    {
+      "day": 29,
+      "date": "2026-11-29",
+      "phase": "4 Git",
+      "topic": "Git basics: init, add, commit, log",
+      "lead": "Gajju",
+      "status": "planned"
+    },
+    {
+      "day": 30,
+      "date": "2026-11-30",
+      "phase": "4 Git",
+      "topic": "Branching and merging",
+      "lead": "Gajju",
+      "status": "planned"
+    },
+    {
+      "day": 31,
+      "date": "2026-12-01",
+      "phase": "4 Git",
+      "topic": "GitHub: clone, pull requests, code review",
+      "lead": "Bablu",
+      "status": "planned"
+    },
+    {
+      "day": 32,
+      "date": "2026-12-02",
+      "phase": "4 Git",
+      "topic": "Branching strategies: GitFlow vs trunk-based",
+      "lead": "Ollie",
+      "status": "planned"
+    },
+    {
+      "day": 33,
+      "date": "2026-12-03",
+      "phase": "4 Git",
+      "topic": "Merge conflicts, rebase, revert",
+      "lead": "Kaalu",
+      "status": "planned"
+    },
+    {
+      "day": 34,
+      "date": "2026-12-04",
+      "phase": "4 Git",
+      "topic": "Git hygiene: .gitignore, secrets, signed commits",
+      "lead": "Kaalu",
+      "status": "planned"
+    },
+    {
+      "day": 35,
+      "date": "2026-12-05",
+      "phase": "5 Cloud & AWS",
+      "topic": "Cloud computing: IaaS, PaaS, SaaS",
+      "lead": "Ollie",
+      "status": "planned"
+    },
+    {
+      "day": 36,
+      "date": "2026-12-06",
+      "phase": "5 Cloud & AWS",
+      "topic": "AWS global infra: regions, AZs, edge",
+      "lead": "Pigeon",
+      "status": "planned"
+    },
+    {
+      "day": 37,
+      "date": "2026-12-07",
+      "phase": "5 Cloud & AWS",
+      "topic": "IAM: users, roles, policies, least privilege",
+      "lead": "Kaalu",
+      "status": "planned"
+    },
+    {
+      "day": 38,
+      "date": "2026-12-08",
+      "phase": "5 Cloud & AWS",
+      "topic": "EC2: launch, SSH, user data",
+      "lead": "Bablu",
+      "status": "planned"
+    },
+    {
+      "day": 39,
+      "date": "2026-12-09",
+      "phase": "5 Cloud & AWS",
+      "topic": "VPC from scratch",
+      "lead": "Ollie",
+      "status": "planned"
+    },
+    {
+      "day": 40,
+      "date": "2026-12-10",
+      "phase": "5 Cloud & AWS",
+      "topic": "Security groups vs NACLs",
+      "lead": "Kaalu",
+      "status": "planned"
+    },
+    {
+      "day": 41,
+      "date": "2026-12-11",
+      "phase": "5 Cloud & AWS",
+      "topic": "S3: buckets, policies, lifecycle",
+      "lead": "Gajju",
+      "status": "planned"
+    },
+    {
+      "day": 42,
+      "date": "2026-12-12",
+      "phase": "5 Cloud & AWS",
+      "topic": "EBS, EFS and snapshots",
+      "lead": "Gajju",
+      "status": "planned"
+    },
+    {
+      "day": 43,
+      "date": "2026-12-13",
+      "phase": "5 Cloud & AWS",
+      "topic": "ELB + Auto Scaling",
+      "lead": "Honeybees",
+      "status": "planned"
+    },
+    {
+      "day": 44,
+      "date": "2026-12-14",
+      "phase": "5 Cloud & AWS",
+      "topic": "Route 53",
+      "lead": "Pigeon",
+      "status": "planned"
+    },
+    {
+      "day": 45,
+      "date": "2026-12-15",
+      "phase": "5 Cloud & AWS",
+      "topic": "RDS: managed databases, backups, Multi-AZ",
+      "lead": "Gajju",
+      "status": "planned"
+    },
+    {
+      "day": 46,
+      "date": "2026-12-16",
+      "phase": "5 Cloud & AWS",
+      "topic": "CloudWatch: metrics, logs, alarms",
+      "lead": "Kukdu",
+      "status": "planned"
+    },
+    {
+      "day": 47,
+      "date": "2026-12-17",
+      "phase": "5 Cloud & AWS",
+      "topic": "Lambda and serverless",
+      "lead": "Cheetah",
+      "status": "planned"
+    },
+    {
+      "day": 48,
+      "date": "2026-12-18",
+      "phase": "5 Cloud & AWS",
+      "topic": "AWS CLI + SSM Parameter Store",
+      "lead": "Mitthu",
+      "status": "planned"
+    },
+    {
+      "day": 49,
+      "date": "2026-12-19",
+      "phase": "5 Cloud & AWS",
+      "topic": "FinOps: cut your AWS bill",
+      "lead": "Squirrel",
+      "status": "planned"
+    },
+    {
+      "day": 50,
+      "date": "2026-12-20",
+      "phase": "5 Cloud & AWS",
+      "topic": "AWS vs GCP for DevOps engineers",
+      "lead": "Ollie",
+      "status": "planned"
+    },
+    {
+      "day": 51,
+      "date": "2026-12-21",
+      "phase": "6 Containers",
+      "topic": "Containers vs VMs",
+      "lead": "Ashtu",
+      "status": "planned"
+    },
+    {
+      "day": 52,
+      "date": "2026-12-22",
+      "phase": "6 Containers",
+      "topic": "Docker: install, images, containers",
+      "lead": "Ashtu",
+      "status": "planned"
+    },
+    {
+      "day": 53,
+      "date": "2026-12-23",
+      "phase": "6 Containers",
+      "topic": "Writing a Dockerfile",
+      "lead": "Bablu",
+      "status": "planned"
+    },
+    {
+      "day": 54,
+      "date": "2026-12-24",
+      "phase": "6 Containers",
+      "topic": "Multi-stage builds and slim images",
+      "lead": "Bablu",
+      "status": "planned"
+    },
+    {
+      "day": 55,
+      "date": "2026-12-25",
+      "phase": "6 Containers",
+      "topic": "Docker volumes and networking",
+      "lead": "Ashtu",
+      "status": "planned"
+    },
+    {
+      "day": 56,
+      "date": "2026-12-26",
+      "phase": "6 Containers",
+      "topic": "Docker Compose: multi-container apps",
+      "lead": "Ants",
+      "status": "planned"
+    },
+    {
+      "day": 57,
+      "date": "2026-12-27",
+      "phase": "6 Containers",
+      "topic": "Registries: Docker Hub and ECR",
+      "lead": "Gajju",
+      "status": "planned"
+    },
+    {
+      "day": 58,
+      "date": "2026-12-28",
+      "phase": "6 Containers",
+      "topic": "Container image scanning and security",
+      "lead": "Kaalu",
+      "status": "planned"
+    },
+    {
+      "day": 59,
+      "date": "2026-12-29",
+      "phase": "7 CI/CD",
+      "topic": "CI/CD explained",
+      "lead": "Bablu",
+      "status": "planned"
+    },
+    {
+      "day": 60,
+      "date": "2026-12-30",
+      "phase": "7 CI/CD",
+      "topic": "Install Jenkins on EC2",
+      "lead": "Bablu",
+      "status": "planned"
+    },
+    {
+      "day": 61,
+      "date": "2026-12-31",
+      "phase": "7 CI/CD",
+      "topic": "Jenkins jobs, plugins, credentials",
+      "lead": "Bablu",
+      "status": "planned"
+    },
+    {
+      "day": 62,
+      "date": "2027-01-01",
+      "phase": "7 CI/CD",
+      "topic": "Declarative Jenkinsfile pipeline",
+      "lead": "Bablu",
+      "status": "planned"
+    },
+    {
+      "day": 63,
+      "date": "2027-01-02",
+      "phase": "7 CI/CD",
+      "topic": "Jenkins agents and distributed builds",
+      "lead": "Ants",
+      "status": "planned"
+    },
+    {
+      "day": 64,
+      "date": "2027-01-03",
+      "phase": "7 CI/CD",
+      "topic": "Jenkins shared libraries",
+      "lead": "Gajju",
+      "status": "planned"
+    },
+    {
+      "day": 65,
+      "date": "2027-01-04",
+      "phase": "7 CI/CD",
+      "topic": "GitHub Actions",
+      "lead": "Bablu",
+      "status": "planned"
+    },
+    {
+      "day": 66,
+      "date": "2027-01-05",
+      "phase": "7 CI/CD",
+      "topic": "Quality gates: tests, SonarQube, artifact repos",
+      "lead": "Ollie",
+      "status": "planned"
+    },
+    {
+      "day": 67,
+      "date": "2027-01-06",
+      "phase": "7 CI/CD",
+      "topic": "Deployment strategies: rolling, blue-green, canary",
+      "lead": "Cheetah",
+      "status": "planned"
+    },
+    {
+      "day": 68,
+      "date": "2027-01-07",
+      "phase": "7 CI/CD",
+      "topic": "Project: end-to-end pipeline Git to Docker to EC2",
+      "lead": "Bablu",
+      "status": "planned"
+    },
+    {
+      "day": 69,
+      "date": "2027-01-08",
+      "phase": "8 IaC",
+      "topic": "Infrastructure as Code: why click-ops fails",
+      "lead": "Kaalu",
+      "status": "planned"
+    },
+    {
+      "day": 70,
+      "date": "2027-01-09",
+      "phase": "8 IaC",
+      "topic": "Terraform basics: providers, resources, plan, apply",
+      "lead": "Bablu",
+      "status": "planned"
+    },
+    {
+      "day": 71,
+      "date": "2027-01-10",
+      "phase": "8 IaC",
+      "topic": "Terraform state and remote backends",
+      "lead": "Gajju",
+      "status": "planned"
+    },
+    {
+      "day": 72,
+      "date": "2027-01-11",
+      "phase": "8 IaC",
+      "topic": "Variables, outputs and modules",
+      "lead": "Bablu",
+      "status": "planned"
+    },
+    {
+      "day": 73,
+      "date": "2027-01-12",
+      "phase": "8 IaC",
+      "topic": "Project: VPC + EC2 with Terraform",
+      "lead": "Bablu",
+      "status": "planned"
+    },
+    {
+      "day": 74,
+      "date": "2027-01-13",
+      "phase": "8 IaC",
+      "topic": "Ansible intro: inventory and ad-hoc",
+      "lead": "Mitthu",
+      "status": "planned"
+    },
+    {
+      "day": 75,
+      "date": "2027-01-14",
+      "phase": "8 IaC",
+      "topic": "Ansible playbooks and roles",
+      "lead": "Bablu",
+      "status": "planned"
+    },
+    {
+      "day": 76,
+      "date": "2027-01-15",
+      "phase": "8 IaC",
+      "topic": "Terraform + Ansible together",
+      "lead": "Bablu",
+      "status": "planned"
+    },
+    {
+      "day": 77,
+      "date": "2027-01-16",
+      "phase": "9 Kubernetes",
+      "topic": "Why Kubernetes?",
+      "lead": "Ashtu",
+      "status": "planned"
+    },
+    {
+      "day": 78,
+      "date": "2027-01-17",
+      "phase": "9 Kubernetes",
+      "topic": "Kubernetes architecture",
+      "lead": "Ashtu",
+      "status": "planned"
+    },
+    {
+      "day": 79,
+      "date": "2027-01-18",
+      "phase": "9 Kubernetes",
+      "topic": "Pods and kubectl",
+      "lead": "Mitthu",
+      "status": "planned"
+    },
+    {
+      "day": 80,
+      "date": "2027-01-19",
+      "phase": "9 Kubernetes",
+      "topic": "Deployments, ReplicaSets, rollouts",
+      "lead": "Ashtu",
+      "status": "planned"
+    },
+    {
+      "day": 81,
+      "date": "2027-01-20",
+      "phase": "9 Kubernetes",
+      "topic": "Services and Ingress",
+      "lead": "Honeybees",
+      "status": "planned"
+    },
+    {
+      "day": 82,
+      "date": "2027-01-21",
+      "phase": "9 Kubernetes",
+      "topic": "ConfigMaps and Secrets",
+      "lead": "Kaalu",
+      "status": "planned"
+    },
+    {
+      "day": 83,
+      "date": "2027-01-22",
+      "phase": "9 Kubernetes",
+      "topic": "Storage: PV, PVC, StorageClass",
+      "lead": "Gajju",
+      "status": "planned"
+    },
+    {
+      "day": 84,
+      "date": "2027-01-23",
+      "phase": "9 Kubernetes",
+      "topic": "Helm charts",
+      "lead": "Ashtu",
+      "status": "planned"
+    },
+    {
+      "day": 85,
+      "date": "2027-01-24",
+      "phase": "9 Kubernetes",
+      "topic": "Resources, requests, limits, HPA",
+      "lead": "Kukdu",
+      "status": "planned"
+    },
+    {
+      "day": 86,
+      "date": "2027-01-25",
+      "phase": "9 Kubernetes",
+      "topic": "Amazon EKS",
+      "lead": "Ashtu",
+      "status": "planned"
+    },
+    {
+      "day": 87,
+      "date": "2027-01-26",
+      "phase": "9 Kubernetes",
+      "topic": "Troubleshooting: CrashLoopBackOff, OOMKilled, ImagePull",
+      "lead": "Kaalu",
+      "status": "planned"
+    },
+    {
+      "day": 88,
+      "date": "2027-01-27",
+      "phase": "9 Kubernetes",
+      "topic": "GitOps with Argo CD",
+      "lead": "Bablu",
+      "status": "planned"
+    },
+    {
+      "day": 89,
+      "date": "2027-01-28",
+      "phase": "10 SRE & observability",
+      "topic": "SRE principles: Google's approach",
+      "lead": "Ollie",
+      "status": "planned"
+    },
+    {
+      "day": 90,
+      "date": "2027-01-29",
+      "phase": "10 SRE & observability",
+      "topic": "SLI, SLO, SLA",
+      "lead": "Kukdu",
+      "status": "planned"
+    },
+    {
+      "day": 91,
+      "date": "2027-01-30",
+      "phase": "10 SRE & observability",
+      "topic": "Error budgets and release decisions",
+      "lead": "Kukdu",
+      "status": "planned"
+    },
+    {
+      "day": 92,
+      "date": "2027-01-31",
+      "phase": "10 SRE & observability",
+      "topic": "Monitoring vs observability, golden signals",
+      "lead": "Kukdu",
+      "status": "planned"
+    },
+    {
+      "day": 93,
+      "date": "2027-02-01",
+      "phase": "10 SRE & observability",
+      "topic": "Prometheus",
+      "lead": "Kukdu",
+      "status": "planned"
+    },
+    {
+      "day": 94,
+      "date": "2027-02-02",
+      "phase": "10 SRE & observability",
+      "topic": "Grafana dashboards and alerting",
+      "lead": "Kukdu",
+      "status": "planned"
+    },
+    {
+      "day": 95,
+      "date": "2027-02-03",
+      "phase": "10 SRE & observability",
+      "topic": "Logs and traces: Loki/ELK, OpenTelemetry",
+      "lead": "Gajju",
+      "status": "planned"
+    },
+    {
+      "day": 96,
+      "date": "2027-02-04",
+      "phase": "10 SRE & observability",
+      "topic": "Incident management: on-call, runbooks, severity",
+      "lead": "Kukdu",
+      "status": "planned"
+    },
+    {
+      "day": 97,
+      "date": "2027-02-05",
+      "phase": "10 SRE & observability",
+      "topic": "Blameless postmortems + synthetic monitoring",
+      "lead": "Ollie",
+      "status": "planned"
+    },
+    {
+      "day": 98,
+      "date": "2027-02-06",
+      "phase": "10 SRE & observability",
+      "topic": "Toil, automation and chaos engineering",
+      "lead": "Kaalu",
+      "status": "planned"
+    },
+    {
+      "day": 99,
+      "date": "2027-02-07",
+      "phase": "10 SRE & observability",
+      "topic": "DevSecOps + vulnerability remediation (Wiz, Qualys)",
+      "lead": "Kaalu",
+      "status": "planned"
+    },
+    {
+      "day": 100,
+      "date": "2027-02-08",
+      "phase": "10 SRE & observability",
+      "topic": "Capstone + interview prep finale",
+      "lead": "All cast",
+      "status": "planned"
+    }
+  ]
+}

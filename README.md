@@ -9,3 +9,6 @@ Daily 5–10 min Linux commands series by Shivam Singh Verma, live on the Tech-D
 - `series.json`: status of each episode
 
 Render: `python3 engine.py episodes/ep01.py out/ep01` (needs ffmpeg, Pillow, numpy, scipy).
+
+## Also in this repo
+- `devops-series/`: **DevOps & SRE Zero to Hero**, daily at 8 PM IST (animal & bird cast). See `devops-series/README.md`.

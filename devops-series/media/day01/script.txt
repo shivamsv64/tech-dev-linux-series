@@ -1,0 +1,47 @@
+[0:00] Friday evening. Kaalu the Crow copies new code to the server by hand. What could go wrong?
+[0:10] Five minutes later the website is down, and Kukdu the Rooster sounds the alarm.
+[0:19] A missed step, no tests, nobody watching. This happens in real companies every week.
+[0:27] DevOps exists to stop exactly this. Today you learn what it really means.
+[0:36] Welcome to Day 1 of DevOps & SRE Zero to Hero, a free 100-day course on Tech-dev.
+[0:46] A new episode every day at 8 PM IST, with real examples from 5 years of DevOps and SRE work.
+[0:58] By the end of today, you can explain DevOps in an interview in 30 seconds.
+[1:08] Ollie the Owl explains the big ideas and the why behind every tool.
+[1:16] Mitthu the Parrot repeats every command, and asks the daily quiz.
+[1:23] Bablu the Beaver builds things: CI/CD pipelines and infrastructure.
+[1:29] Gajju the Elephant never forgets: Git history, logs and storage.
+[1:36] Ashtu the Octopus juggles containers and Kubernetes, one arm per pod.
+[1:43] Kukdu the Rooster watches monitoring and wakes the on-call engineer.
+[1:50] And Kaalu the Crow breaks something in every episode, so we learn to fix it.
+[2:00] Around 10 to 15 years ago, getting code from a laptop to customers looked like this.
+[2:10] A system admin created the server. A build and release engineer deployed. A tester checked it.
+[2:19] Every hand-off was manual: emails, tickets, waiting. One small release could take 10 days.
+[2:28] And if Android or a banking app had a security bug, waiting 10 days for the fix was not acceptable.
+[2:40] There are hundreds of textbook definitions. Here is the one that actually helps you.
+[2:49] DevOps is not one tool and not one job title. It is a culture, a way of working.
+[2:59] Its goal: improve how fast and how safely an organization delivers software to users.
+[3:08] How do we deliver faster without breaking things? Four pillars.
+[3:15] Pillar one: automation. Scripts and pipelines do the boring, repeated steps.
+[3:23] Pillar two: quality. Fast is useless if the product gets worse for users.
+[3:31] Pillar three: monitoring. When something breaks, you should know in minutes, not from angry users.
+[3:40] Pillar four: testing. Tests prove every change works, so automation stays safe.
+[3:48] Think of a cake shop. Bablu buys a machine that bakes 1,000 cakes a day. That is automation.
+[3:59] But customers want tasty cakes, not just many cakes. That is quality.
+[4:07] Gajju remembers last week's burnt batch. Someone must watch the ovens: monitoring.
+[4:14] And they taste one cake from every batch before selling. That is testing.
+[4:23] Here is automation in its smallest form: a script that holds every release step.
+[4:32] set -e means: if any step fails, stop immediately. No half-finished release.
+[4:40] One command runs the same steps in the same order, every single time.
+[4:48] Real teams put scripts like this inside a CI/CD pipeline in Jenkins or GitHub Actions. That comes in Phase 7.
+[5:00] Back to Kaalu. This time the team has a pipeline. Kaalu pushes code with a typo in a config file.
+[5:11] The pipeline runs the tests automatically. They fail, so the bad version never reaches users.
+[5:20] Kukdu pings the team in chat within one minute. The typo is fixed and shipped in 10 minutes.
+[5:31] Same mistake, very different result. That is the value of DevOps: automation, quality, monitoring, testing.
+[5:41] This is often the first question in a DevOps interview. Most people answer with a list of tools.
+[5:51] A strong answer has three parts: the culture, the four pillars, and one real example.
+[6:00] Say it in your own words, and use an example from your work or projects. Keep it under 30 seconds.
+[6:13] Mitthu's quiz! Which one is not a DevOps pillar? Five seconds...
+[6:20] Manual hand-offs are exactly what DevOps removes. Did you get it? Tell me in the comments.
+[6:30] Quick recap. DevOps is a culture that improves delivery, built on four pillars.
+[6:39] Homework: write your own one-line definition of DevOps in the comments. I read them all.
+[6:48] Tomorrow on Day 2: the Tortoise and the Cheetah, and why companies moved to DevOps.
+[6:58] Subscribe and turn on the bell so you never miss a day. See you at 8 PM IST!

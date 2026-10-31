@@ -1,0 +1,68 @@
+{
+  "title": "What is DevOps? Explained with Animals | DevOps & SRE Zero to Hero Day 1",
+  "description": "What is DevOps, really? Not a tool, not just a job title. In Day 1 of this free 100-day course, Ollie the Owl and friends explain DevOps as a culture, its 4 pillars, and how to answer \"What is DevOps?\" in an interview.\n\nI'm Shivam Singh Verma, a DevOps & SRE engineer with 5 years of experience building CI/CD pipelines, running cloud infrastructure on AWS & GCP, and managing projects.\n\n📺 Day 1 of 100 · DevOps & SRE Zero to Hero: a free course with a new episode every day at 8 PM IST.\n\n⏱️ Chapters\n0:00 Intro\n1:07 Meet the cast\n2:00 Life before DevOps\n2:40 What is DevOps?\n3:08 The 4 pillars\n4:23 Hands-on: automation\n4:59 Real-world story\n5:40 Interview corner\n6:12 Quiz\n6:30 Recap\n6:48 Next episode\n\n🔑 What you'll learn\n• Why DevOps exists: life before DevOps and the 10-day release\n• A clear definition: DevOps is a culture that improves delivery\n• The 4 pillars: automation, quality, monitoring, testing\n• Automation in its simplest form: a deploy script with set -e\n• A real-world story: how a pipeline stops a bad release\n• A 30-second interview answer you can reuse\n\n🧾 Cheat sheet (copy & practice)\ncat deploy.sh\nbash deploy.sh\n\n🎤 Interview question: In your own words, what is DevOps? (culture + 4 pillars + one real example, under 30 seconds)\n\n🧠 Quiz: Which is NOT one of the 4 DevOps pillars: Automation, Monitoring, Manual hand-offs, Testing? (answer in the comments, reveal tomorrow)\n\n🐾 Cast: Ollie the Owl, Mitthu the Parrot, Bablu the Beaver, Gajju the Elephant, Ashtu the Octopus, Kukdu the Rooster and Kaalu the Crow.\n\n📝 Homework: Write your own one-line definition of DevOps in the comments.\n\n➡️ Next: Day 2: Why DevOps exists, the 10-day release problem (tomorrow, 8 PM IST)\n\n🔔 Subscribe to Tech-dev for practical DevOps, SRE & Cloud videos.\n\n💬 How long does a release take at your company or in your projects today?\n\n#DevOps #SRE #DevOpsZeroToHero #CloudComputing #TechDev #WhatIsDevOps",
+  "tags": [
+    "what is devops",
+    "devops explained",
+    "devops for beginners",
+    "devops course",
+    "free devops course",
+    "devops zero to hero",
+    "devops day 1",
+    "devops tutorial",
+    "sre course",
+    "devops pillars",
+    "devops culture",
+    "devops interview questions",
+    "devops roadmap 2026",
+    "learn devops",
+    "tech-dev"
+  ],
+  "duration": 429.0,
+  "chapters": [
+    [
+      0,
+      "Intro"
+    ],
+    [
+      67.6,
+      "Meet the cast"
+    ],
+    [
+      120.03,
+      "Life before DevOps"
+    ],
+    [
+      160.05,
+      "What is DevOps?"
+    ],
+    [
+      188.57000000000002,
+      "The 4 pillars"
+    ],
+    [
+      263.19000000000005,
+      "Hands-on: automation"
+    ],
+    [
+      299.9200000000001,
+      "Real-world story"
+    ],
+    [
+      340.88000000000005,
+      "Interview corner"
+    ],
+    [
+      372.69000000000005,
+      "Quiz"
+    ],
+    [
+      390.4100000000001,
+      "Recap"
+    ],
+    [
+      408.37000000000006,
+      "Next episode"
+    ]
+  ]
+}
