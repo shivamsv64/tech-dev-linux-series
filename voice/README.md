@@ -1,30 +1,20 @@
-# ElevenLabs voices (all Tech-dev series, credit-capped)
+# Voices for Tech-dev videos — free by default
 
-> **Voice policy (set by Shivam, 1 Nov 2026):** every ElevenLabs line, narrator and characters alike, uses ONLY Shivam's own cloned voice `bFB4JzmoiywTauhk6IsI`. Never use Bhargav or any other voice. The old Bhargav `assets/cta.mp3` was deleted; the next daily run regenerates it once in Shivam's voice.
+> **Policy (Shivam, 1 Nov 2026):** ElevenLabs credits are scarce (30,000/month) and must last the whole month.
+> **No ElevenLabs generation in the daily tasks.** All narration is free and local (Kokoro, `v2/tts.py`).
+> Shivam's own cloned voice (`bFB4JzmoiywTauhk6IsI`) appears only through two one-time clips that are reused forever:
+> - `v2/assets/voice/intro_shivam.mp3` — "Hi, I'm Shivam Singh Verma, and welcome to Tech-dev." (long videos, title scene with `'intro': True`)
+> - `voice/assets/cta.mp3` — "Watch the full episode on Tech-dev, and subscribe!" (end of every Short)
+> Generating any new ElevenLabs audio needs Shivam's explicit OK in chat.
 
-Shivam's ElevenLabs plan: **30,000 credits/month**, about **1 credit per character** on every model.
-So voices go only where they matter, with a hard cap of **250 characters per series per day**
-(3 series → ≤ 750/day → ≤ ~22.5k/month, leaving a buffer). Everything else stays captions + animal sounds.
+## Long videos (engine v2)
+`v2/engine.py` narrates every scene's `say` with Kokoro (voice `am_michael`) and mixes the intro clip in. Nothing to do here.
 
-What gets a human voice each day, per series:
-| Line | Voice | Max chars |
-|---|---|---|
-| Long video: intro line (first caption, spoken at its time) | narrator | 90 |
-| Short: hook | narrator | 80 |
-| Short: one key beat (the beat with `'voice': True`, else the first beat) | that beat's character | 80 |
-| Short: closing "Watch the full episode on Tech-dev, and subscribe!" | narrator | one-time clip `voice/assets/cta.mp3`, reused forever |
+## Shorts (daily maker step)
+1. `python3 voice/vo.py plan <series> <long_out>/script.txt shorts/specs/<short-id>.py out/vo-<id>` → plan.json (hook + one key line).
+2. `python3 voice/vo.py kokoro out/vo-<id>` → synthesizes those lines locally (free). Character lines get their own Kokoro voice.
+3. `python3 voice/vo.py manifest out/vo-<id>` → manifest.json (includes `voice/assets/cta.mp3`).
+4. Render the Short with `--vo out/vo-<id>/manifest.json`.
+5. Record `"voice_chars": 0` (ElevenLabs) in the series.json row.
 
-Cast (original voices, not modelled on any real actor or existing cartoon character): see `voices.json`.
-Narrator = deep, confident Indian English with filmy-hero energy; each animal has its own cartoon-style voice.
-
-## Rules
-- `generations_count: 1`, model `eleven_flash_v2_5`. **Never** retry a generation call, never make test takes or previews (each call spends credits).
-- Only voice lines that ship in a YouTube video. If anything fails, publish without voice rather than spending more.
-
-## Daily procedure (inside the maker task, after the long video is rendered and the Short spec is written)
-1. `python3 voice/vo.py plan <series> out/<id>/script.txt shorts/specs/<short-id>.py out/vo-<id>` → prints the plan (≤ 3 lines, ≤ 250 chars, voice ids, output paths).
-2. For each line in `lines` (and the CTA only if `cta.exists` is false): ElevenLabs `creative_generate_speech` with `prompt` = the line's text exactly, `voice_id`, `model_id` = plan model, `generations_count` = 1. Poll `creative_get_flow_run_status` (wait `poll_after_seconds`) until done, then `curl -sS -o <path> "<generations[0].content_url>"`. A new CTA clip is saved to `voice/assets/cta.mp3` and committed.
-3. `python3 voice/vo.py manifest out/vo-<id>` → writes `manifest.json` for the Short.
-4. Long video: `python3 voice/vo.py mix-long out/<id>/video.mp4 out/vo-<id>/long_intro.mp3 <at from plan> out/<id>/video_vo.mp4`, check it with ffprobe, then use `video_vo.mp4` as the published `video.mp4`.
-5. Short: render with `--vo out/vo-<id>/manifest.json` (the engine lengthens beats to fit the voice and mutes the animal gibberish on voiced beats).
-6. Record `"voice_chars": <plan chars>` in the series.json row.
+`vo.py mix-long` is no longer needed (engine v2 already narrates the long video).

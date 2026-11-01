@@ -11,6 +11,9 @@ usage:
          Then, for each line: ElevenLabs creative_generate_speech (model_id eleven_flash_v2_5,
          generations_count 1, voice_id, prompt=text) -> poll creative_get_flow_run_status ->
          curl -sS -o <path> "<content_url>".
+  python3 voice/vo.py kokoro <workdir>
+      -> FREE: synthesizes every planned Short line locally with Kokoro (v2/tts.py). No ElevenLabs credits.
+         This is the default since 1 Nov 2026; ElevenLabs is no longer used per episode.
   python3 voice/vo.py manifest <workdir>
       -> checks the downloaded clips, writes <workdir>/manifest.json for shorts.py --vo
   python3 voice/vo.py mix-long <video.mp4> <clip.mp3> <at_seconds> <out.mp4>
@@ -119,6 +122,30 @@ def cmd_manifest(workdir):
     print(json.dumps({'manifest': man, 'missing': missing}, indent=2))
 
 
+KOKORO_VOICES = {'narrator': 'am_michael', 'mitthu': 'af_bella', 'ollie': 'bm_george', 'bablu': 'am_puck',
+                 'gajju': 'am_onyx', 'ashtu': 'af_nicole', 'kukdu': 'am_eric', 'kaalu': 'am_fenrir'}
+
+
+def cmd_kokoro(workdir):
+    """free local voices for the Short lines in plan.json (skips long_intro: engine v2 narrates long videos)"""
+    sys.path.insert(0, os.path.join(os.path.dirname(HERE), 'v2'))
+    import tts
+    plan = json.load(open(os.path.join(workdir, 'plan.json')))
+    for l in plan['lines']:
+        if l['id'] == 'long_intro':
+            continue
+        v = KOKORO_VOICES.get(l['who'], 'am_michael')
+        try:
+            a = [tts.synth_sentence(s, v) for s in tts.sentences(l['text'])]
+        except Exception as e:  # unknown voice name etc. -> narrator voice
+            print('voice fallback', v, e); a = [tts.synth_sentence(s, 'am_michael') for s in tts.sentences(l['text'])]
+        import numpy as np, soundfile as sf
+        wav = l['path'][:-4] + '.wav'
+        sf.write(wav, np.concatenate([np.concatenate([x, np.zeros(2400, np.float32)]) for x in a]), tts.SR)
+        subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-i', wav, '-b:a', '160k', l['path']], check=True)
+        os.remove(wav); print('voiced', l['id'], v, f"{dur(l['path']):.1f}s")
+
+
 def cmd_mix_long(video, clip, at, out):
     at_ms = int(float(at) * 1000)
     fc = (f"[1:a]loudnorm=I=-15:TP=-1.5:LRA=11,aresample=44100,aformat=channel_layouts=stereo,adelay={at_ms}|{at_ms},apad,asplit[vo][sc];"
@@ -135,5 +162,5 @@ if __name__ == '__main__':
     a = sys.argv[1:]
     if not a:
         print(__doc__); sys.exit(1)
-    {'plan': lambda: cmd_plan(*a[1:5]), 'manifest': lambda: cmd_manifest(a[1]),
+    {'plan': lambda: cmd_plan(*a[1:5]), 'manifest': lambda: cmd_manifest(a[1]), 'kokoro': lambda: cmd_kokoro(a[1]),
      'mix-long': lambda: cmd_mix_long(*a[1:5])}[a[0]]()
