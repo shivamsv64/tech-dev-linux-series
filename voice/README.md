@@ -1,5 +1,7 @@
 # ElevenLabs voices (all Tech-dev series, credit-capped)
 
+> **Voice policy (set by Shivam, 1 Nov 2026):** every ElevenLabs line, narrator and characters alike, uses ONLY Shivam's own cloned voice `bFB4JzmoiywTauhk6IsI`. Never use Bhargav or any other voice. The old Bhargav `assets/cta.mp3` was deleted; the next daily run regenerates it once in Shivam's voice.
+
 Shivam's ElevenLabs plan: **30,000 credits/month**, about **1 credit per character** on every model.
 So voices go only where they matter, with a hard cap of **250 characters per series per day**
 (3 series → ≤ 750/day → ≤ ~22.5k/month, leaving a buffer). Everything else stays captions + animal sounds.
