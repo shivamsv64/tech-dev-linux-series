@@ -70,6 +70,8 @@ Colors: `accent`, `warm`, `ok`, `bad`, `purple`, `muted`.
 Use at least 6 different arts per episode and don't stay on one art for more than ~60 s.
 
 ### Thumbnail and upload
+
+If `<media dir>/thumbnail_custom.jpg` exists for the episode (`devops-series/media/dayNN/` for DevOps, `media/epNN/` for Linux and Git), the engine uses it as `thumbnail.jpg` instead of drawing one. These are Shivam's approved photo thumbnails (FLUX background + BiRefNet cutout). Keep them; still fill `thumb` in the spec as a fallback.
 ```python
 'thumb': {'art': 'mc_alert', 'big': '10 DAYS', 'lines': ['to ship a', '10-minute fix?'], 'badge': 'DAY 2', 'color': 'bad', 'chip': '$ ls -la'},
 'upload': {'title', 'hook', 'learn' [..], 'commands' [..], 'interview', 'quiz', 'homework', 'next', 'question', 'hashtags' [..], 'tags' [12–16]},

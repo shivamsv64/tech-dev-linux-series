@@ -635,7 +635,25 @@ def make_audio(path):
     sf.write(path, np.stack([mix, mix], 1), SR)
 
 # ------------------------------------------------------------------ thumbnail & upload text
+CUSTOM_THUMB_DIRS = {'devops': 'devops-series/media/day{n:02d}', 'linux': 'media/ep{n:02d}', 'git': 'media/ep{n:02d}'}
+
+
+def custom_thumbnail():
+    """Shivam's approved photo thumbnail for this episode, if one was committed
+    (<media dir>/thumbnail_custom.jpg); it replaces the drawn thumbnail."""
+    d = CUSTOM_THUMB_DIRS.get(EP['series'])
+    if not d:
+        return None
+    p = os.path.join(os.path.dirname(HERE), d.format(n=int(EP['number'])), 'thumbnail_custom.jpg')
+    return p if os.path.exists(p) else None
+
+
 def thumbnail(path):
+    custom = custom_thumbnail()
+    if custom:
+        Image.open(custom).convert('RGB').resize((1280, 720), Image.LANCZOS).save(path, quality=93)
+        print(f'thumbnail: using {os.path.relpath(custom, os.path.dirname(HERE))}')
+        return
     tb = EP['thumb']; tw_, th_ = 1280, 720
     im = Image.open(os.path.join(ART_DIR, tb.get('art', SCENES[0]['art']) + '.jpg')).convert('RGB')
     g_ = np.asarray(im.convert('L'), np.float32); half = g_.shape[1] // 2
