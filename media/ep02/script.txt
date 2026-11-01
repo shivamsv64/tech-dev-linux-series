@@ -1,0 +1,53 @@
+[0:00] Lost in Linux folders? Today you'll master pwd, cd and ls in a few minutes!
+[0:09] This is Linux Zero to Hero, Episode 2. Real commands, real DevOps examples.
+[0:18] Bashi's Jenkins build failed. The team says: check the workspace on the build server.
+[0:27] Bashi logs in... and sees only a prompt. Which folder am I in? Where do I go?
+[0:37] Three commands fix this forever: pwd to see where you are, cd to move, ls to look.
+[0:47] Yesterday in Ep 1 you learned who you are and which machine you are on.
+[0:56] Today we answer the next question: where am I in the filesystem, and how do I move?
+[1:07] Linux has one big tree. At the very top is the root folder, written as a single slash.
+[1:18] Under it is /home, which holds a folder for every user on the machine.
+[1:26] Your own folder is /home/shivam. Linux gives it a nickname: the tilde, ~.
+[1:35] Every folder can hold more folders. A path is just the route down this tree.
+[1:44] A few folders matter on every server: /etc for config and /var/log for logs.
+[1:53] /var/lib holds app data. That is exactly where Jenkins keeps its workspaces.
+[2:01] Command one: pwd. It prints the folder you are standing in right now.
+[2:10] Look at the prompt too: ~ means you are in your home folder, /home/shivam.
+[2:19] Command two: ls lists what is inside the current folder.
+[2:26] Command three: cd means change directory. cd projects steps into that folder.
+[2:33] cd prints nothing, but pwd and the prompt both prove we moved.
+[2:41] Inside are two folders. ls puts quotes around a name with a space. Remember that!
+[2:50] Two dots, .., mean the parent folder: one step up. The prompt shows ~ again: home.
+[3:01] A path that starts with / is absolute. It works from anywhere, because it starts at root.
+[3:11] Now we are in /var/log, where the system keeps its logs.
+[3:18] ~/projects is also absolute: the tilde expands to /home/shivam first.
+[3:25] No slash at the start? That is a relative path: it starts from where you are now.
+[3:35] cd - jumps back to the previous folder and prints where it went. Great for switching.
+[3:44] And cd with nothing after it takes you straight home. No matter how deep you are.
+[3:55] ls -l gives the long listing: one line per item, with details.
+[4:02] A line starting with d is a directory. A dash means a regular file.
+[4:11] ls -a shows all files, even hidden ones. Hidden names start with a dot.
+[4:20] Now the releases folder, where we keep build archives. Let us read sizes the human way.
+[4:30] -h means human-readable: 23M instead of a long number of bytes. Use it with -l.
+[4:39] -t sorts by time, newest first. The latest release, v42, jumps to the top.
+[4:48] -r reverses it: newest at the bottom, above your prompt. ls -lhtr is an SRE favourite!
+[4:58] Now combine with Ep 1: who am I, which machine, and where am I. Three answers.
+[5:08] Remember /etc/os-release from Ep 1? Let us walk into /etc first.
+[5:15] Now a relative file name is enough: os-release means /etc/os-release from here.
+[5:23] Real example: a Jenkins job failed on an EC2 build server. Jenkins keeps each job's files here.
+[5:33] One folder per job. ls -lt shows the most recently built job first: payments-api.
+[5:42] A relative cd takes us into the job's workspace.
+[5:48] The checked-out code is here. Maven puts the build output in target.
+[5:56] The jar exists, 31M, built at 08:12. So the build worked and the failure came later.
+[6:06] Need to check another job? cd - jumps back. pwd, cd and ls: your first debugging tools.
+[6:16] Common mistake! Bashi tries cd client docs, and bash says too many arguments.
+[6:25] The space splits it into two words: client and docs. cd only wants one folder.
+[6:34] Fix: put the name in quotes. Or escape the space: cd client\ docs.
+[6:42] It works. Pro tip: press Tab and bash adds the escaping for you.
+[6:51] Quiz time! From /home/shivam/projects, where does cd ../scripts go? Pause and think.
+[6:58] Answer: /home/shivam/scripts. The two dots go up to home, then down into scripts.
+[7:07] Let's recap your navigation kit.
+[7:14] Absolute paths start with /. Relative paths start from where you are. Quote names with spaces.
+[7:23] Homework: run ls -lhtr /var/log and comment the newest file.
+[7:31] Tomorrow at 5 PM: man, --help, which and history. Learn any command without Google.
+[7:41] Subscribe to Tech-dev and turn on the bell. See you tomorrow!

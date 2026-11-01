@@ -1,0 +1,66 @@
+TITLE
+pwd, cd and ls Explained with Real Examples | Linux Zero to Hero Ep 2
+
+DESCRIPTION
+Lost in Linux folders? In this episode you will master pwd, cd and ls, absolute vs relative paths, ~, .. and cd -, the ls flags SREs use every day (-l -a -h -t -r), and how to find a Jenkins workspace on a real build server.
+
+I'm Shivam Singh Verma, a DevOps & SRE engineer with 5 years of experience building CI/CD pipelines, running cloud infrastructure on AWS & GCP, and managing projects.
+
+📺 Linux Zero to Hero: a new episode every day at 5 PM IST.
+
+⏱️ Chapters
+0:00 Intro
+0:47 Where we are
+1:07 The filesystem tree
+2:01 pwd
+2:18 ls and cd
+3:00 Absolute vs relative paths
+3:54 ls -l and ls -a
+4:20 ls -h, -t and -r
+4:58 Combine it
+5:23 Real DevOps use: Jenkins workspace
+6:16 Common mistake
+6:50 Quiz
+7:07 Recap
+7:30 Next episode
+
+🔑 What you'll learn
+• How the Linux filesystem tree works: /, /home, ~ and key folders like /etc and /var/log
+• pwd, cd and ls, and what the prompt tells you
+• Absolute vs relative paths, .., ~, cd and cd -
+• ls -l, -a, -h, -t, -r and why ls -lhtr is an SRE favourite
+• Finding a Jenkins job workspace under /var/lib/jenkins
+• Why cd fails on folder names with spaces, and the fix
+
+🧾 Cheat sheet (copy & practice)
+pwd
+ls
+cd projects
+cd ..
+cd /var/log
+cd ~/projects
+cd -
+cd
+ls -l
+ls -a
+ls -lh
+ls -lht
+ls -lhtr
+whoami; hostname; pwd
+grep VERSION_ID os-release
+cd /var/lib/jenkins/workspace
+ls -lt
+cd "client docs"
+
+📝 Homework: run ls -lhtr /var/log and comment the newest log file name you see
+
+➡️ Next: Ep 3: Getting help like a pro: man, --help, type, which, history (tomorrow, 5 PM IST)
+
+🔔 Subscribe to Tech-dev for practical DevOps, SRE & Cloud videos.
+
+💬 Which ls flags do you use the most? Tell me in the comments.
+
+#Linux #DevOps #SRE #LinuxCommands #TechDev
+
+TAGS
+linux commands, linux for beginners, cd command, ls command, pwd command, linux navigation, absolute vs relative path, linux filesystem, linux zero to hero, ls -l, jenkins workspace, bash, terminal, devops, sre, tech-dev

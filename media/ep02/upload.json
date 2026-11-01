@@ -1,0 +1,81 @@
+{
+  "title": "pwd, cd and ls Explained with Real Examples | Linux Zero to Hero Ep 2",
+  "description": "Lost in Linux folders? In this episode you will master pwd, cd and ls, absolute vs relative paths, ~, .. and cd -, the ls flags SREs use every day (-l -a -h -t -r), and how to find a Jenkins workspace on a real build server.\n\nI'm Shivam Singh Verma, a DevOps & SRE engineer with 5 years of experience building CI/CD pipelines, running cloud infrastructure on AWS & GCP, and managing projects.\n\n📺 Linux Zero to Hero: a new episode every day at 5 PM IST.\n\n⏱️ Chapters\n0:00 Intro\n0:47 Where we are\n1:07 The filesystem tree\n2:01 pwd\n2:18 ls and cd\n3:00 Absolute vs relative paths\n3:54 ls -l and ls -a\n4:20 ls -h, -t and -r\n4:58 Combine it\n5:23 Real DevOps use: Jenkins workspace\n6:16 Common mistake\n6:50 Quiz\n7:07 Recap\n7:30 Next episode\n\n🔑 What you'll learn\n• How the Linux filesystem tree works: /, /home, ~ and key folders like /etc and /var/log\n• pwd, cd and ls, and what the prompt tells you\n• Absolute vs relative paths, .., ~, cd and cd -\n• ls -l, -a, -h, -t, -r and why ls -lhtr is an SRE favourite\n• Finding a Jenkins job workspace under /var/lib/jenkins\n• Why cd fails on folder names with spaces, and the fix\n\n🧾 Cheat sheet (copy & practice)\npwd\nls\ncd projects\ncd ..\ncd /var/log\ncd ~/projects\ncd -\ncd\nls -l\nls -a\nls -lh\nls -lht\nls -lhtr\nwhoami; hostname; pwd\ngrep VERSION_ID os-release\ncd /var/lib/jenkins/workspace\nls -lt\ncd \"client docs\"\n\n📝 Homework: run ls -lhtr /var/log and comment the newest log file name you see\n\n➡️ Next: Ep 3: Getting help like a pro: man, --help, type, which, history (tomorrow, 5 PM IST)\n\n🔔 Subscribe to Tech-dev for practical DevOps, SRE & Cloud videos.\n\n💬 Which ls flags do you use the most? Tell me in the comments.\n\n#Linux #DevOps #SRE #LinuxCommands #TechDev",
+  "tags": [
+    "linux commands",
+    "linux for beginners",
+    "cd command",
+    "ls command",
+    "pwd command",
+    "linux navigation",
+    "absolute vs relative path",
+    "linux filesystem",
+    "linux zero to hero",
+    "ls -l",
+    "jenkins workspace",
+    "bash",
+    "terminal",
+    "devops",
+    "sre",
+    "tech-dev"
+  ],
+  "duration": 471.5,
+  "chapters": [
+    [
+      0,
+      "Intro"
+    ],
+    [
+      47.42,
+      "Where we are"
+    ],
+    [
+      67.26,
+      "The filesystem tree"
+    ],
+    [
+      121.48000000000002,
+      "pwd"
+    ],
+    [
+      138.97000000000003,
+      "ls and cd"
+    ],
+    [
+      180.62000000000003,
+      "Absolute vs relative paths"
+    ],
+    [
+      234.71000000000004,
+      "ls -l and ls -a"
+    ],
+    [
+      260.41,
+      "ls -h, -t and -r"
+    ],
+    [
+      298.08000000000004,
+      "Combine it"
+    ],
+    [
+      323.31000000000006,
+      "Real DevOps use: Jenkins workspace"
+    ],
+    [
+      376.46000000000004,
+      "Common mistake"
+    ],
+    [
+      410.84000000000003,
+      "Quiz"
+    ],
+    [
+      427.39000000000004,
+      "Recap"
+    ],
+    [
+      450.86,
+      "Next episode"
+    ]
+  ]
+}

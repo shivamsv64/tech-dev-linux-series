@@ -475,7 +475,11 @@ class Scene:
         sp = self.spec
         self.events.append((0.0, 'whoosh'))
         if self.kind == 'terminal':
+            cwd = sp.get('cwd', '~')
             for st in sp['steps']:
+                st = dict(st)
+                st['cwd'] = st.get('cwd', cwd)          # directory shown in the prompt when typed
+                cwd = st['cwd_after'] = st.get('to', st['cwd'])  # after a cd, the next prompt changes
                 cmd = st.get('cmd')
                 out = st.get('out', [])
                 typing = (0.5 + len(cmd) / 15.0 + 0.4 + 0.07 * len(out)) if cmd else 0.4
@@ -677,7 +681,7 @@ class Scene:
             cmd = s.get('cmd')
             if cmd:
                 n = int(clamp((lt - 0.5) * 15.0, 0, len(cmd)))
-                lines.append({'prompt': True, 'text': cmd[:n], 'step': s})
+                lines.append({'prompt': True, 'text': cmd[:n], 'step': s, 'cwd': s.get('cwd', '~')})
                 if n < len(cmd) or lt < s['t_out']:
                     cur_cursor = len(lines) - 1
                 if lt >= s['t_out']:
@@ -715,7 +719,8 @@ class Scene:
         d.rectangle([tx0, ty0 + 36, tx1, ty0 + 58], fill=(30, 38, 62))
         for i, c in enumerate(((239, 68, 68), (245, 158, 11), (34, 197, 94))):
             d.ellipse([tx0 + 24 + i * 34, ty0 + 18, tx0 + 46 + i * 34, ty0 + 40], fill=c)
-        d.text(((tx0 + tx1) // 2, ty0 + 29), f'{user}@{host}: ~', font=font(F_BODYS, 24), fill=MUTED, anchor='mm')
+        _cw = st.get('cwd_after', '~') if t - st['start'] >= st.get('t_out', 0) else st.get('cwd', '~')
+        d.text(((tx0 + tx1) // 2, ty0 + 29), f'{user}@{host}: {_cw}', font=font(F_BODYS, 24), fill=MUTED, anchor='mm')
         fm, fmb = font(F_MONO, 32), font(F_MONOB, 32)
         cw = tw(d, 'M' * 10, fm) / 10
         maxc = int((tx1 - tx0 - 60) / cw)
@@ -724,14 +729,16 @@ class Scene:
         raw, cursor = self._term_lines(t, None)
         # expand prompt + wrap
         rows = []
-        p = f'{user}@{host}:~$ '
+        cur_cwd = st.get('cwd_after', '~') if t - st['start'] >= st.get('t_out', 0) else st.get('cwd', '~')
+        p = f'{user}@{host}:{cur_cwd}$ '
         for li, L in enumerate(raw):
             if L['prompt']:
-                full = p + L['text']
+                full = f"{user}@{host}:{L.get('cwd', '~')}$ " + L['text']
                 chunks = [full[i:i + maxc] for i in range(0, max(1, len(full)), maxc)] or ['']
                 for ci, ch in enumerate(chunks):
                     rows.append({'kind': 'prompt' if ci == 0 else 'cont', 'text': ch, 'L': L,
-                                 'cursor': li == cursor and ci == len(chunks) - 1})
+                             'cursor': li == cursor and ci == len(chunks) - 1,
+                             'pp': f"{user}@{host}:{L.get('cwd', '~')}$ "})
             else:
                 txt = L['text']
                 chunks = [txt[i:i + maxc] for i in range(0, max(1, len(txt)), maxc)] or ['']
@@ -739,7 +746,7 @@ class Scene:
                     rows.append({'kind': 'out', 'text': ch, 'L': L})
         idle_prompt = cursor is None
         if idle_prompt:
-            rows.append({'kind': 'prompt', 'text': p, 'L': None, 'cursor': True})
+            rows.append({'kind': 'prompt', 'text': p, 'L': None, 'cursor': True, 'pp': p})
         rows = rows[-cap_lines:]
         y = ty0 + 80
         hl = st.get('hl', [])
@@ -749,9 +756,10 @@ class Scene:
             x = tx0 + 30
             if r['kind'] == 'prompt':
                 txt = r['text']
-                if txt.startswith(p) or r['L'] is None:
-                    segs = [(f'{user}@{host}', GREEN, fmb), (':', WHITE, fm), ('~', CYAN, fmb), ('$ ', WHITE, fm),
-                            (txt[len(p):], WHITE, fmb)]
+                pp = r.get('pp', p)
+                if txt.startswith(pp) or r['L'] is None:
+                    segs = [(f'{user}@{host}', GREEN, fmb), (':', WHITE, fm), (pp[len(user) + len(host) + 2:-2], CYAN, fmb),
+                            ('$ ', WHITE, fm), (txt[len(pp):], WHITE, fmb)]
                 else:
                     segs = [(txt, WHITE, fmb)]
                 for s_, c_, f_ in segs:
