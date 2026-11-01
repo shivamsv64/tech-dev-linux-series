@@ -1,0 +1,13 @@
+TITLE
+Never Get Lost in Linux Again: pwd, cd, ls #shorts #linux
+
+DESCRIPTION
+pwd shows where you are, cd moves you, ls shows what is there. Plus absolute vs relative paths, cd .., cd - and the folder-with-a-space mistake every beginner makes.
+
+Full episode: "pwd, cd and ls Explained with Real Examples | Linux Zero to Hero Ep 2" on the Tech-dev channel.
+New Linux episode every day at 5 PM IST.
+
+#shorts #Linux #DevOps #SRE #LinuxCommands #TechDev
+
+TAGS
+linux, linux commands, cd command, ls command, pwd command, shorts, linux for beginners, linux navigation, devops, sre, bash, linux zero to hero, tech-dev
