@@ -67,6 +67,8 @@ Colors: `accent`, `warm`, `ok`, `bad`, `purple`, `muted`.
 `city_build` construction site (scripts, building, install) · `city_vault` vault (permissions, users, secrets, .gitignore) · `city_tower` control tower (monitoring, systemd, cron) ·
 `city_clock` clock tower (log, reset, revert, undo) · `city_class` rooftop classroom (quiz, interview, recap).
 
+**Fresh art per episode:** if `<media dir>/art/<name>.jpg` exists (made each morning by the Hugging Face prep task, see `hf/README.md`), every scene using art `<name>` gets that image instead of the library one. Pick arts from the library as usual; also use any extra names you find in that folder.
+
 Use at least 6 different arts per episode and don't stay on one art for more than ~60 s.
 
 ### Thumbnail and upload

@@ -149,7 +149,7 @@ def build():
     for i, sc in enumerate(scenes):
         sp = sc['spec']
         sc['art'] = sp.get('art') or (prev['art'] if prev else TH['default_art'])
-        if not os.path.exists(os.path.join(ART_DIR, sc['art'] + '.jpg')):
+        if not os.path.exists(art_path(sc['art'])):
             print('WARNING: unknown art', sc['art'], '-> using', TH['default_art']); sc['art'] = TH['default_art']
         same = prev is not None and prev['art'] == sc['art']
         if same: z, fx, fy = prev['cam_end']
@@ -183,10 +183,27 @@ def split_caps(caps):
     return out
 
 # ------------------------------------------------------------------ backgrounds
+def episode_media_dir():
+    """This episode's media folder in the repo (devops-series/media/dayNN or media/epNN), or None."""
+    d = CUSTOM_THUMB_DIRS.get((EP or {}).get('series'))
+    return os.path.join(os.path.dirname(HERE), d.format(n=int(EP['number']))) if d else None
+
+
+def art_path(name):
+    """Episode art first: <media dir>/art/<name>.jpg (fresh FLUX art made by the daily Hugging Face prep
+    task, either replacing a library art of the same name or adding a new one), then the library."""
+    m = episode_media_dir()
+    if m:
+        p = os.path.join(m, 'art', name + '.jpg')
+        if os.path.exists(p):
+            return p
+    return os.path.join(ART_DIR, name + '.jpg')
+
+
 _ART = {}
 def art(name):
     if name not in _ART:
-        im = Image.open(os.path.join(ART_DIR, name + '.jpg')).convert('RGB')
+        im = Image.open(art_path(name)).convert('RGB')
         _ART[name] = im.resize((int(W * 1.4), int(W * 1.4 * im.height / im.width)), Image.LANCZOS)
     return _ART[name]
 
@@ -655,7 +672,7 @@ def thumbnail(path):
         print(f'thumbnail: using {os.path.relpath(custom, os.path.dirname(HERE))}')
         return
     tb = EP['thumb']; tw_, th_ = 1280, 720
-    im = Image.open(os.path.join(ART_DIR, tb.get('art', SCENES[0]['art']) + '.jpg')).convert('RGB')
+    im = Image.open(art_path(tb.get('art', SCENES[0]['art']))).convert('RGB')
     g_ = np.asarray(im.convert('L'), np.float32); half = g_.shape[1] // 2
     if tb.get('flip', g_[:, :half].std() > g_[:, half:].std() * 1.1):   # keep the busy side of the art on the right
         im = im.transpose(Image.FLIP_LEFT_RIGHT)
@@ -732,7 +749,7 @@ def validate():
     for i, sp in enumerate(EP['scenes']):
         if sp.get('type') not in DRAW: probs.append(f'scene {i}: unknown type {sp.get("type")}')
         if not sp.get('say'): probs.append(f'scene {i}: missing say')
-        if sp.get('art') and not os.path.exists(os.path.join(ART_DIR, sp['art'] + '.jpg')): probs.append(f'scene {i}: unknown art {sp["art"]}')
+        if sp.get('art') and not os.path.exists(art_path(sp['art'])): probs.append(f'scene {i}: unknown art {sp["art"]}')
     if probs: raise SystemExit('\n'.join(probs))
 
 def main():
