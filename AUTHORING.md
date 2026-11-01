@@ -6,7 +6,8 @@
 - Target 5:30 to 8:00 total. The engine prints the timeline; add or trim steps to land in range.
 - Simple English captions, at most ~22 words each, with 1–2 `*highlights*`.
 - Every command and every output line must be real and correct for Ubuntu 24.04 (prompt `shivam@tech-dev`). Never invent flags or output. When unsure, use a short output you are sure of.
-- Use the 8-beat template from the plan: hook cartoon → link to yesterday's episode (chain scene, `highlight` = module index) → command terminal scenes with cards → combine with earlier commands → DevOps/SRE scenario (Jenkins, AWS/GCP, incidents) → common mistake (terminal `side: 'bashi'`, `error: True`) → quiz → recap with homework → outro naming tomorrow's episode.
+- Use the 8-beat template from the plan: hook cartoon → command terminal scenes with cards → combine with earlier commands → DevOps/SRE scenario (Jenkins, AWS/GCP, incidents) → common mistake (terminal `side: 'bashi'`, `error: True`) → quiz → recap with homework → outro naming tomorrow's episode.
+- No "where we are" / module roadmap scene (no `chain` scene showing Module N): Shivam asked to skip it. Mention the earlier episode in a caption instead.
 - Bashi (the mascot) appears in every episode: in a cartoon hook, the mistake scene and the recap.
 
 ## Scene types
