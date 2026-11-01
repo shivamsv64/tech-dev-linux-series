@@ -26,7 +26,14 @@
       "live": "2026-11-01T17:00:00+05:30",
       "planner": "https://app.metricool.com/planner/calendar?blogId=7777398&openWithPostUuid=3270319401955642524",
       "metricool_id": 412763473,
-      "voice_chars": 156
+      "voice_chars": 156,
+      "short": {
+        "status": "scheduled",
+        "title": "Never Get Lost in Linux Again: pwd, cd, ls #shorts #linux",
+        "live": "2026-11-02T12:30:00+05:30",
+        "metricool_id": 412763989,
+        "planner": "https://app.metricool.com/planner/calendar?blogId=7777398&openWithPostUuid=7699514482691230091"
+      }
     },
     {
       "ep": 3,
