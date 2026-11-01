@@ -21,7 +21,12 @@
     {
       "ep": 2,
       "date": "2026-11-01",
-      "status": "planned"
+      "status": "scheduled",
+      "title": "pwd, cd and ls Explained with Real Examples | Linux Zero to Hero Ep 2",
+      "live": "2026-11-01T17:00:00+05:30",
+      "planner": "https://app.metricool.com/planner/calendar?blogId=7777398&openWithPostUuid=3270319401955642524",
+      "metricool_id": 412763473,
+      "voice_chars": 156
     },
     {
       "ep": 3,
