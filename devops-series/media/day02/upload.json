@@ -1,0 +1,77 @@
+{
+  "title": "Why a 10-Minute Fix Took 10 Days | DevOps & SRE Zero to Hero Day 2",
+  "description": "Why did a 10-minute fix take 10 days to reach users? Day 2 walks through the old release process, the wall between Dev and Ops, how DevOps was born in 2008-2009, and builds a tiny deploy script that stops on failure.\n\nI'm Shivam Singh Verma, a DevOps & SRE engineer with 5 years of experience building CI/CD pipelines, running cloud infrastructure on AWS & GCP, and managing projects.\n\n📺 Day 2 of 100 · DevOps & SRE Zero to Hero: a free course with a new episode every day at 8 PM IST.\n\n⏱️ Chapters\n0:00 Intro\n0:33 Yesterday\n0:54 The old way\n1:51 Wall of confusion\n2:10 Big batches\n2:37 How DevOps was born\n3:30 The DevOps way\n4:42 Hands-on\n5:56 Common mistake\n6:29 Real story\n7:24 Where SRE fits\n7:37 Interview corner\n8:01 Quiz\n\n🔑 What you'll learn\n• Where the 10 days went: hand-offs and queues\n• The wall of confusion between Dev and Ops\n• Why big batches make releases risky\n• How DevOps was born (Agile, Flickr, DevOpsDays)\n• Pipelines and the 4 DORA metrics\n• A deploy script with set -e that stops on failure\n• A real CVE patching story: days to hours with Jenkins\n• A 20-second interview answer\n\n🧾 Cheat sheet (copy & practice)\nmkdir -p ~/day2/app && cd ~/day2\ncat deploy.sh\nbash deploy.sh\ntar -tzf releases/app.tar.gz\ntime bash deploy.sh\necho $?\n\n🎤 Interview question: Why do companies adopt DevOps?\n\n🧠 Quiz: In the 10-day release, what took most of the time? A) Writing the code B) Waiting between hand-offs C) Running the deploy script D) Slow laptops (answer in the comments, reveal in the next episode)\n\n📝 Homework: Count the hand-offs in your own release process (or a college project) and post the number in the comments.\n\n➡️ Next: Day 3: SDLC and where DevOps fits (tomorrow, 8 PM IST)\n\n🔔 Subscribe to Tech-dev for practical DevOps, SRE, Cloud, Linux & Git videos.\n\n💬 How many hand-offs does a release go through at your company or college project?\n\n#DevOps #SRE #DevOpsZeroToHero #CICD #TechDev",
+  "tags": [
+    "why devops",
+    "devops explained",
+    "devops for beginners",
+    "devops course",
+    "free devops course",
+    "devops zero to hero",
+    "devops day 2",
+    "ci cd pipeline",
+    "release process",
+    "dora metrics",
+    "history of devops",
+    "set -e bash",
+    "devops interview questions",
+    "sre course",
+    "learn devops",
+    "tech-dev"
+  ],
+  "duration": 528.8,
+  "chapters": [
+    [
+      0,
+      "Intro"
+    ],
+    [
+      33.25608333333333,
+      "Yesterday"
+    ],
+    [
+      54.44345833333333,
+      "The old way"
+    ],
+    [
+      111.47825,
+      "Wall of confusion"
+    ],
+    [
+      130.02558333333334,
+      "Big batches"
+    ],
+    [
+      157.716125,
+      "How DevOps was born"
+    ],
+    [
+      210.95787499999997,
+      "The DevOps way"
+    ],
+    [
+      282.629875,
+      "Hands-on"
+    ],
+    [
+      356.3515833333333,
+      "Common mistake"
+    ],
+    [
+      389.7776666666666,
+      "Real story"
+    ],
+    [
+      444.73158333333333,
+      "Where SRE fits"
+    ],
+    [
+      457.5255,
+      "Interview corner"
+    ],
+    [
+      481.751625,
+      "Quiz"
+    ]
+  ]
+}

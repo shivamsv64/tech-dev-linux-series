@@ -1,0 +1,193 @@
+[0:00] It's Friday night.
+[0:01] A banking app finds a security bug.
+[0:03] The fix takes ten minutes to write,
+[0:05] and ten days to reach users.
+[0:07] Why?
+[0:09] Hi, I'm Shivam Singh Verma, and welcome to Tech-dev.
+[0:12] This is Day 2 of DevOps and SRE,
+[0:14] Zero to Hero.
+[0:16] Today: why DevOps exists, and the ten-day release problem
+[0:20] it was born to fix.
+[0:22] By the end you will know where those ten days went,
+[0:25] how DevOps was born, how to write a deploy script that stops
+[0:29] on failure, and a twenty-second interview answer.
+[0:33] Quick recap of Day 1.
+[0:34] DevOps is a culture where developers and operations work as
+[0:39] one team, built on four pillars:
+[0:41] automation, quality, monitoring and testing.
+[0:45] Yesterday's quiz: which one is not a DevOps pillar?
+[0:48] The answer is C, manual hand-offs.
+[0:51] And hand-offs are exactly today's story.
+[0:54] Let's walk the old release, step by step.
+[0:57] The developer finishes the fix,
+[0:59] and opens it for review.
+[1:00] Then it waits, because reviewers are busy.
+[1:04] Next, a separate testing team checks everything by hand.
+[1:07] They have a queue too.
+[1:09] Three days.
+[1:10] Then operations has to prepare a server.
+[1:13] Someone raises a ticket, someone else installs packages by hand.
+[1:18] Two more days.
+[1:19] Now the change advisory board.
+[1:21] It meets once a week, on Thursday.
+[1:23] Miss it, and you wait for next week.
+[1:26] Finally, the deploy itself, at midnight,
+[1:29] with ten people on a call, following a forty-step document.
+[1:34] Add it up.
+[1:35] The real work took about an hour.
+[1:37] The waiting took ten days.
+[1:38] Every hand-off between teams is a queue.
+[1:41] That's the key idea.
+[1:43] Slow releases are a waiting problem,
+[1:45] not a coding problem.
+[1:47] The total time from commit to production is called lead time.
+[1:51] Why so many queues?
+[1:53] Because developers were rewarded for change,
+[1:55] and operations was rewarded for stability.
+[1:58] Opposite goals.
+[2:00] People called it the wall of confusion.
+[2:02] Developers threw code over the wall,
+[2:05] operations caught it, and nobody owned the whole path to the user.
+[2:10] And slow releases cause a second problem.
+[2:12] If you can only release once a month,
+[2:15] every release becomes a big batch of changes.
+[2:18] When the release breaks, which of the twelve changes did it?
+[2:22] Nobody knows.
+[2:23] So the team rolls back everything,
+[2:25] including eleven good changes.
+[2:28] That creates a vicious circle.
+[2:30] Releases hurt, so teams release less often.
+[2:33] Batches get bigger, releases get riskier,
+[2:35] and they hurt even more.
+[2:37] So how did the industry escape?
+[2:39] In 2001, the Agile Manifesto made developers work in short cycles.
+[2:45] But operations still released slowly.
+[2:48] In 2008, Patrick Debois and Andrew Shafer talked about agile
+[2:52] infrastructure: applying the same short cycles to servers and operations.
+[2:58] In 2009, two engineers from Flickr gave a famous talk:
+[3:03] ten plus deploys per day, with dev and ops cooperating.
+[3:08] The room was shocked.
+[3:09] Later that year, Debois organised the first DevOpsDays in
+[3:13] Ghent, Belgium.
+[3:15] The hashtag got shortened to DevOps,
+[3:17] and the name stuck.
+[3:19] And in 2016, Google published the Site Reliability Engineering
+[3:23] book, showing how they run production with software engineers.
+[3:28] That's the SRE half of this course.
+[3:31] Here's the DevOps answer.
+[3:32] Remove the waiting, not the people.
+[3:34] Every hand-off that a machine can do becomes a step in one automated pipeline.
+[3:40] Three days of manual testing become automated tests that run
+[3:44] in minutes, on every single commit.
+[3:47] Server tickets become servers built from code.
+[3:50] The change board becomes automatic checks,
+[3:53] plus a quick peer review.
+[3:55] And the most important rule: if a test fails,
+[3:58] the pipeline stops.
+[3:59] A broken build never reaches users.
+[4:03] Now changes are small and ship many times a day.
+[4:06] The same security fix reaches users in under an hour.
+[4:10] And if it breaks?
+[4:12] There is only one change in the release.
+[4:14] You know exactly what caused it,
+[4:16] and you roll back just that.
+[4:18] Side by side: big batches become small changes,
+[4:22] manual work becomes automated, and scary midnight releases become
+[4:26] boring ones.
+[4:28] Boring is the goal.
+[4:30] Today teams measure this with the four DORA metrics:
+[4:33] how often you deploy, lead time,
+[4:36] how often a change fails, and how fast you recover.
+[4:39] Speed and stability improve together.
+[4:42] Enough theory.
+[4:43] Let's build the smallest possible pipeline:
+[4:46] one bash script that tests, builds and deploys,
+[4:50] and stops if anything fails.
+[4:52] Make a folder with a tiny web page.
+[4:54] Our test is one line: grep minus q checks the page still says Hello.
+[4:59] If it doesn't, grep exits with an error.
+[5:02] Here's the deploy script.
+[5:04] Test, then build a tar file, then copy it to releases.
+[5:08] Line two is the hero: set minus e means exit the moment any
+[5:12] command fails.
+[5:16] Run it.
+[5:16] Tests pass, the app is built and deployed.
+[5:19] tar minus t z f lists what's inside the release:
+[5:22] our app folder and the page.
+[5:25] Put time in front of any command to measure it.
+[5:28] Thirteen milliseconds, every time,
+[5:30] at any hour.
+[5:31] No midnight call needed.
+[5:33] Now let's break it.
+[5:34] Someone deletes the Hello text.
+[5:36] Run the deploy again.
+[5:38] It stops right after the tests,
+[5:40] and echo dollar question mark shows exit code one: failure.
+[5:45] That's the whole idea of a pipeline.
+[5:47] A failing test stopped the release.
+[5:49] Jenkins, GitHub Actions and GitLab CI do this same job,
+[5:53] at scale, for every commit.
+[5:56] Here's the most common beginner mistake.
+[5:58] The same script without set minus e.
+[6:01] The test failed, but bash kept going,
+[6:03] and the broken page shipped.
+[6:05] Exit code zero.
+[6:06] Everything looks green.
+[6:08] The fix: start every script with set minus e,
+[6:11] check exit codes, and let the pipeline stop on red.
+[6:15] Never skip a failing test just to ship faster.
+[6:19] And the bigger mistake, at company level:
+[6:21] thinking DevOps means buying tools.
+[6:24] If you automate a broken process,
+[6:26] it just breaks faster.
+[6:27] Remove the waits first.
+[6:29] Here's a story from my own work.
+[6:31] Our security scanner, think Wiz or Qualys,
+[6:35] flagged a critical vulnerability on our EC2 servers.
+[6:39] The old process: ticket, change window,
+[6:42] then patching by hand over SSH.
+[6:44] Almost a week.
+[6:46] Five days of the fleet being exposed.
+[6:48] During that time, every server was an open door.
+[6:52] That's not an engineering problem,
+[6:54] it's a business risk.
+[6:56] So we built a Jenkins pipeline.
+[6:58] Patch the image, run the tests,
+[7:00] then roll out a few servers at a time,
+[7:02] with health checks between each batch.
+[7:05] The next critical CVE: flagged at nine,
+[7:08] patch merged by nine thirty, whole fleet patched by one,
+[7:12] and the rescan came back clean.
+[7:15] Same people.
+[7:16] Less waiting.
+[7:17] The lesson I learned: speed is a security feature.
+[7:21] The faster you can ship, the faster you can fix.
+[7:24] So where does SRE fit?
+[7:26] DevOps is the culture.
+[7:28] Site reliability engineering is one concrete way to do it,
+[7:32] where software engineers run production,
+[7:35] with numbers and automation.
+[7:37] Interview question: why do companies adopt DevOps?
+[7:41] Say this.
+[7:42] Releases were slow because of waiting between siloed teams.
+[7:46] Automation and small changes cut lead time.
+[7:50] The result is faster and safer releases with easy rollback.
+[7:54] Then add one example, like a patch that went from days to hours.
+[7:58] Twenty seconds, and you sound like a practitioner.
+[8:01] Your quiz for today.
+[8:03] In the ten-day release, what took most of the time?
+[8:06] Post A, B, C or D in the comments.
+[8:08] I'll reveal the answer tomorrow.
+[8:11] Recap.
+[8:12] Old releases were an hour of work and ten days of waiting.
+[8:16] Opposite goals built a wall.
+[8:18] Big batches made releases risky.
+[8:20] DevOps fixed it with small changes and one pipeline.
+[8:24] Remember: DevOps removes the waiting,
+[8:26] not the people.
+[8:27] Homework: count the hand-offs in your own release process,
+[8:31] or a college project, and post the number in the comments.
+[8:36] Tomorrow, on Day 3: the software development life cycle,
+[8:40] and exactly where DevOps fits in it.
+[8:42] Subscribe to Tech-dev.
+[8:44] New lesson every day at 8 PM.

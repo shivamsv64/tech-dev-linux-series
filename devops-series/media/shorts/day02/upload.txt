@@ -1,0 +1,13 @@
+TITLE
+10-day fix vs 1-hour fix: why DevOps? #shorts #devops
+
+DESCRIPTION
+A 10-minute fix took 10 days to reach users — not because of slow developers, but because of waiting between teams. Every hand-off is a queue. A pipeline plus set -e ships the same fix in under an hour.
+
+Full lesson: "Why a 10-Minute Fix Took 10 Days | DevOps & SRE Zero to Hero Day 2" on the Tech-dev channel.
+Free 100-day course, new lesson every day at 8 PM IST.
+
+#shorts #DevOps #SRE #CICD #TechDev
+
+TAGS
+devops, why devops, devops explained, devops for beginners, ci cd pipeline, set -e bash, deploy script, devops zero to hero, sre, shorts, devops day 2, release process, tech-dev
