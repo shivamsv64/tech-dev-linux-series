@@ -50,7 +50,20 @@
       "phase": "1 Foundations",
       "topic": "SDLC and where DevOps fits",
       "lead": "Ollie",
-      "status": "planned"
+      "status": "scheduled",
+      "title": "SDLC in 6 Steps: Where DevOps Fits | DevOps & SRE Zero to Hero Day 3",
+      "live": "2026-11-03T20:00:00+05:30",
+      "planner": "https://app.metricool.com/planner/calendar?blogId=7777398&openWithPostUuid=8387165818615056823",
+      "metricool_id": 415141518,
+      "engine": "v2",
+      "voice_chars": 0,
+      "short": {
+        "status": "scheduled",
+        "title": "SDLC in 6 steps: where DevOps fits #shorts #devops",
+        "live": "2026-11-04T13:30:00+05:30",
+        "metricool_id": 415141790,
+        "planner": "https://app.metricool.com/planner/calendar?blogId=7777398&openWithPostUuid=8302070498850260277"
+      }
     },
     {
       "day": 4,
