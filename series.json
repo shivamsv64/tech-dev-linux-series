@@ -44,7 +44,14 @@
       "planner": "https://app.metricool.com/planner/calendar?blogId=7777398&openWithPostUuid=-2215440188807755398",
       "metricool_id": 415095478,
       "engine": "v2",
-      "voice_chars": 0
+      "voice_chars": 0,
+      "short": {
+        "status": "scheduled",
+        "title": "Learn Any Linux Command Without Google #shorts #linux",
+        "live": "2026-11-04T12:30:00+05:30",
+        "metricool_id": 415095907,
+        "planner": "https://app.metricool.com/planner/calendar?blogId=7777398&openWithPostUuid=-9072438100676951417"
+      }
     },
     {
       "ep": 4,
