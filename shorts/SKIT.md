@@ -3,7 +3,7 @@
 Shivam's chosen look for **every** Short (Git, Linux, DevOps, and his funny Shorts channel): relatable cartoon
 skits like these references — https://www.youtube.com/shorts/6hfqxSjMSAA , https://www.youtube.com/shorts/C-butiuZz78 ,
 https://www.youtube.com/shorts/5toLxPmN3-4 — sketchy hand-drawn line art on muted paper, human characters with big
-expressive eyes, a one-line situation banner on top, music-led, with a calm human narrator. **Original characters and
+expressive eyes, a one-line situation banner on top, a calm tech music bed, with a calm human narrator. **Original characters and
 scripts only** (never copy those creators' characters, jokes, shots or frames). **No animal characters, no animal voices.**
 
 Engine: `shorts/skit.py` (drawing kit `shorts/toon.py`, fonts in `shorts/fonts/`). The old animal engine `shorts/shorts.py`
@@ -56,6 +56,10 @@ SKIT = {
   'upload': {'title': '<Situation hook> #shorts #linux', 'description': '...', 'tags': [...]},
 }
 ```
+Music: calm "coding focus" bed by default (soft pads, warm bass, quiet beat, no melody — Shivam asked that the
+music suit tech videos, 3 Nov 2026). `'music': 'none'` turns it off; `'music': 'fun'` (cheerful plucked tune) is only
+for the funny Shorts channel and is the default when `'series': 'funny'`. Never use the fun tune on Tech-dev.
+
 Sets: `desk_night desk_day bed_night office office_night meeting`. Shots: `wide face eye screen phone card`
 (+ automatic `cta`). Optional per scene: `banner` (changes the top banner from here on), `cam` (`push` default, `pull`,
 `shake`, `still`), `extra` (seconds), `sfx` (`boing alarm buzz ding slide pop whoosh`), `look` [x, y] for eyes,

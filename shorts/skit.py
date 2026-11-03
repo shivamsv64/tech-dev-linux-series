@@ -451,7 +451,8 @@ NOTE = {'C3': 130.81, 'D3': 146.83, 'E3': 164.81, 'F3': 174.61, 'G3': 196.0, 'A3
         'E5': 659.25, 'G5': 783.99, 'A2': 110.0, 'F2': 87.31, 'G2': 98.0, 'C2': 65.41, 'E2': 82.41, 'D2': 73.42}
 
 
-def music(total, seed=7):
+def music_fun(total, seed=7):
+    """cheerful plucked tune (only for the funny Shorts channel)"""
     from scipy.signal import butter, lfilter
     rng = np.random.default_rng(seed)
     n = int((total + 2) * SR)
@@ -496,6 +497,71 @@ def music(total, seed=7):
     return out[:int(total * SR)]
 
 
+def music_tech(total, seed=7):
+    """calm 'coding focus' bed for tech Shorts: soft minor-7th pads, warm sub bass, quiet kick and hat ticks,
+    a few soft UI blips. No melody, so it never fights the narrator."""
+    from scipy.signal import butter, lfilter
+    rng = np.random.default_rng(seed)
+    n = int((total + 3) * SR)
+    out = np.zeros(n)
+    beat = 60 / 88
+    bar = 4 * beat
+    # Am9, Fmaj7, Cmaj7, Em7 (voiced low and close)
+    prog = [(55.00, [220.00, 261.63, 329.63, 392.00, 493.88]),
+            (43.65, [174.61, 220.00, 261.63, 329.63, 392.00]),
+            (65.41, [196.00, 246.94, 261.63, 329.63, 392.00]),
+            (41.20, [164.81, 196.00, 246.94, 293.66, 329.63])]
+
+    def add(sig, t, g):
+        st = int(t * SR)
+        if st < 0:
+            sig = sig[-st:]; st = 0
+        if st >= n:
+            return
+        e = min(n, st + len(sig)); out[st:e] += sig[:e - st] * g
+
+    k = 0
+    t = 0.0
+    while t < total + 1:
+        root, chord = prog[k % 4]
+        L = bar + 1.2
+        m = int(L * SR); ts = np.arange(m) / SR
+        envp = np.clip(ts / 0.9, 0, 1) * np.clip((L - ts) / 1.1, 0, 1)
+        pad = np.zeros(m)
+        for f in chord:
+            for det in (-0.004, 0.0, 0.005):
+                ff = f * (1 + det)
+                ph = rng.uniform(0, 6.28)
+                pad += (np.sin(2 * np.pi * ff * ts + ph) + 0.35 * np.sin(4 * np.pi * ff * ts + ph)
+                        + 0.12 * np.sin(6 * np.pi * ff * ts + ph))
+        pad *= envp * (0.85 + 0.15 * np.sin(2 * np.pi * 0.25 * ts)) / (len(chord) * 3)
+        add(pad, t - 0.3, 0.55)
+        sub = np.sin(2 * np.pi * root * 2 * ts) * np.clip(ts / 0.25, 0, 1) * np.clip((bar - ts) / 0.4, 0, 1)
+        add(sub, t, 0.22)
+        for b in range(4):  # quiet kick on 1 and 3, hat ticks on 8ths
+            if b in (0, 2):
+                mk = int(0.3 * SR); tk = np.arange(mk) / SR
+                add(np.sin(2 * np.pi * (48 + 60 * np.exp(-tk / 0.025)) * tk) * np.exp(-tk / 0.13), t + b * beat, 0.28)
+            for h in (0, 1):
+                mh = int(0.04 * SR)
+                hat = rng.standard_normal(mh) * env(mh, 0.001, 0.008)
+                add(np.diff(np.concatenate([[0], hat])), t + b * beat + h * beat / 2, 0.035 if h else 0.02)
+        if k % 2 == 1:  # soft UI blips
+            for j, f in enumerate((1318.5, 1975.5)):
+                mb = int(0.25 * SR); tb = np.arange(mb) / SR
+                add(np.sin(2 * np.pi * f * tb) * env(mb, 0.003, 0.07), t + 3 * beat + j * beat / 4, 0.025)
+        t += bar; k += 1
+    b, a = butter(2, 3800 / (SR / 2)); out = lfilter(b, a, out)
+    hb, ha = butter(1, 35 / (SR / 2), 'high'); out = lfilter(hb, ha, out)
+    return out[:int(total * SR)]
+
+
+def music(total, kind='tech'):
+    if kind == 'none':
+        return np.zeros(int(total * SR))
+    return music_fun(total) if kind == 'fun' else music_tech(total)
+
+
 def sfx(kind, rng):
     from scipy.signal import butter, lfilter
     if kind == 'whoosh':
@@ -533,7 +599,7 @@ def sfx(kind, rng):
     return np.zeros(1)
 
 
-def make_audio(scenes, total, path, seed=11):
+def make_audio(scenes, total, path, seed=11, music_kind='tech'):
     rng = np.random.default_rng(seed)
     n = int((total + 1) * SR)
     fxb = np.zeros(n); voc = np.zeros(n)
@@ -575,9 +641,10 @@ def make_audio(scenes, total, path, seed=11):
     from scipy.signal import butter, lfilter
     e = np.abs(voc)
     bb, aa = butter(1, 5 / (SR / 2)); e = lfilter(bb, aa, e)
-    duck = 1 - 0.55 * np.clip(e / (e.max() + 1e-9) * 5, 0, 1)
-    mus = np.zeros(n); m = music(total); mus[:len(m)] = m
-    out = mus * duck * 0.8 + fxb + voc * 1.15
+    duck = 1 - 0.6 * np.clip(e / (e.max() + 1e-9) * 5, 0, 1)
+    mus = np.zeros(n); m = music(total, music_kind); mus[:len(m)] = m
+    mus = mus / (np.abs(mus).max() + 1e-9) * 0.30
+    out = mus * duck + fxb + voc * 1.15
     end = int(total * SR)
     fade = int(1.0 * SR)
     out[end - fade:end] *= np.linspace(1, 0.15, fade)
@@ -633,7 +700,7 @@ def main():
         sheet.save(os.path.join(outdir, 'sheet.jpg'), quality=85)
         print('sheet written'); return
     wav = os.path.join(outdir, 'audio.wav')
-    make_audio(scenes, total, wav)
+    make_audio(scenes, total, wav, music_kind=spec.get('music', 'fun' if spec.get('series') == 'funny' else 'tech'))
     nfr = int(total * FPS)
     cmd = ['ffmpeg', '-y', '-loglevel', 'error', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{W}x{H}', '-r', str(FPS),
            '-i', '-', '-i', wav, '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '20', '-pix_fmt', 'yuv420p',
