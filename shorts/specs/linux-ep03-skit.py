@@ -1,0 +1,47 @@
+SKIT = {
+    'series': 'linux',
+    'tag': 'EP 3',
+    'banner': 'When you forget a Linux command at 2 AM',
+    'scenes': [
+        {'shot': 'wide', 'set': 'desk_night',
+         'cast': [{'who': 'rohan', 'mood': 'tired', 'pose': 'type', 'fx': ['sweat']}],
+         'say': 'Stop Googling Linux commands. Your *terminal* already knows.'},
+        {'shot': 'eye', 'who': 'rohan', 'mood': 'tired',
+         'say': 'Two AM, forty browser tabs, and Rohan still forgot the command.'},
+        {'shot': 'wide', 'set': 'desk_night',
+         'cast': [{'who': 'rohan', 'mood': 'worried', 'pose': 'headhold', 'x': 380},
+                  {'who': 'meera', 'mood': 'smug', 'pose': 'mug', 'stand': True, 'x': 790}],
+         'laptop_x': 380, 'mug': False,
+         'say': 'Then Meera, the senior SRE, walks by and says, just ask *Linux*.'},
+        {'shot': 'screen', 'cmd': 'whatis ls', 'out': ['ls (1)  - list directory contents'],
+         'hl': 'list directory contents',
+         'say': '*whatis* gives you a one line summary of any command.'},
+        {'shot': 'screen', 'cmd': 'man -k rotate',
+         'out': ['logrotate (8) - rotates, compresses,', '              and mails system logs'],
+         'hl': 'logrotate (8)',
+         'say': 'Forgot the name? *man -k* searches every manual by keyword.'},
+        {'shot': 'face', 'who': 'rohan', 'mood': 'shock', 'fx': ['lines', '!'],
+         'say': 'Wait. It was in there the *whole* time?'},
+        {'shot': 'screen', 'cmd': 'type cd', 'out': ['cd is a shell builtin'], 'hl': 'shell builtin',
+         'say': '*type* tells you if it is a builtin, an alias, or a file.'},
+        {'shot': 'screen', 'cmd': 'man cd', 'out': ['!No manual entry for cd'], 'badge': 'Use: help cd',
+         'say': 'Builtins have no man page. For those, just use *help*.'},
+        {'shot': 'wide', 'set': 'desk_night',
+         'cast': [{'who': 'rohan', 'mood': 'happy', 'pose': 'cheer', 'fx': ['sparkle']}],
+         'say': 'Zero tabs. Pure terminal. Rohan is *unstoppable*.'},
+        {'shot': 'card', 'set': 'plain', 'big': 'man -k', 'sub': 'search every manual by keyword',
+         'say': 'Save this, and try *man -k* tonight.'},
+    ],
+    'cta': {'set': 'office'},
+    'cover_at': 1.2,
+    'upload': {
+        'title': 'When You Forget a Linux Command at 2 AM #shorts #linux',
+        'description': (
+            'Stop Googling Linux commands: whatis, man -k, type and help cd show you everything offline.\n\n'
+            'Full episode: "man, --help, type and which Explained with Real Examples | Linux Zero to Hero Ep 3" '
+            'on the Tech-dev channel.\nNew Linux episodes Tue, Thu & Sat at 5 PM IST.\n\n'
+            '#shorts #Linux #DevOps #SRE #LinuxCommands #TechDev'),
+        'tags': ['linux', 'linux commands', 'man command', 'linux help', 'type command', 'whatis', 'shorts',
+                 'linux for beginners', 'bash', 'devops', 'sre', 'linux zero to hero', 'tech-dev'],
+    },
+}
