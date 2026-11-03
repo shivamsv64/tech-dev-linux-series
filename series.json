@@ -38,7 +38,13 @@
     {
       "ep": 3,
       "date": "2026-11-02",
-      "status": "planned"
+      "status": "scheduled",
+      "title": "man, --help, type and which Explained with Real Examples | Linux Zero to Hero Ep 3",
+      "live": "2026-11-03T17:00:00+05:30",
+      "planner": "https://app.metricool.com/planner/calendar?blogId=7777398&openWithPostUuid=-2215440188807755398",
+      "metricool_id": 415095478,
+      "engine": "v2",
+      "voice_chars": 0
     },
     {
       "ep": 4,

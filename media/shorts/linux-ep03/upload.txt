@@ -1,0 +1,13 @@
+TITLE
+Learn Any Linux Command Without Google #shorts #linux
+
+DESCRIPTION
+whatis, man, man -k, type and sudo !!: how to learn any Linux command offline, plus why man cd fails (use help cd).
+
+Full episode: "man, --help, type and which Explained with Real Examples | Linux Zero to Hero Ep 3" on the Tech-dev channel.
+New Linux episodes Tue, Thu & Sat at 5 PM IST.
+
+#shorts #Linux #DevOps #SRE #LinuxCommands #TechDev
+
+TAGS
+linux, linux commands, man command, linux help, type command, sudo !!, shorts, linux for beginners, bash, devops, sre, linux zero to hero, tech-dev
