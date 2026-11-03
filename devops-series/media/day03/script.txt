@@ -1,0 +1,197 @@
+[0:00] A one-line bug.
+[0:01] Caught while planning, it costs five minutes.
+[0:03] Caught in production, it costs a weekend,
+[0:06] a refund and an angry customer.
+[0:08] Same bug.
+[0:09] Different phase.
+[0:11] Hi, I'm Shivam Singh Verma, and welcome to Tech-dev.
+[0:14] This is Day 3 of DevOps and SRE,
+[0:17] Zero to Hero.
+[0:18] Today: the software development life cycle,
+[0:21] and exactly where DevOps fits in it.
+[0:24] By the end you will know the six phases,
+[0:27] how Waterfall, Agile and DevOps differ,
+[0:29] why bugs get expensive, and you will walk one real feature through
+[0:34] every phase.
+[0:36] Quick recap of Day 2.
+[0:37] A ten-minute fix took ten days,
+[0:39] because every hand-off between teams was a queue.
+[0:42] DevOps fixed it with small changes and one automated pipeline.
+[0:47] Yesterday's quiz: what took most of the ten days?
+[0:51] The answer is B, waiting between hand-offs.
+[0:54] Today we zoom out and look at the whole journey those hand-offs sit on.
+[0:59] SDLC stands for software development life cycle.
+[1:02] It is simply the list of steps every piece of software goes
+[1:06] through, from an idea to code running for real users.
+[1:10] Why have a process at all?
+[1:12] Because without one, teams build the wrong thing,
+[1:15] skip testing, or ship on a Friday night.
+[1:17] The SDLC is a shared map everyone agrees on.
+[1:21] Phase one: plan.
+[1:23] Why are we building this?
+[1:24] Who is it for, what will it cost,
+[1:26] and is it worth it?
+[1:27] Product owners and business people lead here.
+[1:31] Phase two: define.
+[1:32] Turn the idea into clear requirements,
+[1:34] written down.
+[1:35] For example: ten percent off when the order is one thousand
+[1:39] rupees or more.
+[1:41] Phase three: design.
+[1:42] Architects and senior engineers decide how:
+[1:45] which services, which database,
+[1:47] which cloud, and how the pieces talk to each other.
+[1:51] Phase four: build.
+[1:53] Developers write the code, in small commits,
+[1:56] in a Git repository, and review each other's changes.
+[2:00] Phase five: test.
+[2:01] Unit tests, integration tests, security scans.
+[2:05] The goal is to find bugs before users do.
+[2:08] Phase six: deploy and maintain.
+[2:11] Ship it to servers, keep it running,
+[2:13] fix what breaks, and use real feedback to plan the next version.
+[2:17] Then the cycle starts again.
+[2:20] A good habit: every phase leaves an artifact you can point at.
+[2:24] A business case, a requirements file,
+[2:26] a design doc, the code, the tests,
+[2:28] and a tagged release.
+[2:30] The phases are the same everywhere.
+[2:32] What changes is how fast you go around the loop.
+[2:36] Waterfall goes once, over months.
+[2:38] Agile goes every sprint.
+[2:39] DevOps goes many times a day.
+[2:42] In Waterfall, each phase finishes completely before the next
+[2:46] one starts, like water falling down steps.
+[2:49] Testing happens months after the code was written.
+[2:53] Agile broke the work into short sprints,
+[2:56] so developers got fast feedback.
+[2:58] But often the release to production still waited on a separate
+[3:02] operations team.
+[3:03] Tomorrow we go deep on Agile.
+[3:05] So where does DevOps fit?
+[3:07] The famous answer is the infinity loop.
+[3:10] The left side is development: plan,
+[3:12] code, build, test, release.
+[3:15] The right side is operations: deploy,
+[3:17] operate, monitor.
+[3:19] And what you learn from monitoring flows straight back into
+[3:22] the next plan.
+[3:23] The loop never ends.
+[3:25] DevOps is not one extra phase.
+[3:27] It adds a practice to every phase:
+[3:30] ops in the planning room, infrastructure as code,
+[3:33] CI on every push, automated tests,
+[3:36] pipelines, and monitoring.
+[3:38] That's the key idea.
+[3:40] DevOps is not a new life cycle.
+[3:42] It is the same SDLC, run in small batches,
+[3:46] in a loop, with machines doing the hand-offs.
+[3:50] Here's why the order matters.
+[3:51] A classic rule of thumb: the later a bug is found,
+[3:55] the more it costs to fix.
+[3:56] In production it can be a hundred times more expensive.
+[4:00] So DevOps teams shift left.
+[4:02] They move testing and security checks to the left of the timeline,
+[4:06] as early as possible, where bugs are cheap.
+[4:10] Enough theory.
+[4:11] Let's walk one small feature, a festive discount,
+[4:14] through every phase, right in the terminal.
+[4:17] You need git and python three, both are on Ubuntu.
+[4:21] Make a folder and a Git repository called shop.
+[4:25] Planning and defining produce a requirements file.
+[4:28] Notice the exact words: one thousand or more.
+[4:32] Now the build phase.
+[4:33] A developer writes final price:
+[4:35] if the total is more than one thousand,
+[4:38] take ten percent off.
+[4:39] Look closely.
+[4:40] Can you spot the bug?
+[4:42] The test phase.
+[4:43] Two tests, written straight from the requirements:
+[4:47] a small order keeps its price, and an order of exactly one
+[4:51] thousand should become nine hundred.
+[4:55] Run them with python three minus m unittest minus v.
+[4:58] One test fails: one thousand is not equal to nine hundred.
+[5:03] The requirement said or more, the code said more than.
+[5:08] Fix it with one sed command: greater than becomes greater than or equal.
+[5:13] Run the tests again.
+[5:14] Both pass.
+[5:15] We found this bug in minutes, not in production.
+[5:19] The deploy phase reuses yesterday's trick.
+[5:22] Set minus e, run the tests first,
+[5:24] and only then copy the code into a release folder.
+[5:28] Tests pass, version one point zero is deployed.
+[5:32] Tag the release, then run git log minus minus oneline.
+[5:36] Read it from the bottom: plan, build,
+[5:38] test, release tag.
+[5:40] The whole life cycle, in three commits.
+[5:43] And maintain means checking what is really running.
+[5:46] One thousand now costs nine hundred.
+[5:48] In real life, monitoring and alerts do this check for you,
+[5:51] every minute.
+[5:53] Notice what happened.
+[5:54] A test written from the requirements caught the bug before deploy.
+[5:58] In a real team, Jenkins or GitHub Actions run these tests on
+[6:03] every single push.
+[6:05] A story from my work.
+[6:06] A service was built on an old base image and deployed to our EC2 fleet.
+[6:11] Two weeks later, a Wiz scan flagged a critical vulnerability
+[6:15] in production.
+[6:17] Fixing it in production took about two days:
+[6:20] rebuild, retest, roll out carefully,
+[6:22] rescan, write the report.
+[6:24] The same fix at build time would have taken fifteen minutes.
+[6:28] So we shifted left.
+[6:29] We added an image scan as a Jenkins stage,
+[6:32] right after the build.
+[6:34] A critical finding now fails the build,
+[6:36] and nothing vulnerable ever reaches a server.
+[6:40] The lesson I learned: every check you move to the left saves
+[6:43] you a weekend later.
+[6:45] Security and tests belong inside the build,
+[6:48] not after the release.
+[6:50] The most common beginner mistake:
+[6:52] thinking DevOps only lives in the deploy phase.
+[6:56] Ops is invited at the very end,
+[6:58] testing is squeezed in last, and nobody watches production.
+[7:03] Here's what that looks like.
+[7:04] This script copies the buggy code to the release first,
+[7:08] and runs the tests after.
+[7:09] The test fails, exit code one, but the broken price is already live.
+[7:15] The fix: invite ops and security to planning,
+[7:18] write tests from the requirements,
+[7:20] run them on every push, and monitor production.
+[7:24] Never bolt DevOps on at the end.
+[7:27] And SRE?
+[7:28] Site reliability engineers care most about the right side
+[7:32] of the loop: designing for failure,
+[7:35] safe rollouts, and keeping production healthy with SLOs,
+[7:38] alerts and on-call.
+[7:41] Interview question: what is the SDLC,
+[7:43] and where does DevOps fit?
+[7:45] Say this.
+[7:46] The SDLC is plan, define, design,
+[7:49] build, test, deploy and maintain.
+[7:52] DevOps runs it as a fast, automated loop.
+[7:55] DevOps is not one phase.
+[7:57] It adds CI, automated tests, infrastructure as code and monitoring
+[8:02] to every phase.
+[8:03] Then give one example, like moving a security scan into the build.
+[8:08] Your quiz for today.
+[8:10] In which phase is a bug usually cheapest to fix?
+[8:13] Post A, B, C or D in the comments.
+[8:16] I'll reveal the answer tomorrow.
+[8:18] Recap.
+[8:19] The SDLC has six phases.
+[8:21] Waterfall, Agile and DevOps use the same phases,
+[8:25] just faster loops.
+[8:26] DevOps adds automation to every phase,
+[8:29] and shifts testing left.
+[8:31] Remember: same phases, smaller batches,
+[8:34] faster loop.
+[8:35] Homework: take an app or college project you know,
+[8:38] map it onto the six phases, and comment which phase was the slowest.
+[8:43] Tomorrow, on Day 4: Agile, Scrum and Jira,
+[8:47] and how real DevOps teams plan their work.
+[8:50] Subscribe to Tech-dev.
+[8:52] New lesson every day at 8 PM.

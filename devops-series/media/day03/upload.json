@@ -1,0 +1,76 @@
+{
+  "title": "SDLC in 6 Steps: Where DevOps Fits | DevOps & SRE Zero to Hero Day 3",
+  "description": "What is the software development life cycle, and where exactly does DevOps fit? Day 3 walks the 6 SDLC phases, compares Waterfall, Agile and DevOps, explains shift left and the cost of late bugs, and takes one real feature through every phase in the terminal.\n\nI'm Shivam Singh Verma, a DevOps & SRE engineer with 5 years of experience building CI/CD pipelines, running cloud infrastructure on AWS & GCP, and managing projects.\n\n📺 Day 3 of 100 · DevOps & SRE Zero to Hero: a free course with a new episode every day at 8 PM IST.\n\n⏱️ Chapters\n0:00 Intro\n0:35 Yesterday\n0:58 What is SDLC\n1:21 The 6 phases\n2:30 Waterfall vs Agile vs DevOps\n3:05 Where DevOps fits\n3:49 Shift left\n4:10 Hands-on\n6:04 Real story\n6:50 Common mistake\n7:26 Where SRE fits\n7:40 Interview corner\n8:08 Quiz\n\n🔑 What you'll learn\n• The 6 SDLC phases: plan, define, design, build, test, deploy and maintain\n• Waterfall vs Agile vs DevOps\n• The DevOps infinity loop and what it adds to each phase\n• Why bugs cost more the later you find them\n• Shift left: tests and security scans early\n• Hands-on: one feature through every phase with git and python unittest\n• A real story: moving a Wiz image scan into the Jenkins build\n• A 20-second interview answer\n\n🧾 Cheat sheet (copy & practice)\ngit init -q shop && cd shop\ncat REQUIREMENTS.md\npython3 -m unittest -v\nsed -i 's/total > 1000/total >= 1000/' discount.py\nbash deploy.sh\ngit tag v1.0\ngit log --oneline --decorate\n\n🎤 Interview question: What is SDLC and where does DevOps fit?\n\n🧠 Quiz: Where is a bug usually cheapest to fix? A) Requirements / define B) Testing C) Deployment D) Production (answer in the comments, reveal in the next episode)\n\n📝 Homework: Map an app or college project you know onto the 6 SDLC phases and comment which phase was the slowest.\n\n➡️ Next: Day 4: Agile, Scrum and Jira for DevOps teams (tomorrow, 8 PM IST)\n\n🔔 Subscribe to Tech-dev for practical DevOps, SRE, Cloud, Linux & Git videos.\n\n💬 Which SDLC phase is the slowest in your team or college project?\n\n#DevOps #SRE #SDLC #DevOpsZeroToHero #TechDev",
+  "tags": [
+    "sdlc",
+    "software development life cycle",
+    "sdlc phases",
+    "sdlc in devops",
+    "waterfall vs agile vs devops",
+    "devops lifecycle",
+    "shift left",
+    "devops for beginners",
+    "devops course",
+    "free devops course",
+    "devops zero to hero",
+    "devops day 3",
+    "devops interview questions",
+    "sre course",
+    "tech-dev"
+  ],
+  "duration": 536.7,
+  "chapters": [
+    [
+      0,
+      "Intro"
+    ],
+    [
+      35.98708333333333,
+      "Yesterday"
+    ],
+    [
+      58.896166666666666,
+      "What is SDLC"
+    ],
+    [
+      81.750625,
+      "The 6 phases"
+    ],
+    [
+      150.56470833333333,
+      "Waterfall vs Agile vs DevOps"
+    ],
+    [
+      185.77779166666667,
+      "Where DevOps fits"
+    ],
+    [
+      229.90333333333334,
+      "Shift left"
+    ],
+    [
+      250.20541666666665,
+      "Hands-on"
+    ],
+    [
+      364.9900833333333,
+      "Real story"
+    ],
+    [
+      410.3560833333333,
+      "Common mistake"
+    ],
+    [
+      446.96295833333335,
+      "Where SRE fits"
+    ],
+    [
+      460.916875,
+      "Interview corner"
+    ],
+    [
+      488.80533333333335,
+      "Quiz"
+    ]
+  ]
+}

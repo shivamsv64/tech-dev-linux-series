@@ -1,0 +1,60 @@
+TITLE
+SDLC in 6 Steps: Where DevOps Fits | DevOps & SRE Zero to Hero Day 3
+
+DESCRIPTION
+What is the software development life cycle, and where exactly does DevOps fit? Day 3 walks the 6 SDLC phases, compares Waterfall, Agile and DevOps, explains shift left and the cost of late bugs, and takes one real feature through every phase in the terminal.
+
+I'm Shivam Singh Verma, a DevOps & SRE engineer with 5 years of experience building CI/CD pipelines, running cloud infrastructure on AWS & GCP, and managing projects.
+
+📺 Day 3 of 100 · DevOps & SRE Zero to Hero: a free course with a new episode every day at 8 PM IST.
+
+⏱️ Chapters
+0:00 Intro
+0:35 Yesterday
+0:58 What is SDLC
+1:21 The 6 phases
+2:30 Waterfall vs Agile vs DevOps
+3:05 Where DevOps fits
+3:49 Shift left
+4:10 Hands-on
+6:04 Real story
+6:50 Common mistake
+7:26 Where SRE fits
+7:40 Interview corner
+8:08 Quiz
+
+🔑 What you'll learn
+• The 6 SDLC phases: plan, define, design, build, test, deploy and maintain
+• Waterfall vs Agile vs DevOps
+• The DevOps infinity loop and what it adds to each phase
+• Why bugs cost more the later you find them
+• Shift left: tests and security scans early
+• Hands-on: one feature through every phase with git and python unittest
+• A real story: moving a Wiz image scan into the Jenkins build
+• A 20-second interview answer
+
+🧾 Cheat sheet (copy & practice)
+git init -q shop && cd shop
+cat REQUIREMENTS.md
+python3 -m unittest -v
+sed -i 's/total > 1000/total >= 1000/' discount.py
+bash deploy.sh
+git tag v1.0
+git log --oneline --decorate
+
+🎤 Interview question: What is SDLC and where does DevOps fit?
+
+🧠 Quiz: Where is a bug usually cheapest to fix? A) Requirements / define B) Testing C) Deployment D) Production (answer in the comments, reveal in the next episode)
+
+📝 Homework: Map an app or college project you know onto the 6 SDLC phases and comment which phase was the slowest.
+
+➡️ Next: Day 4: Agile, Scrum and Jira for DevOps teams (tomorrow, 8 PM IST)
+
+🔔 Subscribe to Tech-dev for practical DevOps, SRE, Cloud, Linux & Git videos.
+
+💬 Which SDLC phase is the slowest in your team or college project?
+
+#DevOps #SRE #SDLC #DevOpsZeroToHero #TechDev
+
+TAGS
+sdlc, software development life cycle, sdlc phases, sdlc in devops, waterfall vs agile vs devops, devops lifecycle, shift left, devops for beginners, devops course, free devops course, devops zero to hero, devops day 3, devops interview questions, sre course, tech-dev
