@@ -1,0 +1,78 @@
+TITLE
+man, --help, type and which Explained with Real Examples | Linux Zero to Hero Ep 3
+
+DESCRIPTION
+Stuck on a server with no internet and a tool you have never used? Episode 3 shows how to learn any Linux command offline with man, --help, whatis, man -k, type, which, history, !! and Tab completion, plus a real 3 AM on-call story where a Jenkins agent disk hit 98%.
+
+I'm Shivam Singh Verma, a DevOps & SRE engineer with 5 years of experience building CI/CD pipelines, running cloud infrastructure on AWS & GCP, and managing projects.
+
+📺 Linux Zero to Hero, Episode 3: a free course with new episodes every Tue, Thu & Sat at 5 PM IST.
+
+⏱️ Chapters
+0:00 Intro
+0:22 Recap
+0:49 Your help toolkit
+1:12 man pages
+1:49 Man sections
+2:13 --help
+2:45 whatis & man -k
+3:06 type & which
+4:01 history
+5:00 Tab completion
+5:12 Combine it
+5:29 Real SRE story
+6:48 Common mistake
+7:22 Interview corner
+7:37 Quiz
+
+🔑 What you'll learn
+• man pages: NAME, SYNOPSIS, searching with /word and quitting with q
+• Manual sections: man 5 crontab vs man crontab
+• --help for quick flags, and when to use man instead
+• whatis and man -k (apropos) to find a command by keyword
+• type vs which: builtins, aliases and program files; help cd
+• history, !number, sudo !!, Ctrl+R and HISTTIMEFORMAT
+• Tab completion
+• Fixing a full disk on an offline EC2 Jenkins agent with logrotate
+
+🧾 Cheat sheet (copy & practice)
+man ls
+man 5 crontab
+whatis crontab
+ls --help | head -3
+ls --help | grep -- -h,
+whatis ls
+man -k "copy files"
+apropos "directory contents"
+type cd
+type ll
+type -a ls
+type -t cd
+which -a python3
+help cd
+history 5
+!498
+sudo !!
+history | grep systemctl
+HISTTIMEFORMAT="%F %T  "
+man -k rotate
+logrotate --help
+sudo logrotate -d /etc/logrotate.d/nginx
+sudo logrotate -f /etc/logrotate.d/nginx
+
+🎤 Interview question: What is the difference between which and type?
+
+🧠 Quiz: You typed a long command but forgot sudo. What is the fastest fix? (answer in the comments, reveal in the next episode)
+
+📝 Homework: run man -k disk, pick 3 results, run whatis on each, and comment the most useful one
+
+➡️ Next: Ep 4: Create and delete files and folders: mkdir -p, touch, rm -i, rm -r, rmdir (Thursday, 5 PM IST)
+
+🔔 Subscribe to Tech-dev for practical DevOps, SRE, Cloud, Linux & Git videos.
+
+💬 What was the last command you had to look up? Tell me in the comments.
+
+#Linux #DevOps #SRE #LinuxCommands #TechDev
+
+TAGS
+linux commands, man command, linux man page, linux help command, type vs which, which command linux, whatis command, apropos, bash history, sudo !!, tab completion, linux for beginners, linux zero to hero, logrotate, devops, tech-dev

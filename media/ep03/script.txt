@@ -1,0 +1,191 @@
+[0:00] It's 3 AM.
+[0:01] The disk is at ninety eight percent,
+[0:03] the server has no internet, and the fix needs a tool you have never used.
+[0:08] Good news: the answer is already on the box.
+[0:12] Hi, I'm Shivam Singh Verma, and welcome to Tech-dev.
+[0:15] This is episode 3 of Linux Zero to Hero.
+[0:18] Today you learn to get help like a pro,
+[0:20] without Google.
+[0:22] First, last episode's quiz.
+[0:24] From slash home slash shivam slash projects,
+[0:27] cd dot dot slash scripts takes you to slash home slash shivam
+[0:31] slash scripts.
+[0:32] Two dots go up, then down into scripts.
+[0:36] Quick recap.
+[0:37] pwd tells you where you are.
+[0:39] cd moves you around.
+[0:41] ls minus l h t r shows sizes with the newest file at the bottom.
+[0:46] And quote folder names that have spaces.
+[0:49] Here is your offline help toolkit.
+[0:51] man for the full manual.
+[0:52] Dash dash help for a quick list of flags.
+[0:55] whatis for a one line summary.
+[0:57] type and which to find out what a command is.
+[1:00] And history for everything you ran before.
+[1:03] This is the order pros use.
+[1:05] whatis to know what it does.
+[1:06] Dash dash help for the common flags.
+[1:09] man when you need the details.
+[1:11] Then try it safely.
+[1:13] Type man, space, and the command name.
+[1:15] man ls opens the manual for ls.
+[1:18] NAME says what it does.
+[1:19] SYNOPSIS shows how to call it.
+[1:21] DESCRIPTION explains every flag.
+[1:25] Inside man, don't scroll forever.
+[1:27] Type a slash and a word, like slash human,
+[1:30] and press Enter.
+[1:31] It jumps straight to the minus h flag.
+[1:33] Press n for the next match.
+[1:36] Remember these keys.
+[1:37] Space for the next page, b to go back,
+[1:40] slash to search, n for the next match,
+[1:43] g and capital G for top and bottom.
+[1:45] And q to quit.
+[1:46] Everyone forgets q the first time.
+[1:49] The manual is split into sections.
+[1:51] Section 1 is user commands.
+[1:53] Section 5 is file formats, like config files.
+[1:57] Section 8 is admin commands that usually need sudo.
+[2:01] Same name, two pages.
+[2:03] crontab section 1 is the command.
+[2:06] Section 5 is the file format.
+[2:08] To open the one about the file format,
+[2:10] type man 5 crontab.
+[2:14] Dash dash help prints a short help right in the terminal, no pager.
+[2:18] Pipe it into head for the top lines,
+[2:20] or into grep to find one flag.
+[2:22] We will learn grep properly later in the series.
+[2:27] It works for almost every program.
+[2:29] cp dash dash help tells you minus i asks before overwriting.
+[2:33] tar dash dash help shows its usage line.
+[2:36] Seconds, not minutes.
+[2:38] So when do you use which?
+[2:40] Dash dash help when you just forgot a flag.
+[2:42] man when you need to understand how something works.
+[2:46] whatis gives you one line from the manual.
+[2:48] whatis ls: list directory contents.
+[2:51] Perfect when you see a command in a script and think,
+[2:54] what is that?
+[2:55] And the reverse.
+[2:57] You know what you want to do, but not the command name?
+[3:00] man minus k searches every summary by keyword.
+[3:03] apropos does exactly the same.
+[3:06] type tells you what bash will really run.
+[3:08] cd is a shell builtin, part of bash itself.
+[3:11] ls is an alias that adds colour.
+[3:13] ll is an alias for ls minus a l F.
+[3:17] And logrotate is a real program file.
+[3:20] Minus a shows every match, in the order bash checks them.
+[3:23] Minus t prints just one word, alias,
+[3:26] builtin or file.
+[3:28] Handy inside scripts.
+[3:30] which only looks for program files in your PATH.
+[3:33] which python3 gives its path.
+[3:35] Minus a lists every copy.
+[3:37] And which cd prints nothing, because cd is not a file.
+[3:41] Here is why type matters.
+[3:43] man cd says no manual entry.
+[3:45] Builtins live inside bash, so ask bash: help cd.
+[3:49] Side by side.
+[3:51] type knows everything bash can run:
+[3:53] builtins, aliases and files.
+[3:55] which only finds files.
+[3:57] So for cd and ll, which has nothing to say.
+[4:01] history lists every command you ran,
+[4:03] with a number.
+[4:04] history 5 shows the last five.
+[4:06] Bang and a number, like bang 498,
+[4:09] runs that exact line again.
+[4:12] Bash prints it first, so you see what runs.
+[4:15] The most famous shortcut.
+[4:16] You forget sudo, and get permission denied.
+[4:19] Don't retype it.
+[4:20] Type sudo bang bang.
+[4:22] Bang bang means the last command,
+[4:24] so this runs sudo apt update.
+[4:28] Looking for an old command?
+[4:30] history pipe grep finds it.
+[4:31] Or press Control R and type a few letters.
+[4:34] Bash finds the latest match as you type.
+[4:37] Your history shortcuts.
+[4:39] Bang bang is the last command.
+[4:41] Bang and a number is that line.
+[4:43] Bang ls runs the last command that started with ls.
+[4:47] And Control R searches everything.
+[4:49] An SRE favourite.
+[4:51] Set H I S T time format, and history shows the date and time
+[4:55] of every command.
+[4:57] Great for incident notes: what did we run, and when?
+[5:00] The help you get without typing.
+[5:02] Press Tab once and bash completes the name.
+[5:05] Press it twice and it shows every choice.
+[5:07] Pros press Tab all the time, so they make fewer typos.
+[5:12] Now combine it with episodes 1 and 2.
+[5:14] echo dollar SHELL shows you are in bash.
+[5:17] type pwd says it's a builtin.
+[5:19] ls minus l h with which ls inside shows the real program file.
+[5:24] And whatis reminds you what uname from episode 1 does.
+[5:30] Now a real one from my on-call world.
+[5:32] 2:58 AM, an alert: a Jenkins build agent on EC2 has its disk
+[5:38] at ninety eight percent.
+[5:40] Builds are failing.
+[5:42] It sits in a private subnet.
+[5:43] No internet, no Google, no copy paste from Stack Overflow.
+[5:48] Just you, SSH and the manual.
+[5:51] df minus h confirms it, ninety eight percent.
+[5:54] ls with capital S sorts by size.
+[5:57] Yesterday's nginx log was never compressed.
+[6:00] It is 21 gigabytes.
+[6:03] Never used logrotate?
+[6:05] No problem.
+[6:06] man minus k rotate finds it.
+[6:08] which confirms it's installed.
+[6:10] Dash dash help shows two flags that matter:
+[6:13] minus d to test safely, and minus f to force a rotation.
+[6:20] man logrotate, slash force, confirms what minus f does.
+[6:24] First a dry run with minus d.
+[6:26] Then the real one with minus f,
+[6:28] which compresses that huge old log.
+[6:31] df again: thirty percent.
+[6:33] Fixed in eleven minutes, fully offline.
+[6:37] Builds are green again.
+[6:39] In the morning, the team fixes the logrotate config so the log
+[6:43] rotates every day.
+[6:45] And the incident notes come straight from history.
+[6:48] The most common mistake: going straight to Google.
+[6:51] A blog post may be for another distro or an old version.
+[6:55] The man page always matches the exact version on your server.
+[6:59] On a locked down server it's worse.
+[7:01] curl to Google just times out after two minutes.
+[7:05] Two minutes wasted during an outage.
+[7:07] man minus k answers in under a second.
+[7:11] The fix is a habit.
+[7:13] whatis or man minus k first.
+[7:15] Then dash dash help.
+[7:17] Then man.
+[7:17] And only after that, the online docs for the same version.
+[7:22] Interview corner.
+[7:23] What's the difference between which and type?
+[7:25] which only searches your PATH for files.
+[7:28] type is built into bash, so it also knows aliases,
+[7:31] functions and builtins.
+[7:33] In scripts, use command minus v to check a tool exists.
+[7:37] Quiz time.
+[7:38] You typed a long command but forgot sudo.
+[7:41] What is the fastest fix?
+[7:43] Answer in the comments, and I'll reveal it next episode.
+[7:47] Recap.
+[7:48] man for the full manual.
+[7:49] Dash dash help for flags.
+[7:51] whatis and man minus k to find commands.
+[7:54] type and which to know what runs.
+[7:56] history, bang bang and Control R to reuse.
+[7:59] And Tab to type less.
+[8:01] Your homework: run man minus k disk,
+[8:04] pick three results, and run whatis on each.
+[8:07] Comment the most useful one you found.
+[8:09] Next episode: create and delete files and folders,
+[8:14] with mkdir minus p, touch and rm.
+[8:17] And why rm has no undo.
+[8:18] Subscribe to Tech-dev so you don't miss it.

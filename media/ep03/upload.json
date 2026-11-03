@@ -1,0 +1,85 @@
+{
+  "title": "man, --help, type and which Explained with Real Examples | Linux Zero to Hero Ep 3",
+  "description": "Stuck on a server with no internet and a tool you have never used? Episode 3 shows how to learn any Linux command offline with man, --help, whatis, man -k, type, which, history, !! and Tab completion, plus a real 3 AM on-call story where a Jenkins agent disk hit 98%.\n\nI'm Shivam Singh Verma, a DevOps & SRE engineer with 5 years of experience building CI/CD pipelines, running cloud infrastructure on AWS & GCP, and managing projects.\n\n📺 Linux Zero to Hero, Episode 3: a free course with new episodes every Tue, Thu & Sat at 5 PM IST.\n\n⏱️ Chapters\n0:00 Intro\n0:22 Recap\n0:49 Your help toolkit\n1:12 man pages\n1:49 Man sections\n2:13 --help\n2:45 whatis & man -k\n3:06 type & which\n4:01 history\n5:00 Tab completion\n5:12 Combine it\n5:29 Real SRE story\n6:48 Common mistake\n7:22 Interview corner\n7:37 Quiz\n\n🔑 What you'll learn\n• man pages: NAME, SYNOPSIS, searching with /word and quitting with q\n• Manual sections: man 5 crontab vs man crontab\n• --help for quick flags, and when to use man instead\n• whatis and man -k (apropos) to find a command by keyword\n• type vs which: builtins, aliases and program files; help cd\n• history, !number, sudo !!, Ctrl+R and HISTTIMEFORMAT\n• Tab completion\n• Fixing a full disk on an offline EC2 Jenkins agent with logrotate\n\n🧾 Cheat sheet (copy & practice)\nman ls\nman 5 crontab\nwhatis crontab\nls --help | head -3\nls --help | grep -- -h,\nwhatis ls\nman -k \"copy files\"\napropos \"directory contents\"\ntype cd\ntype ll\ntype -a ls\ntype -t cd\nwhich -a python3\nhelp cd\nhistory 5\n!498\nsudo !!\nhistory | grep systemctl\nHISTTIMEFORMAT=\"%F %T  \"\nman -k rotate\nlogrotate --help\nsudo logrotate -d /etc/logrotate.d/nginx\nsudo logrotate -f /etc/logrotate.d/nginx\n\n🎤 Interview question: What is the difference between which and type?\n\n🧠 Quiz: You typed a long command but forgot sudo. What is the fastest fix? (answer in the comments, reveal in the next episode)\n\n📝 Homework: run man -k disk, pick 3 results, run whatis on each, and comment the most useful one\n\n➡️ Next: Ep 4: Create and delete files and folders: mkdir -p, touch, rm -i, rm -r, rmdir (Thursday, 5 PM IST)\n\n🔔 Subscribe to Tech-dev for practical DevOps, SRE, Cloud, Linux & Git videos.\n\n💬 What was the last command you had to look up? Tell me in the comments.\n\n#Linux #DevOps #SRE #LinuxCommands #TechDev",
+  "tags": [
+    "linux commands",
+    "man command",
+    "linux man page",
+    "linux help command",
+    "type vs which",
+    "which command linux",
+    "whatis command",
+    "apropos",
+    "bash history",
+    "sudo !!",
+    "tab completion",
+    "linux for beginners",
+    "linux zero to hero",
+    "logrotate",
+    "devops",
+    "tech-dev"
+  ],
+  "duration": 503.8,
+  "chapters": [
+    [
+      0,
+      "Intro"
+    ],
+    [
+      22.168458333333334,
+      "Recap"
+    ],
+    [
+      49.12533333333334,
+      "Your help toolkit"
+    ],
+    [
+      72.89225,
+      "man pages"
+    ],
+    [
+      109.39695833333333,
+      "Man sections"
+    ],
+    [
+      133.90304166666667,
+      "--help"
+    ],
+    [
+      165.982875,
+      "whatis & man -k"
+    ],
+    [
+      186.10595833333335,
+      "type & which"
+    ],
+    [
+      241.3545,
+      "history"
+    ],
+    [
+      300.79516666666666,
+      "Tab completion"
+    ],
+    [
+      312.0235,
+      "Combine it"
+    ],
+    [
+      329.9879166666667,
+      "Real SRE story"
+    ],
+    [
+      408.0082083333334,
+      "Common mistake"
+    ],
+    [
+      442.03579166666674,
+      "Interview corner"
+    ],
+    [
+      457.7559583333334,
+      "Quiz"
+    ]
+  ]
+}
