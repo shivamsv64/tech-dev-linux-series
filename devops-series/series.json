@@ -77,7 +77,15 @@
       "planner": "https://app.metricool.com/planner/calendar?blogId=7777398&openWithPostUuid=-216011104453836696",
       "metricool_id": 416342247,
       "engine": "v2",
-      "voice_chars": 0
+      "voice_chars": 0,
+      "short": {
+        "status": "scheduled",
+        "title": "POV: Day 9 of a 10-Day Sprint #shorts #devops",
+        "live": "2026-11-05T13:30:00+05:30",
+        "metricool_id": 416345791,
+        "planner": "https://app.metricool.com/planner/calendar?blogId=7777398&openWithPostUuid=-2154112162440395069",
+        "engine": "skit"
+      }
     },
     {
       "day": 5,
