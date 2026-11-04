@@ -71,7 +71,13 @@
       "phase": "1 Foundations",
       "topic": "Agile, Scrum and Jira for DevOps teams",
       "lead": "Bablu",
-      "status": "planned"
+      "status": "scheduled",
+      "title": "Agile, Scrum and Jira, Explained for DevOps | DevOps & SRE Zero to Hero Day 4",
+      "live": "2026-11-04T20:00:00+05:30",
+      "planner": "https://app.metricool.com/planner/calendar?blogId=7777398&openWithPostUuid=-216011104453836696",
+      "metricool_id": 416342247,
+      "engine": "v2",
+      "voice_chars": 0
     },
     {
       "day": 5,
