@@ -74,9 +74,17 @@ Follow `shorts/README.md` and `shorts/SKIT.md` (Desk Life skit), with these v3 c
 - Title: `<situation hook, at most 60 chars> #shorts #<series tag>` (as the series file says). Relatable situations, "what is X in 40 seconds", "POV" and 'one mistake' formats work best for this audience.
 - Vertical 3D/zine Shorts are not built yet (planned): keep the skit look for now.
 
-## 5. Metricool free limit and vidIQ handoff (unchanged, Shivam 3 Nov 2026)
+## 5. Metricool free limit, Zapier upload and vidIQ handoff (Zapier added by Shivam, 5 Nov 2026)
 Metricool's free plan publishes 20 posts per IST month. GATE immediately before EACH `createScheduledPost` (episode and Short): target month = month of that post's date in IST; `getScheduledPosts` brandId "7777398", timezone "Asia/Kolkata", whole month; count posts whose providers include
-"youtube" and whose youtube status is PUBLISHED or PENDING. 19 or less: schedule with Metricool. 20 or more (or the call fails): HANDOFF:
+"youtube" and whose youtube status is PUBLISHED or PENDING. 19 or less: schedule with Metricool. 20 or more (or the call fails): if today in IST is 2026-11-15 or earlier use ZAPIER below (the Zapier Pro trial ends that day); after that, or if any Zapier step Z1-Z2 fails, use HANDOFF. Only Shivam may extend that date.
+ZAPIER (load the tools with ToolSearch; selected_api "YouTubeV4CLIAPI" throughout; never create a Metricool post for these items):
+Z1. `execute_zapier_read_action`, action "_zap_raw_request", tool_name "youtube_make_api_get_request", params {"fail_on_errors": true, "method": "GET", "url": "https://www.googleapis.com/youtube/v3/channels", "querystring": {"part": "id", "mine": "true"}}. The id must be UCkMTPE1hLFUG1-4ccCDmP9w; otherwise upload nothing and use HANDOFF.
+Z2. `execute_zapier_write_action`, action "upload_video", tool_name "youtube_upload_video", params title, description, tags from upload.json, video = the raw URL of video.mp4 / short.mp4 (it must already return 200), privacy_status "private", made_for_kids "false". ONE attempt only: if the result is unclear, do not upload again; tell Shivam, because a retry can leave a duplicate on the channel. Never set privacy_status "public".
+Z3. `execute_zapier_write_action`, action "_zap_raw_request", tool_name "youtube_make_api_mutating_request", params {"fail_on_errors": false, "method": "PUT", "url": "https://www.googleapis.com/youtube/v3/videos", "querystring": {"part": "status"}, "headers": {"Content-Type": "application/json"}, "body": <json.dumps of {"id": <video id>, "status": {"privacyStatus": "private", "publishAt": <live time in UTC with Z>, "embeddable": true, "publicStatsViewable": true, "selfDeclaredMadeForKids": false, "containsSyntheticMedia": true}}>}. Send every one of those status fields: omitted ones get reset. containsSyntheticMedia is the AI-generated label and is mandatory. If the live time is past or under 10 minutes away, use now + 15 minutes.
+Z4. Episodes only: action "upload_video_thumbnail", tool_name "youtube_update_video_thumbnail", params video_id, thumbnail = raw URL of thumbnail.jpg (under 2 MB). A thumbnail failure does not stop the job; say so in the report.
+Z5. Verify with the GET action: url ".../youtube/v3/videos", querystring {"part": "status", "id": <video id>}: privacyStatus "private" and publishAt must match. containsSyntheticMedia is NOT returned here; check it in the Z3 response. If Z3 or Z5 fails, the video stays Private: do not retry the upload; tell Shivam exactly what to set in Studio (https://studio.youtube.com/video/<id>/edit).
+Z6. In the series tracker set on the row / short object: status "scheduled", route "vidiq", uploaded_via "zapier", yt_state "scheduled_on_youtube", key, video_id, title, live, youtube_publish_at (IST); commit + push. The route stays "vidiq" so the watchdogs and the vidIQ scheduler treat it correctly (the scheduler only acts on "awaiting_upload"). Hygiene for these files: as for vidIQ items below.
+HANDOFF:
 H1. Commit the file under its key name instead of video.mp4 / short.mp4 (paths in the series file). Push; check the raw URL returns 200.
 H2. In the series tracker set on the row / short object: status "scheduled", route "vidiq", yt_state "awaiting_upload", key, file (raw URL), title, live (the planned IST date and time), commit + push. Never create a Metricool post for a handoff item.
 H3. In the report tell Shivam: Metricool's 20 free posts for <month> are used, so download <file URL> and upload it to YouTube Studio on Tech-Dev as Private WITHOUT renaming (the title must stay <key>), and turn on "Altered or synthetic content"; the "Tech-dev vidIQ scheduler" task then sets title, description, tags, thumbnail and the <live time> IST time.
@@ -90,7 +98,7 @@ If the planned time already passed, schedule 15 minutes from now.
 
 ## 7. Report (SendUserFile the thumbnail, the video and the Short, then ONE SendUserMessage)
 Episode title, length, live time; the Short title and live time; "ElevenLabs credits used: <opener + hook>" and the month-to-date total against 30,000; "marked as AI content"; opener style (3D/2D) and which zine scenes were used; Metricool planner links (only for posts really created) and
-"Metricool posts used this month: N/20"; any handoff instructions; anything that needs attention. If a step fails and you cannot fix it, still send the rendered files and say exactly what failed.
+"Metricool posts used this month: N/20"; for Zapier items the video id, Studio link and "AI label sent: yes"; any handoff instructions; anything that needs attention. If a step fails and you cannot fix it, still send the rendered files and say exactly what failed.
 
 
 ## Addendum: new v3 shots
