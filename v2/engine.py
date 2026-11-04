@@ -313,11 +313,12 @@ def d_timeline(L, sc, lt):
 
 def d_bars(L, sc, lt):
     sp, va, vd = sc['spec'], sc['va'], sc['vd']; bars = sp['bars']
-    ph = 120 + 140 * len(bars)
+    step = 140 if len(bars) <= 3 else max(88, 440 // len(bars))   # 4-5 bars: tighter rows so panel + punch stay above the captions
+    ph = 120 + step * len(bars)
     put(L, panel_sprite(900, ph), 100, 230, win(lt, 0)); label(L, sp.get('label', ''), 140, 260, win(lt, 0))
     ts = reveal_times(len(bars), va, vd, .12, .4)
     for i, b in enumerate(bars):
-        name, frac, c, val = b; a = win(lt, ts[i]); y = 330 + i * 140
+        name, frac, c, val = b; a = win(lt, ts[i]); y = 330 + i * step
         text(L, name, 140, y, 34, WHITE, 'bold', a)
         L.alpha_composite(rect(600, 26, (51, 65, 85, int(200 * a))), (140, y + 56))
         L.alpha_composite(rect(max(6, 600 * frac * ease((lt - ts[i]) / 1.2)), 26, col(c) + (int(255 * a),)), (140, y + 56))

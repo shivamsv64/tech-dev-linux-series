@@ -1,0 +1,195 @@
+[0:00] Day nine of a ten-day sprint.
+[0:02] Twelve stories were promised, only three are done,
+[0:05] and the release is tomorrow.
+[0:06] Every team has lived this.
+[0:08] Today you learn how good teams avoid it.
+[0:11] Hi, I'm Shivam Singh Verma, and welcome to Tech-dev.
+[0:14] This is Day 4 of DevOps and SRE,
+[0:17] Zero to Hero.
+[0:18] Today: Agile, Scrum and Jira,
+[0:20] and how real DevOps teams plan and track their work.
+[0:25] By the end you will know what Agile really means,
+[0:28] how Scrum works, how to write and size a story,
+[0:31] when ops teams pick Kanban, and how Jira connects to Git.
+[0:36] Quick recap of Day 3.
+[0:38] Every app goes through six SDLC phases.
+[0:41] Waterfall, Agile and DevOps use the same phases,
+[0:44] they just go around the loop at different speeds.
+[0:48] Yesterday's quiz: where is a bug cheapest to fix?
+[0:51] The answer is A, in requirements.
+[0:54] A wrong sentence in a ticket costs a minute to fix.
+[0:57] Today we look at those tickets.
+[0:59] Agile is a way of working: deliver software in small pieces,
+[1:03] get feedback fast, and adjust the plan.
+[1:06] It comes from the Agile Manifesto,
+[1:09] written in 2001.
+[1:11] The manifesto has four values.
+[1:13] People over process, working software over documents,
+[1:17] collaboration over contracts, and responding to change over
+[1:21] following a fixed plan.
+[1:23] Notice the word over.
+[1:25] It does not say no documents and no plan.
+[1:27] It says when you must choose, working software and change win.
+[1:32] In practice, instead of one big release after six months,
+[1:36] an Agile team shows working software every two weeks,
+[1:40] and learns from real feedback.
+[1:43] Agile is the mindset.
+[1:44] Scrum is the most popular framework to actually do it.
+[1:47] Work happens in sprints, usually two weeks,
+[1:50] with three roles, five events and three artifacts.
+[1:54] Three roles.
+[1:55] The product owner decides what is most valuable.
+[1:59] The scrum master removes blockers.
+[2:01] And the developers, including DevOps engineers and testers, build it.
+[2:06] Now the events.
+[2:07] A sprint starts with sprint planning:
+[2:10] the team picks the top items from the backlog that it can really
+[2:13] finish in this sprint.
+[2:16] Every day there is a daily scrum,
+[2:18] fifteen minutes.
+[2:19] What did I finish, what will I do next,
+[2:21] and is anything blocking me?
+[2:23] Then the team builds.
+[2:25] The sprint itself is the container for everything,
+[2:28] with a fixed length.
+[2:29] It does not get longer when work is late.
+[2:32] At the end, the sprint review:
+[2:34] show the working increment to stakeholders,
+[2:36] collect feedback, and update the backlog.
+[2:40] Last, the retrospective.
+[2:41] Not about the product, about the team.
+[2:43] What went well, what hurt, and one thing we will change next sprint.
+[2:48] And three artifacts.
+[2:50] The product backlog, all the work ever wanted.
+[2:53] The sprint backlog, this sprint's slice.
+[2:55] And the increment, the working result,
+[2:57] which must meet the definition of done.
+[3:00] Work in the backlog is written as user stories.
+[3:03] The template: as a who, I want what,
+[3:06] so that why.
+[3:07] The why is the part most people forget.
+[3:10] Here is a real DevOps story, OPS forty-two.
+[3:13] As an on-call SRE, I want a disk alert,
+[3:16] so servers never fill up silently.
+[3:19] Below it, clear acceptance criteria you can test.
+[3:23] Teams size stories in story points,
+[3:25] often on the Fibonacci scale: one,
+[3:28] two, three, five, eight, thirteen.
+[3:30] Points compare effort and risk.
+[3:32] They are not hours.
+[3:34] Add up the points finished each sprint and you get velocity.
+[3:38] This team averages about twenty-one.
+[3:40] Planning thirty-eight is exactly how you end up at day nine
+[3:44] with three stories done.
+[3:46] Scrum is not the only option.
+[3:48] Kanban has no sprints.
+[3:50] Work flows continuously, and each column has a work-in-progress limit.
+[3:54] Many ops and SRE teams prefer it.
+[3:57] Why?
+[3:58] Because production does not wait for your sprint planning.
+[4:01] Incidents, patches and access requests arrive every day.
+[4:05] Many teams mix both, and call it Scrumban.
+[4:08] Now the tool.
+[4:09] Jira, by Atlassian, is the most common place teams keep their
+[4:14] backlog, sprints and boards.
+[4:15] There is a free plan for small teams,
+[4:18] perfect for practice.
+[4:20] Work in Jira is an issue.
+[4:22] An epic is a big goal, split into stories,
+[4:25] tasks and bugs, and sub-tasks.
+[4:27] Every issue gets a key, like O P S forty-two.
+[4:31] Each issue moves through a workflow:
+[4:33] to do, in progress, in review, done.
+[4:36] On the board, every column is one status,
+[4:38] and you drag cards from left to right.
+[4:41] Jira also draws a burndown chart:
+[4:44] points left, day by day.
+[4:46] When the line goes flat, like days seven to nine here,
+[4:49] something is blocked.
+[4:51] Talk about it in the daily scrum.
+[4:53] Here's where DevOps engineers touch Jira every day: in Git.
+[4:57] One habit connects them, putting the issue key in your branch
+[5:01] and your commits.
+[5:02] Let's do it.
+[5:03] Create a repository called infra,
+[5:06] then a branch named after the ticket:
+[5:09] feature, slash, OPS forty-two, disk alert.
+[5:12] Jira sees that key and links the branch to the issue.
+[5:16] Here's the work for the story: a small script.
+[5:19] df reads how full the root disk is,
+[5:22] and if it is above the threshold,
+[5:24] it prints an alert and exits with code one.
+[5:27] Right now we are at thirty-one percent.
+[5:31] Commit it, with the issue key at the start of the message.
+[5:34] Now anyone opening OPS forty-two in Jira sees exactly which
+[5:38] code was written for it.
+[5:41] But look back at the acceptance criteria.
+[5:43] The alert should fire at eighty-five percent, not eighty.
+[5:47] One sed command fixes the threshold.
+[5:49] That's why clear criteria matter.
+[5:52] This is a smart commit.
+[5:54] When Git is connected to Jira, hash comment adds a comment on
+[5:58] the issue, and hash time logs thirty minutes of work.
+[6:01] No browser needed.
+[6:03] Git log minus minus grep finds every commit for one ticket.
+[6:08] And grep minus o pulls the key out of the branch name.
+[6:11] Jenkins pipelines use exactly this trick to update the ticket
+[6:15] after a build.
+[6:16] Jira can export the sprint as a CSV.
+[6:19] With one awk line we add up the points:
+[6:22] ten of twenty-one are done.
+[6:23] That number, at the end of the sprint,
+[6:26] is your velocity.
+[6:28] A story from my work.
+[6:30] We planned a sprint at a hundred percent capacity.
+[6:33] Next day, a Qualys scan turned forty findings into Jira bugs,
+[6:37] and two incidents hit on-call.
+[6:39] The sprint was gone.
+[6:41] So we changed how we plan.
+[6:43] Only seventy percent goes to stories.
+[6:46] Twenty percent is an interrupt buffer for incidents and urgent
+[6:50] scans, and ten percent pays down tech debt.
+[6:53] And scan findings go through a triage lane.
+[6:56] Critical ones enter the current sprint,
+[6:58] using the buffer.
+[6:59] Everything else goes to the backlog with a due date.
+[7:02] No more panic.
+[7:04] The lesson: a plan with no buffer is a wish.
+[7:07] Any team that also runs production must reserve capacity for production.
+[7:12] The most common mistake: treating done as merged.
+[7:16] The ticket is closed, everyone celebrates,
+[7:18] but the code never reached production and the alert was never tested.
+[7:23] A related mistake is commits with no ticket key,
+[7:26] so nobody can trace the change.
+[7:29] A tiny commit message hook fixes that:
+[7:31] no key, no commit.
+[7:33] The fix is a definition of done the whole team agrees on:
+[7:37] reviewed, pipeline green, deployed to production,
+[7:41] and monitored.
+[7:42] Merged is not done.
+[7:44] Interview question: what's the difference between Agile and Scrum?
+[7:48] Say this.
+[7:49] Agile is a mindset: small increments and fast feedback.
+[7:53] Scrum is one framework that puts it into practice.
+[7:56] Then add detail.
+[7:58] Scrum has three roles, five events and three artifacts,
+[8:01] in sprints of one to four weeks.
+[8:04] And mention that ops teams often use Kanban,
+[8:07] which is also Agile.
+[8:09] Your quiz for today.
+[8:10] Which Scrum event is time-boxed to fifteen minutes?
+[8:13] Post A, B, C or D in the comments.
+[8:16] I'll reveal the answer tomorrow.
+[8:18] Recap.
+[8:19] Agile is small pieces and fast feedback.
+[8:22] Scrum gives it roles, events and artifacts.
+[8:25] Plan with your real velocity, use Kanban for ops work,
+[8:28] and put the Jira key in every commit.
+[8:32] Homework: create a free Jira project,
+[8:34] and write three user stories with acceptance criteria for
+[8:38] deploying a website.
+[8:39] Share your best story in the comments.
+[8:42] Tomorrow, on Day 5: DevOps versus SRE versus CloudOps,
+[8:47] and which role fits you.
+[8:49] Subscribe to Tech-dev.
+[8:50] New lesson every day at 8 PM.

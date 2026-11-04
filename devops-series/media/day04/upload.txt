@@ -1,0 +1,58 @@
+TITLE
+Agile, Scrum and Jira, Explained for DevOps | DevOps & SRE Zero to Hero Day 4
+
+DESCRIPTION
+How do real DevOps teams plan and track work? Day 4 explains Agile and the Agile Manifesto, Scrum roles, events and artifacts, user stories, story points and velocity, Scrum vs Kanban for ops teams, and Jira basics, then connects Git to Jira hands-on in the terminal.
+
+I'm Shivam Singh Verma, a DevOps & SRE engineer with 5 years of experience building CI/CD pipelines, running cloud infrastructure on AWS & GCP, and managing projects.
+
+📺 Day 4 of 100 · DevOps & SRE Zero to Hero: a free course with a new episode every day at 8 PM IST.
+
+⏱️ Chapters
+0:00 Intro
+0:36 Yesterday
+0:59 What is Agile
+1:42 Scrum
+3:00 User stories
+3:46 Scrum vs Kanban
+4:08 Jira basics
+4:53 Hands-on
+6:28 Real story
+7:12 Common mistake
+7:44 Interview corner
+8:09 Quiz
+
+🔑 What you'll learn
+• What Agile really means: the 4 values of the Agile Manifesto
+• Scrum: 3 roles, 5 events, 3 artifacts
+• User stories, acceptance criteria and the Definition of Done
+• Story points, velocity and burndown charts
+• Scrum vs Kanban, and why ops and SRE teams like Kanban
+• Jira issue types, keys and workflows
+• Hands-on: Jira keys in Git branches, commits, smart commits and a commit-msg hook
+• A real story: a Qualys scan that broke a sprint, and the 20% interrupt buffer
+
+🧾 Cheat sheet (copy & practice)
+git checkout -b feature/OPS-42-disk-alert
+git commit -m "OPS-42 add disk usage alert script"
+git commit -am "OPS-42 #comment threshold now 85% #time 30m"
+git log --oneline --grep OPS-42
+git branch --show-current | grep -oE '[A-Z]+-[0-9]+'
+awk -F, 'NR>1 {t+=$3} $2=="Done" {d+=$3} END {print "Done:", d, "of", t, "points"}' sprint14.csv
+
+🎤 Interview question: What is the difference between Agile and Scrum?
+
+🧠 Quiz: Which Scrum event is time-boxed to 15 minutes? A) Sprint Planning B) Daily Scrum C) Sprint Review D) Sprint Retrospective (answer in the comments, reveal in the next episode)
+
+📝 Homework: Create a free Jira project and write 3 user stories with acceptance criteria for deploying a website.
+
+➡️ Next: Day 5: DevOps vs SRE vs CloudOps, roles and career map (tomorrow, 8 PM IST)
+
+🔔 Subscribe to Tech-dev for practical DevOps, SRE, Cloud, Linux & Git videos.
+
+💬 Does your team use Scrum, Kanban, or something in between?
+
+#DevOps #Agile #Scrum #Jira #DevOpsZeroToHero
+
+TAGS
+agile, scrum, jira, agile vs scrum, scrum vs kanban, jira tutorial, jira for devops, agile methodology, user stories, story points, jira smart commits, devops for beginners, free devops course, devops zero to hero, devops day 4, tech-dev
