@@ -9,7 +9,9 @@
   },
   "XEAfv94SzG8": {
     "title": "Agile, Scrum and Jira, Explained for DevOps | DevOps & SRE Zero to Hero Day 4",
-    "state": "publishing",
-    "started": "2026-11-04T20:52:10+05:30"
+    "state": "failed",
+    "started": "2026-11-04T20:52:10+05:30",
+    "failed": "2026-11-04T20:53:39+05:30",
+    "error": "Instagram publishing rejected this request: Instagram access expired or was revoked. Reconnect Instagram at https://app.vidiq.com, then start again. (Meta code 190, subcode 0, fbtrace_id Ahs6DEflQyyS0MjndZBYdaN)"
   }
 }
