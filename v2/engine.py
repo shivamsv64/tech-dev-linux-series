@@ -44,12 +44,19 @@ INTRO_CLIP = os.path.join(HERE, 'assets', 'voice', 'intro_shivam.mp3')
 INTRO_TEXT = "Hi, I'm Shivam Singh Verma, and welcome to Tech-dev."
 
 EP = None; TH = None; SCENES = None; TOTAL = 0.0   # set in main (inherited by render workers)
+OPENER = None; OFFSET = 0.0   # v3 hook opener (<outdir>/opener.mp4, made by v3/opener/render.py) and its length
+
+FD = os.path.join(HERE, 'assets', 'fonts') + '/'   # open-license display fonts (OFL / Apache) for the zine scenes
 
 @functools.lru_cache(None)
 def font(name, size):
     return ImageFont.truetype({'bold': GF + 'Poppins-Bold.ttf', 'med': GF + 'Poppins-Medium.ttf',
                                'reg': GF + 'Poppins-Regular.ttf', 'mono': DF + 'DejaVuSansMono-Bold.ttf',
-                               'monor': DF + 'DejaVuSansMono.ttf', 'sym': DF + 'DejaVuSans-Bold.ttf'}[name], size)
+                               'monor': DF + 'DejaVuSansMono.ttf', 'sym': DF + 'DejaVuSans-Bold.ttf',
+                               'anton': FD + 'Anton-Regular.ttf', 'bebas': FD + 'BebasNeue-Regular.ttf',
+                               'marker': FD + 'PermanentMarker-Regular.ttf', 'type': FD + 'SpecialElite-Regular.ttf',
+                               'abril': FD + 'AbrilFatface-Regular.ttf', 'fraktur': FD + 'UnifrakturMaguntia-Book.ttf',
+                               'vt': FD + 'VT323-Regular.ttf'}[name], size)
 
 def col(c):
     if isinstance(c, tuple): return c
@@ -520,9 +527,236 @@ def d_outro(L, sc, lt):
     text(L, 'SUBSCRIBE', 120 + pill.width / 2, y + pill.height / 2 - 24, 38, (255, 255, 255), 'bold', b, 'c')
     if sp.get('cta'): text(L, sp['cta'], 124, y + 120, 36, (203, 213, 225), 'med', win(lt, va + vd * .6))
 
+# ------------------------------------------------------------------ zine scenes (v3 look, 5 Nov 2026)
+# Full-frame paper / collage scenes inspired by Shivam's moodboard: newspaper front page, evidence board with
+# red string, dossier files on a halftone collage wall, big condensed-type poster. Original designs only.
+PAPER, PAPER2, INK, KRAFT, RED = (236, 227, 207), (226, 214, 187), (22, 19, 15), (185, 143, 88), (215, 38, 61)
+PHOTO_DIR = os.path.join(os.path.dirname(HERE), 'hf', 'assets')
+FULLFRAME = {'headline', 'board', 'dossier', 'poster'}
+
+def pop_s(lt, t0, d=0.32):
+    """springy 0→1 (overshoots a little) for stamps and pinned cards"""
+    x = (lt - t0) / d
+    if x <= 0: return 0.0
+    if x >= 1.6: return 1.0
+    return 1 - math.exp(-4.2 * x) * math.cos(5.5 * x)
+
+def put_scaled(L, sprite, cx, cy, s, a=1.0, rot=0):
+    """sprite centred at (cx, cy), scaled by s, rotated rot degrees"""
+    if s <= 0.01 or a <= 0.01: return
+    sp = sprite if abs(s - 1) < 0.01 else sprite.resize((max(1, int(sprite.width * s)), max(1, int(sprite.height * s))), Image.BILINEAR)
+    if rot: sp = sp.rotate(rot, Image.BILINEAR, expand=True)
+    put(L, sp, cx - sp.width / 2, cy - sp.height / 2, a)
+
+@functools.lru_cache(64)
+def halftone(name, w, h, ink=INK, paper=PAPER, dot=7):
+    """grayscale art as a printed halftone dot screen (newspaper / zine look)"""
+    src = Image.open(art_path(name)).convert('L') if not name.startswith('photo:') else Image.open(os.path.join(PHOTO_DIR, name[6:])).convert('L')
+    sc_ = max(w / src.width, h / src.height); src = src.resize((int(src.width * sc_) + 1, int(src.height * sc_) + 1), Image.LANCZOS)
+    x0, y0 = (src.width - w) // 2, (src.height - h) // 2; src = src.crop((x0, y0, x0 + w, y0 + h))
+    g = np.asarray(src, np.float32) / 255.; g = np.clip((g - g.mean()) * 1.9 + 0.5, 0, 1)
+    small = Image.fromarray((g * 255).astype(np.uint8)).resize((w // dot + 1, h // dot + 1), Image.BILINEAR)
+    v = np.asarray(small, np.float32) / 255.
+    im = Image.new('RGB', (w, h), paper); d = ImageDraw.Draw(im)
+    for j in range(v.shape[0]):
+        for i in range(v.shape[1]):
+            r = (1 - v[j, i]) * dot * 0.64
+            if r > 0.4: cx, cy = i * dot + dot / 2, j * dot + dot / 2; d.ellipse([cx - r, cy - r, cx + r, cy + r], fill=ink)
+    return im
+
+@functools.lru_cache(8)
+def paper_tex(w, h, base=PAPER, seed=1, amt=10):
+    rng = np.random.default_rng(seed); n = rng.normal(0, amt, (h // 4 + 1, w // 4 + 1, 1))
+    n = np.asarray(Image.fromarray(np.clip(n[..., 0] + 128, 0, 255).astype(np.uint8)).resize((w, h), Image.BILINEAR), np.float32)[..., None] - 128
+    arr = np.clip(np.array(base, np.float32)[None, None, :] + n, 0, 255).astype(np.uint8)
+    return Image.fromarray(arr, 'RGB')
+
+def zfont_text(d, xy, txt, fname, size, fill, anchor='la'):
+    d.text(xy, txt, font=font(fname, size), fill=fill, anchor=anchor)
+
+@functools.lru_cache(32)
+def headline_page(idx):
+    """static parts of a newspaper front page (masthead, rules, grey body columns, halftone photo)"""
+    sp = EP['scenes'][idx]; pw, ph = 1640, 1000
+    pg = paper_tex(pw, ph).convert('RGBA'); d = ImageDraw.Draw(pg)
+    zfont_text(d, (50, 30), sp.get('left', f"VOL. 1 · {EP.get('badge', '')}"), 'type', 24, INK)
+    zfont_text(d, (pw / 2, 30), sp.get('date', ''), 'type', 24, INK, 'ma')
+    zfont_text(d, (pw - 50, 30), sp.get('right', 'PRICE: ONE COFFEE'), 'type', 24, INK, 'ra')
+    d.line([(50, 68), (pw - 50, 68)], fill=INK, width=3)
+    zfont_text(d, (pw / 2, 74), sp.get('masthead', 'The On-Call Times'), 'fraktur', 118, INK, 'ma')
+    d.line([(50, 214), (pw - 50, 214)], fill=INK, width=3); d.line([(50, 221), (pw - 50, 221)], fill=INK, width=2)
+    zfont_text(d, (pw / 2, 228), sp.get('tagline', 'ALL THE INCIDENTS FIT TO PRINT'), 'type', 22, INK, 'ma')
+    d.line([(50, 262), (pw - 50, 262)], fill=INK, width=2)
+    rng = np.random.default_rng(idx)
+    for c in range(3):                       # body columns as grey bars (never fake readable copy)
+        for k in range(9):
+            y = 640 + k * 30; x = 50 + c * 330; d.rectangle([x, y, x + int(300 * rng.uniform(.72, 1)), y + 11], fill=(185, 173, 147))
+    if sp.get('art'):
+        ht = halftone(sp['art'], 560, 420, INK, (222, 208, 178)); pg.paste(ht, (pw - 50 - 560, 300))
+        d.rectangle([pw - 50 - 560, 300, pw - 50, 720], outline=INK, width=3)
+        if sp.get('photo_caption'): zfont_text(d, (pw - 50 - 560, 732), sp['photo_caption'], 'type', 22, INK)
+    return pg
+
+def d_headline(L, sc, lt):
+    sp, va, vd = sc['spec'], sc['va'], sc['vd']
+    L.alpha_composite(rect(W, H, (27, 23, 18, 255)), (0, 0))
+    s = ease(lt / 0.45); pg = headline_page(sc['idx'])
+    put_scaled(L, pg, W / 2, 600 + (1 - s) * 700, 1.0, 1.0, rot=round((1 - s) * 5, 1))
+    lines = sp['headline'] if isinstance(sp['headline'], list) else wrap(sp['headline'], 'anton', 120, 960)[:3]
+    ts = [va + vd * f for f in sp['at']] if sp.get('at') else reveal_times(len(lines), va, vd, .02, .35)
+    size = sp.get('size', 128 if max(len(x) for x in lines) <= 14 else 100)
+    x0, y0 = W / 2 - 820 + 60, 600 - 500 + 290 + (1 - s) * 700
+    for i, ln in enumerate(lines):
+        p = pop_s(lt, ts[i])
+        if p <= 0: continue
+        spr = text_sprite(ln, 'anton', size, INK + (255,))
+        sc2 = 1.25 - 0.25 * min(1, p); put_scaled(L, spr, x0 + spr.width / 2, y0 + i * size * 1.02 + spr.height / 2, sc2, 1.0)
+    if sp.get('deck'):
+        a = win(lt, va + vd * sp.get('deck_at', .45))
+        for j, ln in enumerate(wrap(sp['deck'], 'abril', 38, 900)[:2]):
+            text(L, ln, x0, y0 + len(lines) * size * 1.02 + 16 + j * 48, 38, INK, 'abril', a)
+    if sp.get('stamp'):
+        p = pop_s(lt, va + vd * sp.get('stamp_at', .8))
+        if p > 0:
+            f = font('anton', 64); tw = int(f.getlength(sp['stamp'])) + 50
+            st = Image.new('RGBA', (tw, 100), (0, 0, 0, 0)); dd = ImageDraw.Draw(st)
+            dd.rectangle([3, 3, tw - 4, 96], outline=RED + (235,), width=7); dd.text((25, 8), sp['stamp'], font=f, fill=RED + (235,))
+            put_scaled(L, st, 1450, 360, 2.0 - 1.0 * min(1, p), min(1, p * 1.5), rot=10)
+
+@functools.lru_cache(16)
+def board_base():
+    bg = paper_tex(W, H, KRAFT, seed=3, amt=14).convert('RGBA'); d = ImageDraw.Draw(bg)
+    for y in range(40, H, 46): d.line([(0, y), (W, y)], fill=(120, 86, 48, 40), width=2)
+    y = np.linspace(-1, 1, H)[:, None]; x = np.linspace(-1, 1, W)[None, :]
+    a = np.clip((x ** 2 + y ** 2) ** 0.8 * 150, 0, 190).astype(np.uint8)
+    v = Image.new('RGBA', (W, H), (40, 22, 6, 0)); v.putalpha(Image.fromarray(a)); bg.alpha_composite(v)
+    return bg
+
+@functools.lru_cache(64)
+def board_card(title, art_name, w=420, h=330, rot=0):
+    im = Image.new('RGBA', (w + 40, h + 60), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
+    d.rectangle([24, 34, 24 + w, 34 + h], fill=(0, 0, 0, 70))                       # shadow
+    d.rectangle([16, 26, 16 + w, 26 + h], fill=PAPER + (255,))
+    if art_name: im.paste(halftone(art_name, w - 36, h - 140, INK, (233, 220, 192)), (34, 44))
+    f = font('marker', 56 if len(title) <= 10 else 44)
+    d.text((16 + w / 2, 26 + h - 62), title, font=f, fill=INK, anchor='mm')
+    d.rectangle([16 + w / 2 - 65, 12, 16 + w / 2 + 65, 48], fill=(214, 190, 140, 200))  # tape
+    return im.rotate(rot, Image.BILINEAR, expand=True)
+
+def d_board(L, sc, lt):
+    """evidence board: pinned cards, red string to handwritten notes, optional big marker '?'"""
+    sp, va, vd = sc['spec'], sc['va'], sc['vd']
+    L.alpha_composite(board_base(), (0, 0))
+    cards, notes = sp.get('cards', []), sp.get('notes', [])
+    n = len(cards); xs = [W / 2 + (i - (n - 1) / 2) * min(620, 1700 / max(1, n)) for i in range(n)]
+    cts = [va + vd * c.get('at', 0) for c in cards] if any('at' in c for c in cards) else reveal_times(n, va, vd, 0, .18)
+    nts = [va + vd * nt['at'] for nt in notes] if all('at' in nt for nt in notes) else reveal_times(len(notes), va, vd, .3, .8)
+    d = ImageDraw.Draw(L)
+    for j, nt in enumerate(notes):           # string first, so cards sit on top of the pins
+        i = nt.get('card', j); p = ease((lt - nts[j] + 0.5) / 0.5)
+        if p <= 0 or i >= n: continue
+        x0, y0 = xs[i], 410; x1, y1 = xs[i] + [-40, 30, 0, 20][j % 4], 640
+        d.line([(x0, y0), (x0 + (x1 - x0) * p, y0 + (y1 - y0) * p)], fill=RED + (255,), width=6)
+    for i, c in enumerate(cards):
+        p = pop_s(lt, cts[i])
+        if p <= 0: continue
+        card = board_card(c['title'], c.get('art'), rot=[-4, 2, -2, 3][i % 4])
+        put_scaled(L, card, xs[i], 255, 1.3 - 0.3 * min(1, p), min(1, p * 2))
+    for j, nt in enumerate(notes):
+        i = nt.get('card', j)
+        if i >= n or lt < nts[j] - 0.55: continue
+        d.ellipse([xs[i] - 13, 397, xs[i] + 13, 423], fill=RED + (255,))
+        p = pop_s(lt, nts[j])
+        if p <= 0: continue
+        f = font('marker', 64); tw = int(f.getlength(nt['text'])) + 56
+        tag = Image.new('RGBA', (tw, 104), (0, 0, 0, 0)); td = ImageDraw.Draw(tag)
+        td.rectangle([0, 0, tw - 1, 103], fill=(255, 248, 220, 215)); td.text((tw / 2, 52), nt['text'], font=f, fill=INK, anchor='mm')
+        put_scaled(L, tag, xs[i] + [-40, 30, 0, 20][j % 4], 690, 1.4 - 0.4 * min(1, p), 1.0, rot=[3, -3, 2, -2][j % 4])
+    if sp.get('question'):
+        p = pop_s(lt, va + vd * sp.get('question_at', .9))
+        if p > 0: put_scaled(L, text_sprite(sp['question'], 'marker', 230, RED + (255,)), 1700, 760, 1.3 - .3 * min(1, p), 1.0, rot=-8)
+
+@functools.lru_cache(16)
+def dossier_wall(arts):
+    bg = Image.new('RGBA', (W, H), (13, 13, 16, 255))
+    for i, a in enumerate(arts):
+        ht = halftone(a, 520, 600, (70, 70, 78), (13, 13, 16), 6).convert('RGBA').rotate((i % 3) - 1, Image.BILINEAR, expand=True)
+        bg.alpha_composite(ht, ((i % 4) * 490 - 30, (i // 4) * 560 - 40))
+    y = np.linspace(0, 1, H)[:, None].repeat(W, 1)
+    g = Image.new('RGBA', (W, H), (10, 10, 14, 0)); g.putalpha(Image.fromarray((90 + 130 * y).astype(np.uint8))); bg.alpha_composite(g)
+    return bg
+
+@functools.lru_cache(32)
+def dossier_card(title, sub, fields, color, art_name, w=520, h=600):
+    c = col(color); im = Image.new('RGBA', (w, h), (17, 19, 23, 255)); d = ImageDraw.Draw(im)
+    if art_name:
+        ht = halftone(art_name, w, 230, (8, 10, 14), tuple(int(v * 0.85) for v in c), 7); im.paste(ht, (0, 0))
+    d.rectangle([0, 0, w - 1, h - 1], outline=c + (255,), width=3)
+    d.text((26, 236), title, font=font('anton', 84 if len(title) <= 8 else 64), fill=WHITE)
+    d.text((28, 346), sub, font=font('vt', 36), fill=c)
+    for j, (k, v) in enumerate(fields):
+        y = 396 + j * 42; d.text((28, y), k, font=font('vt', 33), fill=MUTED); d.text((w - 28, y), v, font=font('vt', 33), fill=WHITE, anchor='ra')
+    return im
+
+def d_dossier(L, sc, lt):
+    """1-3 'subject files' on a dark halftone collage wall; stamps land on key words"""
+    sp, va, vd = sc['spec'], sc['va'], sc['vd']
+    cards = sp.get('cards', []); n = len(cards)
+    wall = tuple(sp.get('wall') or [c.get('art') for c in cards if c.get('art')] or [TH['default_art']])
+    L.alpha_composite(dossier_wall(wall), (0, 0))
+    text(L, sp.get('kicker', f'> SUBJECT FILES · {n} MATCH' + ('ES' if n != 1 else '')), 120, 112, 40, 'ok', 'vt', win(lt, .1))
+    cts = [va + vd * c['at'] for c in cards] if all('at' in c for c in cards) else reveal_times(n, va, vd, 0, .5)
+    w = 520; gap = (W - 240 - n * w) / max(1, n - 1) if n > 1 else 0
+    for i, c in enumerate(cards):
+        a = win(lt, cts[i], .4)
+        if a <= 0: continue
+        card = dossier_card(c['title'], c.get('sub', ''), tuple(tuple(f) for f in c.get('fields', [])), c.get('color', 'accent'), c.get('art'))
+        x = (W - w) / 2 if n == 1 else 120 + i * (w + gap)
+        put_scaled(L, card, x + w / 2, 190 + 300 + (1 - a) * 60, 1.0, a, rot=[-2, 1, -1][i % 3])
+    for j, st in enumerate(sp.get('stamps', [])):
+        p = pop_s(lt, va + vd * st.get('at', .7))
+        if p <= 0: continue
+        f = font('anton', 58); tw = int(f.getlength(st['text'])) + 50
+        s_ = Image.new('RGBA', (tw, 96), (0, 0, 0, 0)); dd = ImageDraw.Draw(s_)
+        dd.rectangle([3, 3, tw - 4, 92], outline=RED + (240,), width=7); dd.text((25, 8), st['text'], font=f, fill=RED + (240,))
+        put_scaled(L, s_, st.get('x', W / 2), st.get('y', 480 + j * 120), 2.0 - min(1, p), min(1, p * 1.5), rot=st.get('r', 6 - j * 6))
+
+@functools.lru_cache(16)
+def poster_base(art_name, bg):
+    base = paper_tex(W, H, PAPER if bg == 'paper' else (10, 15, 31), seed=5, amt=6 if bg == 'paper' else 4).convert('RGBA')
+    if art_name:
+        ht = halftone(art_name, W, H, (0, 0, 0) if bg == 'paper' else (40, 56, 92), PAPER if bg == 'paper' else (10, 15, 31), 9).convert('RGBA')
+        ht.putalpha(46); base.alpha_composite(ht)
+    return base
+
+def d_poster(L, sc, lt):
+    """big condensed type, stacked; brand tri-colour bars; small spec row; optional photo cutout of Shivam"""
+    sp, va, vd = sc['spec'], sc['va'], sc['vd']; bg = sp.get('bg', 'navy')
+    L.alpha_composite(poster_base(sp.get('art'), bg), (0, 0))
+    bx = 1380 if not sp.get('photo') else 60
+    for i, c in enumerate([TH['accent'], TH['warm'], TH['purple']]):
+        hh = int(H * ease((lt - i * 0.08) / 0.6))
+        if hh > 2 and not sp.get('photo'): L.alpha_composite(rect(84, hh, c + (235,)), (bx + i * 120, 0))
+    if sp.get('photo'):
+        ph = Image.open(os.path.join(PHOTO_DIR, sp['photo'])).convert('RGBA'); s_ = 1000 / ph.height
+        ph = ph.resize((int(ph.width * s_), 1000), Image.LANCZOS); a = win(lt, .1, .5)
+        put(L, ph, W - ph.width - 80, H - 980 + (1 - a) * 60, a)
+    lines = sp['lines']; ts = [va + vd * f for f in sp['at']] if sp.get('at') else reveal_times(len(lines), va, vd, .02, .55)
+    size = sp.get('size', 230 if len(lines) <= 3 else 170); ink = INK if bg == 'paper' else WHITE
+    for i, ln in enumerate(lines):
+        txt, c = (ln, None) if isinstance(ln, str) else (ln[0], ln[1])
+        p = pop_s(lt, ts[i])
+        if p <= 0: continue
+        text(L, txt, 110, 100 + i * size * 0.92 + (1 - min(1, p)) * 50, size, col(c) if c else ink, 'anton', min(1, p * 1.6))
+    if sp.get('small'):
+        a = win(lt, va + vd * sp.get('small_at', .6)); x = 116
+        for j, s_ in enumerate(sp['small']):
+            x += text(L, s_, x, 780, 54, [TH['accent'], TH['warm'], TH['purple']][j % 3], 'bebas', a) + 44
+
 DRAW = dict(hook=d_hook, title=d_title, timeline=d_timeline, bars=d_bars, chips=d_chips, pipeline=d_pipeline,
             swap=lambda L, sc, lt: d_swap(L, sc, lt), bullets=d_bullets, terminal=d_terminal, compare=d_compare,
-            quiz=d_quiz, qa=d_qa, statement=d_statement, outro=d_outro)
+            quiz=d_quiz, qa=d_qa, statement=d_statement, outro=d_outro,
+            headline=d_headline, board=d_board, dossier=d_dossier, poster=d_poster)
 CONTINUES = {'timeline', 'pipeline'}
 
 def header(L, t):
@@ -564,11 +798,14 @@ def frame_at(t):
     L = Image.new('RGBA', (W, H), (0, 0, 0, 0)); DRAW[sc['kind']](L, sc, lt)
     nxt = SCENES[i + 1] if i + 1 < len(SCENES) else None
     keep = nxt is not None and sc['kind'] in CONTINUES and nxt['kind'] == sc['kind'] and nxt['spec'].get('label') == sc['spec'].get('label')
-    fo = 1.0 if (keep or nxt is None) else 1 - win(t, sc['t1'] - 0.3, 0.3)
+    fo = 1.0 if (keep or nxt is None or sc['kind'] in FULLFRAME or nxt['kind'] in FULLFRAME) else 1 - win(t, sc['t1'] - 0.3, 0.3)
     if fo < 0.999:
         arr = np.asarray(L, dtype=np.float32); arr[..., 3] *= fo; L = Image.fromarray(arr.astype(np.uint8), 'RGBA')
     img.alpha_composite(L)
     H2 = Image.new('RGBA', (W, H), (0, 0, 0, 0)); header(H2, t); caption(H2, sc, lt); img.alpha_composite(H2)
+    prv = SCENES[i - 1] if i > 0 else None
+    if prv is not None and (sc['kind'] in FULLFRAME or prv['kind'] in FULLFRAME) and lt < 0.12:
+        img.alpha_composite(rect(W, H, (255, 255, 255, int(140 * (1 - lt / 0.12)))))
     return img.convert('RGB')
 
 def render_chunk(args):
@@ -604,6 +841,16 @@ def whoosh(d=0.7, seed=1):
 def blip(f=880, d=0.12):
     t = np.arange(int(SR * d)) / SR; return (np.sin(2 * np.pi * f * t) * np.exp(-t * 30) * 0.16).astype(np.float32)
 
+def thud(d=0.35, seed=5):
+    rng = np.random.default_rng(seed); t = np.arange(int(SR * d)) / SR
+    return ((np.sin(2 * np.pi * 70 * t) * np.exp(-t * 18) + 0.4 * rng.standard_normal(len(t)) * np.exp(-t * 60)) * 0.22).astype(np.float32)
+
+def zipper(d=0.45, seed=9):
+    rng = np.random.default_rng(seed); n = int(SR * d); x = rng.standard_normal(n).astype(np.float32); t = np.linspace(0, 1, n)
+    out = np.zeros(n, np.float32); y = 0.0; k = 0.05 + 0.4 * t
+    for i in range(n): y += k[i] * (x[i] - y); out[i] = y
+    return out * np.sin(np.pi * t) ** 0.5 * 0.25
+
 def clicks(d, seed=3):
     rng = np.random.default_rng(seed); n = int(SR * d); out = np.zeros(n, np.float32); t = 0.0
     while t < d - .03:
@@ -630,7 +877,8 @@ def make_audio(path):
         for at, a in sc['clips']:
             a48 = resample(a, tts.SR); add(voice, sc['t0'] + sc['va'] + at, a48)
             s = int((sc['t0'] + sc['va'] + at) * SR); mask[s:s + len(a48)] = 1
-        if sc['xfade']: add(sfx, max(0, sc['t0'] - .25), whoosh(), .9)
+        prv = SCENES[i - 1] if i > 0 else None
+        if sc['xfade'] or (prv is not None and (sc['kind'] in FULLFRAME or prv['kind'] in FULLFRAME)): add(sfx, max(0, sc['t0'] - .25), whoosh(), .9)
         sp, va, vd = sc['spec'], sc['va'], sc['vd']; base = sc['t0']
         if sc['kind'] == 'timeline': add(sfx, base + va + .2, blip(660 + 90 * sp.get('step', 0)))
         if sc['kind'] == 'bullets':
@@ -642,6 +890,19 @@ def make_audio(path):
             steps = sp['steps']
             ts = [va + vd * s['at'] for s in steps] if all('at' in s for s in steps) else reveal_times(len(steps), va, vd, .04, .7)
             for s, tt in zip(steps, ts): add(sfx, base + tt, clicks(max(.5, min(1.4, len(s.get('cmd', '')) * .045))))
+        if sc['kind'] == 'headline':
+            ln = sp['headline'] if isinstance(sp['headline'], list) else [1, 2]
+            for tt in ([va + vd * f for f in sp['at']] if sp.get('at') else reveal_times(len(ln), va, vd, .02, .35)): add(sfx, base + tt, thud(), .7)
+            if sp.get('stamp'): add(sfx, base + va + vd * sp.get('stamp_at', .8), thud(), 1.0)
+        if sc['kind'] == 'board':
+            cs, nts = sp.get('cards', []), sp.get('notes', [])
+            for tt in ([va + vd * c.get('at', 0) for c in cs] if any('at' in c for c in cs) else reveal_times(len(cs), va, vd, 0, .18)): add(sfx, base + tt, blip(620, .09), .9)
+            for tt in ([va + vd * nt['at'] for nt in nts] if all('at' in nt for nt in nts) else reveal_times(len(nts), va, vd, .3, .8)): add(sfx, base + tt - .5, zipper(), .8)
+        if sc['kind'] == 'dossier':
+            for st in sp.get('stamps', []): add(sfx, base + va + vd * st.get('at', .7), thud(), 1.0)
+        if sc['kind'] == 'poster':
+            ln = sp['lines']
+            for tt in ([va + vd * f for f in sp['at']] if sp.get('at') else reveal_times(len(ln), va, vd, .02, .55)): add(sfx, base + tt, thud(), .6)
         if sc['kind'] == 'quiz' and sp.get('answer') is not None: add(sfx, base + va + vd * sp.get('reveal', .82), blip(1046, .25), 1.2)
     m = music_bed(n)
     k = int(0.25 * SR); env = np.convolve(mask, np.ones(k) / k, mode='same')
@@ -718,7 +979,7 @@ def upload_files(outdir):
     chapters, seen = [], set()
     for s in SCENES:
         c = s['spec'].get('chapter')
-        if c and c not in seen: seen.add(c); chapters.append((s['t0'], c))
+        if c and c not in seen: seen.add(c); chapters.append((s['t0'] + OFFSET, c))
     if chapters: chapters[0] = (0, chapters[0][1])
     clean = []
     for t, c in chapters:
@@ -740,13 +1001,14 @@ def upload_files(outdir):
             + (f"💬 {up['question']}\n\n" if up.get('question') else "")
             + ' '.join(up.get('hashtags', [])))
     up = dict(up, title=yt_safe(up['title']), tags=yt_safe(up['tags'])); desc = yt_safe(desc)
-    data = {'title': up['title'], 'description': desc, 'tags': up['tags'], 'duration': round(TOTAL, 1), 'chapters': clean}
+    data = {'title': up['title'], 'description': desc, 'tags': up['tags'], 'duration': round(TOTAL + OFFSET, 1), 'chapters': clean}
     json.dump(data, open(os.path.join(outdir, 'upload.json'), 'w'), indent=2, ensure_ascii=False)
     with open(os.path.join(outdir, 'upload.txt'), 'w') as f:
         f.write(f"TITLE\n{up['title']}\n\nDESCRIPTION\n{desc}\n\nTAGS\n{', '.join(up['tags'])}\n")
     with open(os.path.join(outdir, 'script.txt'), 'w') as f:
+        if OPENER: f.write(f"[0:00] (Shivam, opener) {EP['opener'].get('text', '')}\n")
         for s in SCENES:
-            for c0, c1, txt in s['caps']: f.write(f"[{fmt(s['t0'] + c0)}] {strip_marks(txt)}\n")
+            for c0, c1, txt in s['caps']: f.write(f"[{fmt(s['t0'] + c0 + OFFSET)}] {strip_marks(txt)}\n")
     return data
 
 # ------------------------------------------------------------------ main
@@ -762,13 +1024,21 @@ def validate():
         if sp.get('art') and not os.path.exists(art_path(sp['art'])): probs.append(f'scene {i}: unknown art {sp["art"]}')
     if probs: raise SystemExit('\n'.join(probs))
 
+def probe_dur(path):
+    r = subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', path], capture_output=True, text=True)
+    return float(r.stdout.strip() or 0)
+
 def main():
-    global EP, TH, SCENES, TOTAL, OUT
+    global EP, TH, SCENES, TOTAL, OUT, OPENER, OFFSET
     EP = load_spec(sys.argv[1]); OUT = sys.argv[2]; os.makedirs(OUT, exist_ok=True)
     TH = LOOKS[EP.get('look', SERIES[EP['series']]['look'])]
     validate()
     SCENES, TOTAL = build()
-    print(f'{len(SCENES)} scenes, total {TOTAL:.1f}s ({fmt(TOTAL)})')
+    op = os.path.join(OUT, 'opener.mp4')
+    if EP.get('opener'):
+        if os.path.exists(op): OPENER, OFFSET = op, probe_dur(op)
+        else: print('WARNING: EP has an opener but', op, 'is missing: run v3/opener/render.py first. Rendering without it.')
+    print(f'{len(SCENES)} scenes, total {TOTAL:.1f}s ({fmt(TOTAL)})' + (f' + opener {OFFSET:.1f}s = {fmt(TOTAL + OFFSET)}' if OPENER else ''))
     for s in SCENES: print(f"  {fmt(s['t0'])} {s['kind']:9s} {s['t1'] - s['t0']:5.1f}s  {s['art']:14s} {s['spec'].get('chapter', '')}")
     thumbnail(os.path.join(OUT, 'thumbnail.jpg')); upload_files(OUT)
     if '--stills' in sys.argv:
@@ -788,10 +1058,19 @@ def main():
     subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-i', os.path.join(OUT, 'silent.mp4'), '-i', os.path.join(OUT, 'audio.wav'),
                     '-map', '0:v', '-map', '1:a', '-c:v', 'copy', '-af', 'loudnorm=I=-14:TP=-1.5:LRA=11', '-ar', '48000',
                     '-c:a', 'aac', '-b:a', '192k', '-shortest', '-movflags', '+faststart', tmp], check=True)
+    if OPENER:   # opener in front: normalise it to the body's exact format, then join without re-encoding the body
+        on = os.path.join(OUT, 'opener_norm.mp4'); body = os.path.join(OUT, 'body.mp4'); os.replace(tmp, body)
+        subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-i', OPENER, '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '18',
+                        '-pix_fmt', 'yuv420p', '-r', str(FPS), '-s', f'{W}x{H}', '-af', 'loudnorm=I=-14:TP=-1.5:LRA=11', '-ar', '48000', '-ac', '2',
+                        '-c:a', 'aac', '-b:a', '192k', on], check=True)
+        with open(os.path.join(OUT, 'join.txt'), 'w') as f: f.write("file 'opener_norm.mp4'\nfile 'body.mp4'\n")
+        subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-i', os.path.join(OUT, 'join.txt'),
+                        '-c', 'copy', '-movflags', '+faststart', tmp], check=True)
+        for x in (on, body, os.path.join(OUT, 'join.txt')): os.remove(x)
     os.replace(tmp, os.path.join(OUT, 'video.mp4'))
     for _, _, pth in jobs: os.remove(pth)
     for x in ('silent.mp4', 'audio.wav', 'concat.txt'): os.remove(os.path.join(OUT, x))
-    print('DONE', os.path.join(OUT, 'video.mp4'), fmt(TOTAL))
+    print('DONE', os.path.join(OUT, 'video.mp4'), fmt(TOTAL + OFFSET))
 
 if __name__ == '__main__':
     main()

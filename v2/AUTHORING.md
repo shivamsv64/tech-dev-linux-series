@@ -80,6 +80,12 @@ If `<media dir>/thumbnail_custom.jpg` exists for the episode (`devops-series/med
 ```
 `big` ≤ 10 characters, 2 short `lines`, optional `chip` (a command, for Linux/Git). The busy side of the art is kept on the right automatically.
 
+## v3 look (since 5 Nov 2026): own-voice opener + zine scenes
+Every long video now starts with a ~20–30 s **hook opener in Shivam's own ElevenLabs voice** (`EP['opener']`, rendered with
+Remotion by `v3/opener/render.py` into the same outdir before the engine runs), and the body uses the full-frame zine scenes
+`headline`, `board`, `dossier` and `poster` as pattern breaks. With an opener, drop the `hook` scene: the episode starts at
+`title` (`intro: True`). Full guide, voice budget and narration rules: **`v3/OPENER.md`**. Reference episode: `devops-series/episodes-v2/day05.py`.
+
 ## Episode shape (7–10 min = roughly 45–70 scenes, each 5–15 s)
 hook → title (`intro: True`) → recap of the last episode (reveal its quiz answer) → concept (timeline / pipeline / bullets / compare) →
 hands-on terminal scenes for every command in the plan, each key flag its own step → real-world DevOps/SRE story from Shivam's work

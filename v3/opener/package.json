@@ -1,0 +1,14 @@
+{
+  "name": "tech-dev-opener",
+  "private": true,
+  "description": "Tech-dev hook opener: the first ~20-30 s of every long video, in Shivam's own voice. Remotion.",
+  "scripts": {
+    "render": "remotion render src/index.ts Opener"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4",
+    "react": "^19",
+    "react-dom": "^19",
+    "remotion": "^4"
+  }
+}
