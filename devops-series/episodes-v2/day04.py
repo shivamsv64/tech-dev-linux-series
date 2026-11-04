@@ -245,7 +245,7 @@ EP = {
         'commands': ['git checkout -b feature/OPS-42-disk-alert', 'git commit -m "OPS-42 add disk usage alert script"',
                      'git commit -am "OPS-42 #comment threshold now 85% #time 30m"', 'git log --oneline --grep OPS-42',
                      "git branch --show-current | grep -oE '[A-Z]+-[0-9]+'",
-                     """awk -F, 'NR>1 {t+=$3} $2=="Done" {d+=$3} END {print "Done:", d, "of", t, "points"}' sprint14.csv"""],
+                     """awk -F, '$2=="Done" {d+=$3} END {print d}' sprint14.csv   (points done: 10)"""],  # no < or > in YouTube descriptions
         'interview': 'What is the difference between Agile and Scrum?',
         'quiz': 'Which Scrum event is time-boxed to 15 minutes? A) Sprint Planning B) Daily Scrum C) Sprint Review D) Sprint Retrospective',
         'homework': 'Create a free Jira project and write 3 user stories with acceptance criteria for deploying a website.',
