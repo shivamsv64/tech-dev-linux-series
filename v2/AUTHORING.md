@@ -92,3 +92,6 @@ Rules: one idea per scene; `say` 1–3 sentences (~12–40 words); commands and 
 ## Checking before the full render
 Render 10–12 stills at the busiest moments and look at them: text overflow, panels covering captions (content must stay above y≈880),
 terminal lines cut off, empty-looking scenes. Check the printed total length. Then render and verify with ffprobe (1920x1080, aac, duration).
+
+## YouTube text rule (Shivam, 4 Nov 2026)
+Never use the characters < or > in any upload title, description, tag or hashtag: YouTube rejects the whole post ("invalid video description"). Write `git add file.txt`, not `git add <file>`. The engines (v2/engine.py, shorts/skit.py) also strip them automatically when they write upload.json / upload.txt.

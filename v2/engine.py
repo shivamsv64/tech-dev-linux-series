@@ -705,6 +705,14 @@ def thumbnail(path):
 
 def fmt(t): t = int(t); return f'{t // 60}:{t % 60:02d}'
 
+def yt_safe(s):
+    """YouTube rejects < and > in titles, descriptions and tags (Shivam's rule, 4 Nov 2026):
+    '<file>' placeholders become 'file', any other < or > is dropped."""
+    if isinstance(s, list): return [yt_safe(x) for x in s]
+    if not isinstance(s, str): return s
+    s = re.sub(r'<([^<>\n]{1,40})>', r'\1', s)
+    return s.replace('<', '').replace('>', '')
+
 def upload_files(outdir):
     up = EP['upload']; ser = SERIES[EP['series']]
     chapters, seen = [], set()
@@ -731,6 +739,7 @@ def upload_files(outdir):
             + "🔔 Subscribe to Tech-dev for practical DevOps, SRE, Cloud, Linux & Git videos.\n\n"
             + (f"💬 {up['question']}\n\n" if up.get('question') else "")
             + ' '.join(up.get('hashtags', [])))
+    up = dict(up, title=yt_safe(up['title']), tags=yt_safe(up['tags'])); desc = yt_safe(desc)
     data = {'title': up['title'], 'description': desc, 'tags': up['tags'], 'duration': round(TOTAL, 1), 'chapters': clean}
     json.dump(data, open(os.path.join(outdir, 'upload.json'), 'w'), indent=2, ensure_ascii=False)
     with open(os.path.join(outdir, 'upload.txt'), 'w') as f:

@@ -661,8 +661,18 @@ def load(path):
     return m.SKIT
 
 
+def yt_safe(s):
+    """YouTube rejects < and > in titles, descriptions and tags (Shivam's rule, 4 Nov 2026):
+    '<file>' placeholders become 'file', any other < or > is dropped."""
+    if isinstance(s, list): return [yt_safe(x) for x in s]
+    if not isinstance(s, str): return s
+    s = re.sub(r'<([^<>\n]{1,40})>', r'\1', s)
+    return s.replace('<', '').replace('>', '')
+
 def upload_text(spec, total, outdir):
     u = dict(spec['upload'])
+    for k in ('title', 'description', 'tags'):
+        if k in u: u[k] = yt_safe(u[k])
     u['duration'] = round(total, 1)
     json.dump(u, open(os.path.join(outdir, 'upload.json'), 'w'), indent=2, ensure_ascii=False)
     with open(os.path.join(outdir, 'upload.txt'), 'w') as f:
