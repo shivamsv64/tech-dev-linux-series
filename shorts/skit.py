@@ -93,6 +93,8 @@ def build(spec, cache):
         if s['shot'] == 'cta':
             s['clip'] = load_mp3(CTA_CLIP) if os.path.exists(CTA_CLIP) else tts_clip(CTA_TEXT, cache)
             s['say'] = CTA_TEXT
+        elif s.get('mp3') and os.path.exists(os.path.join(ROOT, s['mp3'])):
+            s['clip'] = load_mp3(os.path.join(ROOT, s['mp3']))   # Shivam's own-voice hook (ElevenLabs), repo-relative path
         else:
             s['clip'] = tts_clip(s.get('say', ''), cache)
         speech = len(s['clip']) / SR if s['clip'] is not None else 0

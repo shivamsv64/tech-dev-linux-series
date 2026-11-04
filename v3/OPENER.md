@@ -97,3 +97,7 @@ Field values in dossier cards: ≤12 characters (VT323 font). `at` values are fr
 - Full sentences with connecting words; contractions; no list-reading. Read it aloud in your head.
 - Real experience: tell Shivam's real work stories (Jenkins CI/CD, AWS/GCP, Wiz/Qualys, on-call) in the third person
   ("in Shivam's team…") because the body narrator is not his voice.
+
+## 4. Rolled out to every maker (5 Nov 2026)
+All three daily makers (DevOps, Linux, Git) now follow `v3/makers/COMMON.md` + their series file: own-voice opener on every long video (3D or 2D by situation), own-voice one-sentence hook on every Short
+(`'mp3'` on scene 1 of the skit spec, ≤90 characters), zine scenes as pattern breaks, research-based titles and 8–11 min length. Style guide: `v3/STYLES.md`. Voice budget: 30,000 credits/month; the gate in COMMON.md section 2 skips Short hooks at 22,000 and openers at 27,000.
