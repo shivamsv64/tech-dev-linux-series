@@ -81,3 +81,8 @@ Sets: `desk_night desk_day bed_night office office_night meeting`. Shots: `wide 
 `--sheet` and read it: banner never covers a face, text fits the monitor, captions readable and above the bottom
 quarter, moods match the line being said, nothing odd (hands through objects, characters cut in half by the frame).
 Then `ffprobe short.mp4`: 1080x1920, 30–58 s, aac.
+
+## v3 full-frame shots: hookcard and statcard
+- `{'shot':'hookcard','lines':['YOUR DISK','IS 100%',('FULL','red')],'bg':'navy'|'paper','small':['2 AM','PROD'],'stamp':'URGENT','say':...}`: 1-3 stacked lines (<=9 chars each, tuple = colour key accent/warm/purple/ok/red), optional 3 small tags and a stamp. Best as scene 1 (the 1-2 s hook) in place of a cartoon wide shot.
+- `{'shot':'statcard','kicker':'DOWNTIME','big':'43.2 min','label':'per month at 99.9%','sub':'line one|line two','color':'warm','say':...}`: big number counts up; use for one shocking figure per Short.
+- No banner is drawn on these; keep 1-2 per Short, the rest stay cartoon.

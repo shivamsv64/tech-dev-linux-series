@@ -91,3 +91,8 @@ If the planned time already passed, schedule 15 minutes from now.
 ## 7. Report (SendUserFile the thumbnail, the video and the Short, then ONE SendUserMessage)
 Episode title, length, live time; the Short title and live time; "ElevenLabs credits used: <opener + hook>" and the month-to-date total against 30,000; "marked as AI content"; opener style (3D/2D) and which zine scenes were used; Metricool planner links (only for posts really created) and
 "Metricool posts used this month: N/20"; any handoff instructions; anything that needs attention. If a step fails and you cannot fix it, still send the rendered files and say exactly what failed.
+
+
+## Addendum: new v3 shots
+- Episodes: zine scene `deck` (stat cards with count-up) for SLO/cost/benchmark numbers; see `v3/STYLES.md`.
+- Shorts: open with a `hookcard` (own-voice hook) and use a `statcard` for the key number; fields in `shorts/SKIT.md`.

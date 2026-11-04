@@ -366,6 +366,104 @@ def draw_phone(img, d, s, age):
                 d.text((x0 + 72, yy + 16), extra, font=T.font('pop', 30), fill=(40, 40, 46))
 
 
+
+# ------------------------------------------------------------------ v3 zine shots (hook card + stat card), full-frame 9:16
+ZINE = ('hookcard', 'statcard')
+_FD = os.path.join(ROOT, 'v2', 'assets', 'fonts')
+_PAL = {'accent': (56, 189, 248), 'warm': (251, 191, 36), 'purple': (167, 139, 250), 'ok': (52, 211, 153), 'red': (239, 68, 68), 'white': (255, 255, 255)}
+
+
+def zfont(name, size):
+    from PIL import ImageFont
+    f = {'anton': 'Anton-Regular.ttf', 'bebas': 'BebasNeue-Regular.ttf', 'marker': 'PermanentMarker-Regular.ttf'}[name]
+    return ImageFont.truetype(os.path.join(_FD, f), size)
+
+
+def _pop(age, t0, d=0.32):
+    x = (age - t0) / d
+    if x <= 0:
+        return 0.0
+    if x >= 1.6:
+        return 1.0
+    return 1 - math.exp(-4.2 * x) * math.cos(5.5 * x)
+
+
+def _count(val, k):
+    m = re.match(r'^([^0-9]*)([0-9][0-9,]*\.?[0-9]*)(.*)$', val)
+    if not m:
+        return val
+    pre, num, suf = m.groups(); dec = len(num.split('.')[1]) if '.' in num else 0
+    x = float(num.replace(',', '')) * k
+    return pre + (f'{x:,.{dec}f}' if ',' in num else f'{x:.{dec}f}') + suf
+
+
+def draw_zine(spec, s, age):
+    """hookcard: giant stacked condensed words on navy/paper (newsroom/poster look); statcard: big number on a blue-violet gradient.
+    Spec fields: hookcard {lines:[str|(str,color)] x1-3 (<=9 chars), bg:'navy'|'paper', small:[<=3], stamp}; statcard {kicker, big, label, sub, color}."""
+    from PIL import ImageFont
+    if s['shot'] == 'hookcard':
+        paper = s.get('bg', 'navy') == 'paper'
+        bg = (236, 227, 207) if paper else (10, 15, 31)
+        img = Image.new('RGB', (W, H), bg); d = ImageDraw.Draw(img, 'RGBA')
+        rng = np.random.default_rng(3); n = rng.normal(0, 5, (H, W, 1)).astype(np.float32)
+        img = Image.fromarray(np.clip(np.asarray(img, np.float32) + n, 0, 255).astype(np.uint8)); d = ImageDraw.Draw(img, 'RGBA')
+        for i, c in enumerate([_PAL['accent'], _PAL['warm'], _PAL['purple']]):
+            hh = int(70 * ease((age - i * 0.07) / 0.4)); d.rectangle([80 + i * 140, 0, 80 + i * 140 + 110, hh], fill=c + (235,))
+        lines = s['lines']; ink = (22, 19, 15) if paper else (255, 255, 255)
+        size = 300 if len(lines) <= 2 else 250
+        for i, ln in enumerate(lines):
+            txt, c = (ln, None) if isinstance(ln, str) else (ln[0], ln[1])
+            size_i = size
+            f = zfont('anton', size_i)
+            while d.textlength(txt, font=f) > 900 and size_i > 90:
+                size_i -= 10; f = zfont('anton', size_i)
+            p = _pop(age, 0.12 + i * 0.32)
+            if p <= 0:
+                continue
+            y = 330 + i * (size * 0.95) + (1 - min(1, p)) * 60
+            col_ = _PAL.get(c, ink) if c else ink
+            d.text((90, y), txt, font=f, fill=col_ + (int(255 * min(1, p * 1.6)),))
+        if s.get('small'):
+            a = ease((age - 0.12 - len(lines) * 0.32) / 0.4); x = 90; fb = zfont('bebas', 62)
+            for j, t_ in enumerate(s['small'][:3]):
+                d.text((x, 1130), t_, font=fb, fill=[_PAL['accent'], _PAL['warm'], _PAL['purple']][j % 3] + (int(255 * a),)); x += d.textlength(t_, font=fb) + 40
+        if s.get('stamp'):
+            p = _pop(age, 0.12 + len(lines) * 0.32 + 0.2, 0.25)
+            if p > 0:
+                f = zfont('marker', 84); tw = d.textlength(s['stamp'], font=f)
+                st = Image.new('RGBA', (int(tw + 60), 150), (0, 0, 0, 0)); sd = ImageDraw.Draw(st)
+                sd.rounded_rectangle([0, 0, st.width - 1, 149], 12, outline=(215, 38, 61, 255), width=9); sd.text((30, 28), s['stamp'], font=f, fill=(215, 38, 61, 255))
+                sz = 2.0 - min(1, p); st = st.resize((int(st.width * sz), int(st.height * sz))).rotate(-8, expand=True)
+                img.paste(st, (int(780 - st.width / 2), int(1010 - st.height / 2)), st)
+        return img
+    # statcard
+    yy = np.linspace(0, 1, H, dtype=np.float32)[:, None, None]; xx = np.linspace(0, 1, W, dtype=np.float32)[None, :, None]
+    a_ = np.array([7, 11, 36], np.float32); b_ = np.array([34, 52, 214], np.float32); c_ = np.array([88, 52, 220], np.float32)
+    t_ = np.clip(yy * 0.75 + xx * 0.25, 0, 1); im = a_ * (1 - t_) ** 1.6 + b_ * t_ ** 1.2 * 0.9
+    g = np.exp(-(((xx - 0.85) / 0.6) ** 2 + ((yy - 0.9) / 0.25) ** 2)); im = im + c_ * g * 0.5
+    img = Image.fromarray(np.clip(im, 0, 255).astype(np.uint8)); d = ImageDraw.Draw(img, 'RGBA')
+    tint = _PAL.get(s.get('color', 'accent'), _PAL['accent'])
+    cw, ch, x0, y0 = 900, 760, 90, 400
+    p = _pop(age, 0.1, 0.45)
+    card = Image.new('RGBA', (cw, ch), (0, 0, 0, 0)); cd = ImageDraw.Draw(card)
+    cd.rounded_rectangle([0, 0, cw - 1, ch - 1], 40, fill=(246, 248, 255, 255)); cd.rounded_rectangle([50, 60, 150, 70], 5, fill=tint + (255,))
+    if s.get('kicker'):
+        cd.text((50, 100), '[' + s['kicker'] + ']', font=T.font('pop', 36), fill=(84, 96, 140))
+    big = s['big']; size = 260
+    while ImageFont.truetype('/usr/share/fonts/truetype/google-fonts/Poppins-Bold.ttf', size).getlength(big) > cw - 100 and size > 80:
+        size -= 8
+    fb = ImageFont.truetype('/usr/share/fonts/truetype/google-fonts/Poppins-Bold.ttf', size)
+    cd.text((50, 190), _count(big, ease((age - 0.2) / 1.0)), font=fb, fill=(14, 20, 54))
+    cd.text((50, ch - 270), s.get('label', ''), font=T.font('pop', 56), fill=(30, 50, 200))
+    for j, ln in enumerate(s.get('sub', '').split('|')[:3]):
+        cd.text((50, ch - 190 + j * 52), ln.strip(), font=T.font('pop', 40), fill=(84, 96, 140))
+    k = 0.92 + 0.08 * min(1.0, p)
+    if p > 0:
+        card = card.resize((int(cw * k), int(ch * k)), Image.BILINEAR)
+        img.paste(card, (int(x0 + (cw - card.width) / 2), int(y0 + (ch - card.height) / 2 + (1 - min(1, p)) * 50)), card)
+    return img
+
+
 # ------------------------------------------------------------------ frame
 GRAIN = None
 _CACHE = {}
@@ -379,13 +477,15 @@ def frame(spec, scenes, total, t):
     age = t - s['t0']
     boil = int(t * BOIL_FPS)
     key = (s['i'], boil)
-    if key not in _CACHE:
+    if s['shot'] in ZINE:
+        _CACHE[key] = (draw_zine(spec, s, age), (540, 900))
+    elif key not in _CACHE:
         if len(_CACHE) > 6:
             _CACHE.clear()
         _CACHE[key] = draw_world(spec, s, boil)
     world, focus = _CACHE[key]
     shot = s['shot']
-    overlay_locked = shot in ('screen', 'phone')
+    overlay_locked = shot in ('screen', 'phone') + ZINE
     img = world
     if not overlay_locked:
         cam = s.get('cam', 'push')
@@ -425,7 +525,8 @@ def frame(spec, scenes, total, t):
     if s['shot'] == 'cta':
         ban_age = age
     tag = spec.get('tag_label') or (f"{spec['series'].upper()} · {spec['tag']}" if spec.get('tag') else '')
-    draw_banner(img, d, s['banner_now'], ban_age, spec['series'], tag)
+    if s['shot'] not in ZINE:
+        draw_banner(img, d, s['banner_now'], ban_age, spec['series'], tag)
     draw_caption(img, d, s, t, spec['series'])
     # fade out at the very end
     if t > total - 0.4:

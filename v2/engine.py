@@ -532,7 +532,7 @@ def d_outro(L, sc, lt):
 # red string, dossier files on a halftone collage wall, big condensed-type poster. Original designs only.
 PAPER, PAPER2, INK, KRAFT, RED = (236, 227, 207), (226, 214, 187), (22, 19, 15), (185, 143, 88), (215, 38, 61)
 PHOTO_DIR = os.path.join(os.path.dirname(HERE), 'hf', 'assets')
-FULLFRAME = {'headline', 'board', 'dossier', 'poster'}
+FULLFRAME = {'headline', 'board', 'dossier', 'poster', 'deck'}
 
 def pop_s(lt, t0, d=0.32):
     """springy 0→1 (overshoots a little) for stamps and pinned cards"""
@@ -753,10 +753,57 @@ def d_poster(L, sc, lt):
         for j, s_ in enumerate(sp['small']):
             x += text(L, s_, x, 780, 54, [TH['accent'], TH['warm'], TH['purple']][j % 3], 'bebas', a) + 44
 
+
+@functools.lru_cache(4)
+def deck_bg():
+    """deep navy to electric blue diagonal gradient with a violet glow (pitch-deck UI look)"""
+    yy, xx = np.mgrid[0:H, 0:W].astype(np.float32); d = (xx / W * 0.6 + yy / H * 0.4)
+    a = np.array([7, 11, 36], np.float32); b = np.array([34, 52, 214], np.float32); c = np.array([88, 52, 220], np.float32)
+    t = np.clip(d, 0, 1)[..., None]; im = a * (1 - t) ** 1.6 + b * (t ** 1.2) * 0.9
+    g = np.exp(-(((xx - W * 0.85) / 620) ** 2 + ((yy - H * 0.9) / 420) ** 2))[..., None]; im = im + c * g * 0.55
+    return Image.fromarray(np.clip(im, 0, 255).astype(np.uint8)).convert('RGBA')
+
+def _count(val, k):
+    """'99.9%' -> text counted up to k (0..1), keeps prefix/suffix and decimals; non-numeric values just appear"""
+    m = re.match(r'^([^0-9]*)([0-9][0-9,]*\.?[0-9]*)(.*)$', val)
+    if not m: return val
+    pre, num, suf = m.groups(); dec = len(num.split('.')[1]) if '.' in num else 0
+    x = float(num.replace(',', '')) * k
+    body = f'{x:,.{dec}f}' if ',' in num else f'{x:.{dec}f}'
+    return pre + body + suf
+
+def d_deck(L, sc, lt):
+    """stat cards on a blue-violet gradient: spec cards [{big, label, sub, color, at}] x1-4, title, kicker, tag"""
+    sp, va, vd = sc['spec'], sc['va'], sc['vd']
+    L.alpha_composite(deck_bg(), (0, 0))
+    for gx in range(0, W, 120): L.alpha_composite(rect(1, H, (255, 255, 255, 10)), (gx, 0))
+    a0 = win(lt, 0.05, .5)
+    if sp.get('kicker'): text(L, '[' + sp['kicker'] + ']', 110, 124, 30, (200, 210, 255), 'med', a0)
+    if sp.get('title'): text(L, sp['title'], 110, 166, 80, WHITE, 'bold', a0)
+    cards = sp['cards']; n = len(cards); gap = 36; cw = int((W - 220 - gap * (n - 1)) / n); ch = 500; y0 = 350
+    ts = [va + vd * c['at'] for c in cards] if all('at' in c for c in cards) else reveal_times(n, va, vd, .02, .5)
+    for i, c in enumerate(cards):
+        p = pop_s(lt, ts[i], .45)
+        if p <= 0: continue
+        x0 = 110 + i * (cw + gap); light = (i % 2 == 0) if sp.get('alt', True) else False
+        tint = col(c.get('color', 'accent'))
+        card = Image.new('RGBA', (cw, ch), (0, 0, 0, 0)); d = ImageDraw.Draw(card)
+        d.rounded_rectangle([0, 0, cw - 1, ch - 1], 26, fill=(246, 248, 255, 255) if light else (16, 24, 70, 235), outline=None if light else (110, 130, 255, 120), width=2)
+        d.rounded_rectangle([34, 40, 34 + 64, 46], 3, fill=tint + (255,))
+        ink = (14, 20, 54) if light else WHITE; sub = (84, 96, 140) if light else (186, 198, 245)
+        k = ease((lt - ts[i] - .1) / 1.1)
+        big = _count(c['big'], k); size = 150
+        while size > 60 and font('bold', size).getlength(c['big']) > cw - 70: size -= 6
+        text(card, big, 34, 96, size, ink, 'bold', 1)
+        text(card, c.get('label', ''), 34, ch - 190, 40, tint if not light else (30, 50, 200), 'bold', 1)
+        for j, ln in enumerate(c.get('sub', '').split('|')[:3]): text(card, ln.strip(), 34, ch - 132 + j * 38, 30, sub, 'med', 1)
+        put_scaled(L, card, x0 + cw / 2, y0 + ch / 2 + (1 - min(1, p)) * 40, 0.92 + 0.08 * min(1.0, p), min(1, p * 1.5))
+    if sp.get('tag'): text(L, sp['tag'], W - 110, 124, 30, (200, 210, 255), 'med', a0, 'r')
+
 DRAW = dict(hook=d_hook, title=d_title, timeline=d_timeline, bars=d_bars, chips=d_chips, pipeline=d_pipeline,
             swap=lambda L, sc, lt: d_swap(L, sc, lt), bullets=d_bullets, terminal=d_terminal, compare=d_compare,
             quiz=d_quiz, qa=d_qa, statement=d_statement, outro=d_outro,
-            headline=d_headline, board=d_board, dossier=d_dossier, poster=d_poster)
+            headline=d_headline, board=d_board, dossier=d_dossier, poster=d_poster, deck=d_deck)
 CONTINUES = {'timeline', 'pipeline'}
 
 def header(L, t):
@@ -900,6 +947,9 @@ def make_audio(path):
             for tt in ([va + vd * nt['at'] for nt in nts] if all('at' in nt for nt in nts) else reveal_times(len(nts), va, vd, .3, .8)): add(sfx, base + tt - .5, zipper(), .8)
         if sc['kind'] == 'dossier':
             for st in sp.get('stamps', []): add(sfx, base + va + vd * st.get('at', .7), thud(), 1.0)
+        if sc['kind'] == 'deck':
+            cs = sp['cards']
+            for tt in ([va + vd * c['at'] for c in cs] if all('at' in c for c in cs) else reveal_times(len(cs), va, vd, .02, .5)): add(sfx, base + tt, blip(740, .1), .9)
         if sc['kind'] == 'poster':
             ln = sp['lines']
             for tt in ([va + vd * f for f in sp['at']] if sp.get('at') else reveal_times(len(ln), va, vd, .02, .55)): add(sfx, base + tt, thud(), .6)
