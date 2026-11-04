@@ -1,0 +1,15 @@
+{
+ "title": "DevOps vs SRE vs CloudOps: Which One Fits You? | DevOps & SRE Zero to Hero Day 5",
+ "music": "bed",
+ "lines": [
+  {
+   "text": "Three job titles, same Linux servers, same AWS account, same pipelines."
+  },
+  {
+   "text": "So why is one judged on uptime, one on how fast the code ships and one on how the cloud runs and what it costs?"
+  },
+  {
+   "text": "I've worked on all three sides for five years and by the end of this video, you'll know exactly which one fits you."
+  }
+ ]
+}

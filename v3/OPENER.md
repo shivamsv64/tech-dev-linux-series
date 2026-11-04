@@ -63,6 +63,20 @@ python3 v3/opener/render.py <spec.py> <outdir>                           # -> <o
 Then run engine v2 as usual into the **same `<outdir>`**: it finds `opener.mp4`, puts it in front of the episode, shifts the
 chapters and script.txt, and loudness-normalises both parts. Needs Node 22+, `google-chrome`, `npm install` (automatic).
 
+### 3D opener (default since 4 Nov 2026: Shivam asked for 3D instead of the flat 2D look)
+`'engine': '3d'` in `EP['opener']` → `python3 v3/opener3d/render.py <spec.py> <outdir> [--sheet | --frames t1,t2]`.
+Real three.js 3D (clay-look sculpted people, soft shadows, depth of field, bloom), built from the faceless-shorts
+Deep Dive 3D engine, adapted to 16:9. One world, five areas: the **ops room** (3 engineers at desks, each with a big wall
+screen and a nameplate), a **server-rack aisle**, a **clay cloud** with orbiting containers, a **CI/CD conveyor** with
+BUILD/TEST/DEPLOY gates, and a **photo stage** with Shivam's real cutout in front of extruded slab type.
+- `roles` (3): `{label, color, screen: graph|pipeline|cost|terminal, screenLabel, skin, shirt}`; `big` (slab text, e.g. '5 YEARS'); `photo` (file in hf/assets).
+- `beats` (word anchors, as above): `room` {drops [3 anchors]} · `racks` {pill} · `cloud` {pill} · `pipeline` {pill} ·
+  `desk` {i, pill} · `question` {text, at} · `photo` {bigAt, name, role} · `finale` {lines [{text, at, color}] ×3, small [3], smallAt}.
+  `pill` = {text, at, color}. Change the shot every 1.5–3 s.
+- Software rendering (no GPU in the sandbox): ~10–15 min for a 21 s opener at 24 fps. Always check `--sheet` first.
+- Keep `beats2d` (the Remotion 2D version) as a fallback: if the 3D render fails, set `'engine': '2d'` and run `v3/opener/render.py`.
+- Full 9-minute episodes are NOT rendered in 3D (≈4–5 h per episode without a GPU); the body stays engine v2.
+
 ## 2. Zine scenes in engine v2 (body of the episode)
 
 Full-frame scenes with their own paper/collage backgrounds (no `art` background needed); cuts into and out of them

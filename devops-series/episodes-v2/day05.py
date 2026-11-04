@@ -11,7 +11,25 @@ EP = {
     'opener': {
         'audio': 'devops-series/media/day05/vo/opener_shivam.mp3',
         'text': "Three job titles. Same Linux servers, same AWS account, same pipelines. So why is one judged on uptime, one on how fast the code ships, and one on how the cloud runs, and what it costs? I've worked on all three sides for five years, and by the end of this video, you'll know exactly which one fits you.",
+        'engine': '3d',   # v3/opener3d (three.js clay look); 'beats2d' below = the Remotion 2D version (v3/opener)
+        'photo': 'shivam_clasped.png', 'big': '5 YEARS',
+        'roles': [{'label': 'SRE', 'color': 'warm', 'screen': 'graph', 'screenLabel': 'UPTIME', 'skin': '#C68B67', 'shirt': '#D99A2B'},
+                  {'label': 'DEVOPS', 'color': 'accent', 'screen': 'pipeline', 'screenLabel': 'DEPLOYS', 'skin': '#B07A57', 'shirt': '#3E7CC9'},
+                  {'label': 'CLOUDOPS', 'color': 'purple', 'screen': 'cost', 'screenLabel': 'CLOUD COST', 'skin': '#D6A07E', 'shirt': '#7C63C9'}],
         'beats': [
+            {'type': 'room', 'from': 0, 'drops': ['@Three', '@job', '@titles']},
+            {'type': 'racks', 'from': '@same', 'pill': {'text': 'SAME LINUX SERVERS', 'at': '@Linux', 'color': 'ok'}},
+            {'type': 'cloud', 'from': '@same#2', 'pill': {'text': 'SAME AWS ACCOUNT', 'at': '@AWS', 'color': 'purple'}},
+            {'type': 'pipeline', 'from': '@same#3', 'pill': {'text': 'SAME PIPELINES', 'at': '@pipelines', 'color': 'accent'}},
+            {'type': 'desk', 'i': 0, 'from': '@So', 'pill': {'text': 'UPTIME', 'at': '@uptime', 'color': 'warm'}},
+            {'type': 'desk', 'i': 1, 'from': '@one#2', 'pill': {'text': 'SHIP SPEED', 'at': '@ships', 'color': 'accent'}},
+            {'type': 'desk', 'i': 2, 'from': '@one#3', 'pill': {'text': 'CLOUD + COST', 'at': '@cloud', 'color': 'purple'}},
+            {'type': 'question', 'from': '@costs', 'text': '?', 'at': '@costs+0.3'},
+            {'type': 'photo', 'from': "@I've", 'bigAt': '@five', 'name': 'SHIVAM SINGH VERMA', 'role': 'DevOps & SRE engineer · Tech-dev'},
+            {'type': 'finale', 'from': '@by', 'small': ['DEVOPS', 'SRE', 'CLOUDOPS'], 'smallAt': '@know',
+             'lines': [{'text': 'BY THE END', 'at': '@by'}, {'text': 'WHICH ONE', 'at': '@which', 'color': 'accent'}, {'text': 'FITS YOU?', 'at': '@fits', 'color': 'warm'}]},
+        ],
+        'beats2d': [
             {'type': 'frontpage', 'from': 0, 'masthead': 'The On-Call Times', 'date': 'THURSDAY, 5 NOVEMBER 2026', 'left': 'DAY 5 OF 100',
              'headline': [{'text': 'THREE JOB', 'at': '@Three'}, {'text': 'TITLES.', 'at': '@titles'}],
              'deck': 'Same Linux servers. Same AWS account. Same pipelines.', 'deckAt': '@same',

@@ -109,7 +109,7 @@ def main():
     vdur = len(decode(audio, SR)) / SR
     duration = round(VOICE_AT + vdur + op.get('tail', 0.6), 2)
     R = resolver(words)
-    beats = R(op['beats'])
+    beats = R(op.get('beats2d') or op['beats'])
     for i, b in enumerate(beats):
         b['from'] = 0 if i == 0 else b['from']
         b['to'] = beats[i + 1]['from'] if i + 1 < len(beats) else duration
