@@ -1,0 +1,52 @@
+SKIT = {
+    'series': 'devops',
+    'tag': 'DAY 4',
+    'banner': 'POV: day 9 of a 10-day sprint',
+    'scenes': [
+        {'shot': 'wide', 'set': 'meeting',
+         'cast': [{'who': 'khanna', 'mood': 'angry', 'pose': 'point', 'stand': True, 'x': 330, 'fx': ['steam']},
+                  {'who': 'rohan', 'mood': 'worried', 'pose': 'headhold', 'x': 760, 'fx': ['sweat']}],
+         'say': 'Day nine of the sprint, and only *three* stories are done.'},
+        {'shot': 'eye', 'who': 'rohan', 'mood': 'worried',
+         'say': 'Rohan promised thirty-eight points. The team always does *twenty-one*.'},
+        {'shot': 'phone', 'time': '10:02', 'date': 'Thursday', 'alert': {'title': 'JIRA', 'lines': ['Scan: 40 new bugs'],
+                                              'more': ['P1: on-call paged']},
+         'say': 'Then a security scan drops forty new *bugs* into Jira.'},
+        {'shot': 'face', 'who': 'rohan', 'mood': 'shock', 'fx': ['lines', '!'],
+         'say': 'Forty. Right in the *middle* of the sprint.'},
+        {'shot': 'wide', 'set': 'office',
+         'cast': [{'who': 'rohan', 'mood': 'tired', 'pose': 'rest', 'x': 380},
+                  {'who': 'meera', 'mood': 'calm', 'pose': 'mug', 'stand': True, 'x': 790}],
+         'laptop_x': 380, 'mug': False,
+         'say': 'Meera smiles. Plan seventy percent, and keep a *buffer*.'},
+        {'shot': 'screen', 'prompt': '~/day4/infra$', 'cmd': 'git checkout -b feature/OPS-42-disk-alert',
+         'out': ['Switched to a new branch', "'feature/OPS-42-disk-alert'"], 'hl': 'OPS-42',
+         'say': 'And put the ticket *key* in every branch name.'},
+        {'shot': 'screen', 'prompt': '~/day4/infra$', 'cmd': 'git commit -am "fix threshold"',
+         'out': ['!ERROR: start the message with', '!a Jira key, e.g. OPS-42'], 'badge': 'Key first: OPS-42 ...',
+         'say': 'No key in the commit? The hook *blocks* it.'},
+        {'shot': 'screen', 'prompt': '~/day4/infra$', 'cmd': 'git log --oneline --grep OPS-42',
+         'out': ['d3c7aef OPS-42 #comment', '  threshold now 85% #time 30m', 'f5b43fb OPS-42 add disk usage',
+                 '  alert script'], 'hl': 'OPS-42',
+         'say': 'Now every change for one ticket is one *grep* away.'},
+        {'shot': 'wide', 'set': 'meeting',
+         'cast': [{'who': 'khanna', 'mood': 'happy', 'pose': 'wave', 'stand': True, 'x': 330},
+                  {'who': 'rohan', 'mood': 'happy', 'pose': 'cheer', 'x': 760, 'fx': ['sparkle']}],
+         'say': 'Next sprint: twenty-one points planned, twenty-one *done*.'},
+        {'shot': 'card', 'set': 'plain', 'big': '70 / 20 / 10', 'sub': 'stories · buffer · tech debt',
+         'say': 'Plan seventy percent, keep twenty for *surprises*.'},
+    ],
+    'cta': {'set': 'office'},
+    'cover_at': 1.2,
+    'upload': {
+        'title': 'POV: Day 9 of a 10-Day Sprint #shorts #devops',
+        'description': (
+            'Planned 38 points, the team does 21, and a scan drops 40 bugs mid-sprint. Plan with your real velocity, '
+            'keep a 20% buffer, and put the Jira key in every branch and commit.\n\n'
+            'Full episode: "Agile, Scrum and Jira, Explained for DevOps | DevOps & SRE Zero to Hero Day 4" on the Tech-dev channel.\n'
+            'Free 100-day course, new lesson every day at 8 PM IST.\n\n'
+            '#shorts #DevOps #Agile #Scrum #Jira #TechDev'),
+        'tags': ['agile', 'scrum', 'jira', 'sprint planning', 'story points', 'velocity', 'jira smart commits',
+                 'devops', 'sre', 'shorts', 'devops zero to hero', 'devops day 4', 'tech-dev'],
+    },
+}

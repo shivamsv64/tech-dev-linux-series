@@ -1,0 +1,13 @@
+TITLE
+POV: Day 9 of a 10-Day Sprint #shorts #devops
+
+DESCRIPTION
+Planned 38 points, the team does 21, and a scan drops 40 bugs mid-sprint. Plan with your real velocity, keep a 20% buffer, and put the Jira key in every branch and commit.
+
+Full episode: "Agile, Scrum and Jira, Explained for DevOps | DevOps & SRE Zero to Hero Day 4" on the Tech-dev channel.
+Free 100-day course, new lesson every day at 8 PM IST.
+
+#shorts #DevOps #Agile #Scrum #Jira #TechDev
+
+TAGS
+agile, scrum, jira, sprint planning, story points, velocity, jira smart commits, devops, sre, shorts, devops zero to hero, devops day 4, tech-dev
