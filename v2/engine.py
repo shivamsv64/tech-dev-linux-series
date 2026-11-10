@@ -906,6 +906,8 @@ def clicks(d, seed=3):
     return out
 
 def music_bed(n):
+    if EP.get('music') in ('none', []):   # spec 'music': 'none' = no background music (Shivam's rule)
+        return np.zeros(n, np.float32)
     tracks = [load_mono(os.path.join(HERE, 'assets', 'music', m)) for m in EP.get('music', TH['music'])]
     xf = int(2.5 * SR); bed = np.zeros(0, np.float32); k = 0
     while len(bed) < n:
