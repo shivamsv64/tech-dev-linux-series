@@ -56,9 +56,19 @@
   {
    "ep": 4,
    "date": "2026-11-03",
-   "status": "in_progress_local",
+   "status": "scheduled",
    "claimed_by": "mac",
-   "claimed_at": "2026-11-13T14:55:00+05:30"
+   "claimed_at": "2026-11-13T14:55:00+05:30",
+   "route": "vidiq",
+   "uploaded_via": "zapier",
+   "yt_state": "scheduled_on_youtube",
+   "key": "TD-linux-ep04",
+   "video_id": "HJvwj2Q_6KM",
+   "title": "mkdir -p, touch, rm and rmdir Explained (And the rm -rf Space Mistake) | Linux Zero to Hero Ep 4",
+   "live": "2026-11-14T17:00:00+05:30",
+   "youtube_publish_at": "2026-11-14T17:00:00+05:30",
+   "voice": "chatterbox-shivam",
+   "music": "none"
   },
   {
    "ep": 5,
