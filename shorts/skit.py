@@ -25,6 +25,7 @@ BOIL_FPS = 10
 CTA_CLIP = os.path.join(ROOT, 'voice', 'assets', 'cta.mp3')
 CTA_TEXT = 'Watch the full *episode* on Tech-dev, and subscribe!'
 VOICE = 'am_michael'
+SPEED = 1.05
 CAP_Y = 1350          # caption centre (kept above YouTube's bottom title/buttons)
 SAFE_X = (60, 960)    # keep text left of YouTube's right-side buttons
 
@@ -51,7 +52,7 @@ def tts_clip(text, cache):
     import tts
     text = re.sub(r'(^|\s)--(\w)', r'\1dash dash \2', text.replace('*', ''))
     text = re.sub(r'(^|\s)-(\w)\b', r'\1dash \2', text)
-    parts = [tts.synth_sentence(s, VOICE, 1.05, cache) for s in tts.sentences(text)]
+    parts = [tts.synth_sentence(s, VOICE, SPEED, cache) for s in tts.sentences(text)]
     gap = np.zeros(int(0.1 * tts.SR), np.float32)
     return np.concatenate([np.concatenate([p, gap]) for p in parts])[:-len(gap)]
 
@@ -128,6 +129,49 @@ def scene_at(scenes, t):
         if s['t0'] <= t < s['t0'] + s['dur']:
             return s
     return scenes[-1]
+
+
+# ------------------------------------------------------------------ host (Shivam's 3D anime character, every Short)
+HOST_DIR = os.environ.get('TD_HOST_DIR', os.path.expanduser('~/tech-dev-automation/characters/shivam/poses'))
+HOST_POSE = {'screen': 'point', 'phone': 'think', 'eye': 'shocked', 'cta': 'wave'}
+_HOST = {}
+
+
+def host_img(pose, h):
+    k = (pose, h)
+    if k not in _HOST:
+        im = Image.open(os.path.join(HOST_DIR, f'{pose}.png')).convert('RGBA')
+        im = im.crop(im.getbbox())
+        if pose not in ('wave',):             # full-body poses: keep head to hips
+            im = im.crop((0, 0, im.width, int(im.height * 0.56)))
+        im = im.crop(im.getbbox())
+        _HOST[k] = im.resize((int(im.width * h / im.height), h), Image.LANCZOS)
+    return _HOST[k]
+
+
+def host_state(spec, s):
+    if spec.get('host') is False or s.get('host') == 'off':
+        return None
+    big = s['i'] == 0 or s['shot'] == 'cta'
+    pose = s.get('host') or ('shocked' if s['i'] == 0 else HOST_POSE.get(s['shot'])) or \
+        ('explain', 'armscrossed', 'think')[s['i'] % 3]
+    if not os.path.exists(os.path.join(HOST_DIR, f'{pose}.png')):
+        return None
+    return pose, big
+
+
+def draw_host(img, spec, scenes, s, age):
+    st = host_state(spec, s)
+    if st is None:
+        return
+    pose, big = st
+    prev = host_state(spec, scenes[s['i'] - 1]) if s['i'] else None
+    k = 1.0 if prev == st else ease(clamp(age / 0.35))
+    h = 760 if big else 470                       # big = closer camera: same head line, chest runs off the bottom
+    sp = host_img(pose, h)
+    x = 40 if not big else 20
+    y = int(1415 + (1 - k) * 300)           # rises in from the bottom on every pose change
+    img.paste(sp, (x, y), sp)
 
 
 # ------------------------------------------------------------------ world (2x, boiled)
@@ -527,6 +571,8 @@ def frame(spec, scenes, total, t):
     tag = spec.get('tag_label') or (f"{spec['series'].upper()} · {spec['tag']}" if spec.get('tag') else '')
     if s['shot'] not in ZINE:
         draw_banner(img, d, s['banner_now'], ban_age, spec['series'], tag)
+    draw_host(img, spec, scenes, s, age)
+    d = ImageDraw.Draw(img, 'RGBA')
     draw_caption(img, d, s, t, spec['series'])
     # fade out at the very end
     if t > total - 0.4:
@@ -788,6 +834,9 @@ def main():
     spec = load(sys.argv[1]); outdir = sys.argv[2]
     os.makedirs(outdir, exist_ok=True)
     cache = os.path.join(os.path.expanduser('~/.cache'), 'td-skit-tts')
+    global VOICE, SPEED
+    if spec.get('voice'):   # e.g. 'chatterbox-shivam': lines pre-filled into <outdir>/vo by voice/prefill_engine_vo.py
+        VOICE = spec['voice']; SPEED = spec.get('speed', 1.0); cache = os.path.join(outdir, 'vo')
     scenes, total = build(spec, cache)
     print(f'Short length: {total:.1f}s')
     for s in scenes:

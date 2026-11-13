@@ -814,17 +814,91 @@ def header(L, t):
     L.alpha_composite(rect(W, 6, (30, 41, 59, 200)), (0, H - 6))
     L.alpha_composite(rect(W * t / TOTAL, 6, TH['accent'] + (255,)), (0, H - 6))
 
+# ------------------------------------------------------------------ host: Shivam's character (14 Nov 2026)
+# Every video is hosted by Shivam's 3D anime character (tech-dev-automation/characters/shivam, PIPELINE.md "HOST").
+# Free transparent pose pack composited over any look. Two placements:
+#   'big'    waist-up on the right, for talking scenes whose panels sit on the left (captions shift left);
+#   'bubble' round head-and-shoulders badge bottom-right, for full-width scenes (terminal, compare, timeline...).
+# A new pose rises in (0.35 s) only when the pose or placement changes; no idle wobble (motion doctrine).
+# Spec: EP['host'] = False disables it; scene key 'host': '<pose>' | 'off' | ('bubble'|'big', '<pose>') overrides.
+HOST_DIR = os.environ.get('TD_HOST_DIR', os.path.expanduser('~/tech-dev-automation/characters/shivam/poses'))
+HOST_POSE = dict(hook='shocked', title='wave', statement='armscrossed', bullets='explain', qa='think', quiz='think',
+                 swap='thumbsup', outro='wave', terminal='point', compare='explain', timeline='explain',
+                 pipeline='explain', bars='shocked', chips='think')
+HOST_BIG = {'hook', 'title', 'statement', 'bullets', 'qa'}
+FULLBODY_CROP = {'thumbsup': .56, 'walk': .52}     # full-body cutouts -> waist-up so every pose has the same scale
+BIG_H, BIG_X1 = 600, W - 30                        # big: height, right edge
+BUB_D, BUB_CX, BUB_CY = 210, W - 150, H - 175      # bubble: diameter, centre
+
+@functools.lru_cache(maxsize=None)
+def host_sprite(pose, mode):
+    im = Image.open(os.path.join(HOST_DIR, f'{pose}.png')).convert('RGBA')
+    if pose in FULLBODY_CROP: im = im.crop((0, 0, im.width, int(im.height * FULLBODY_CROP[pose])))
+    bb = im.getbbox(); im = im.crop(bb)
+    if mode == 'big':
+        s = BIG_H / im.height; return im.resize((int(im.width * s), BIG_H), Image.LANCZOS)
+    # bubble: head and shoulders inside a ring
+    a = np.asarray(im.split()[3]); rows = np.where(a.max(1) > 0)[0]; top = rows[0] if len(rows) else 0
+    cols = np.where(a[top:top + int(im.height * .25)].max(0) > 0)[0]
+    cx = (cols[0] + cols[-1]) / 2 if len(cols) else im.width / 2
+    side = int(im.height * 0.48); x0 = int(cx - side / 2)
+    x0 = max(0, min(im.width - side, x0)) if im.width >= side else 0
+    hs = Image.new('RGBA', (side, side), (0, 0, 0, 0)); hs.alpha_composite(im.crop((x0, top, x0 + side, top + side)))
+    hs = hs.resize((BUB_D - 16, BUB_D - 16), Image.LANCZOS)
+    out = Image.new('RGBA', (BUB_D, BUB_D), (0, 0, 0, 0)); d = ImageDraw.Draw(out)
+    d.ellipse([0, 0, BUB_D - 1, BUB_D - 1], fill=TH['warm'] + (255,))
+    d.ellipse([6, 6, BUB_D - 7, BUB_D - 7], fill=(14, 20, 38, 255))
+    mask = Image.new('L', (BUB_D - 16, BUB_D - 16), 0); ImageDraw.Draw(mask).ellipse([0, 0, BUB_D - 17, BUB_D - 17], fill=255)
+    hs.putalpha(Image.fromarray(np.minimum(np.asarray(hs.split()[3]), np.asarray(mask))))
+    out.alpha_composite(hs, (8, 8)); return out
+
+def host_state(sc):
+    if EP.get('host') is False: return None
+    o = sc['spec'].get('host')
+    if o == 'off': return None
+    mode = 'big' if sc['kind'] in HOST_BIG else 'bubble'
+    if sc['kind'] == 'bullets' and sc['spec'].get('side') == 'right': mode = 'bubble'
+    pose = HOST_POSE.get(sc['kind'], 'explain')
+    if sc['kind'] == 'bullets' and str(sc['spec'].get('label', '')).lower().startswith(('day', 'episode')) and 'recap' in str(sc['spec'].get('label', '')).lower():
+        pose = 'thumbsup'
+    if isinstance(o, (tuple, list)): mode, pose = o
+    elif isinstance(o, str): pose = o
+    if not os.path.exists(os.path.join(HOST_DIR, f'{pose}.png')): return None
+    return mode, pose
+
+def host_layer(img, i, lt):
+    sc = SCENES[i]; st = host_state(sc)
+    if st is None: return
+    j = i                                 # when did this exact state start? (no re-entry while it is unchanged)
+    while j > 0 and host_state(SCENES[j - 1]) == st: j -= 1
+    t_in = SCENES[i]['t0'] - SCENES[j]['t0'] + lt
+    k = ease(t_in / 0.35)
+    mode, pose = st; spr = host_sprite(pose, mode)
+    if mode == 'big':
+        x = BIG_X1 - spr.width; y = H - spr.height + int((1 - k) * 140)
+    else:
+        x = BUB_CX - BUB_D // 2; y = BUB_CY - BUB_D // 2 + int((1 - k) * 60)
+    put(img, spr, x, y, k)
+
+def caption_box(sc):
+    """caption centre x and max text width: keep clear of the host"""
+    st = host_state(sc) if SCENES else None
+    if st and st[0] == 'big': return (BIG_X1 - BIG_H * 0.62) / 2, 1100
+    if st: return (BUB_CX - BUB_D / 2 - 30) / 2 + 15, 1300
+    return W / 2, 1500
+
 def caption(L, sc, lt):
+    cxc, mw = caption_box(sc)
     for (c0, c1, s) in sc['caps']:
         if c0 - 0.05 <= lt < c1 + 0.1:
             a = win(lt, c0 - 0.05, .15); f = font('bold', 44)
             words = s.split(); lines, cur = [], []
             for w in words:
-                if f.getlength(strip_marks(' '.join(cur + [w]))) > 1500 and cur: lines.append(cur); cur = [w]
+                if f.getlength(strip_marks(' '.join(cur + [w]))) > mw and cur: lines.append(cur); cur = [w]
                 else: cur.append(w)
             lines.append(cur); lh = 62; bh = 30 + lh * len(lines)
             maxw = max(f.getlength(strip_marks(' '.join(l))) for l in lines)
-            bx, by = (W - maxw) / 2 - 36, H - 70 - bh
+            bx, by = cxc - maxw / 2 - 36, H - 70 - bh
             box = Image.new('RGBA', (int(maxw + 72), bh), (0, 0, 0, 0))
             ImageDraw.Draw(box).rounded_rectangle([0, 0, box.width - 1, bh - 1], 18, fill=(4, 8, 20, 190)); put(L, box, bx, by, a)
             hl = set(w.lower().strip('.,!?:;') for w in sc['spec'].get('hl', []))
@@ -849,6 +923,7 @@ def frame_at(t):
     if fo < 0.999:
         arr = np.asarray(L, dtype=np.float32); arr[..., 3] *= fo; L = Image.fromarray(arr.astype(np.uint8), 'RGBA')
     img.alpha_composite(L)
+    host_layer(img, i, lt)
     H2 = Image.new('RGBA', (W, H), (0, 0, 0, 0)); header(H2, t); caption(H2, sc, lt); img.alpha_composite(H2)
     prv = SCENES[i - 1] if i > 0 else None
     if prv is not None and (sc['kind'] in FULLFRAME or prv['kind'] in FULLFRAME) and lt < 0.12:
@@ -906,6 +981,7 @@ def clicks(d, seed=3):
     return out
 
 def music_bed(n):
+    if EP.get('music') == 'none': return np.zeros(n, np.float32)   # long videos: no music (PIPELINE.md)
     tracks = [load_mono(os.path.join(HERE, 'assets', 'music', m)) for m in EP.get('music', TH['music'])]
     xf = int(2.5 * SR); bed = np.zeros(0, np.float32); k = 0
     while len(bed) < n:
@@ -1007,6 +1083,10 @@ def thumbnail(path):
     f = font('bold', 36); bt = '>_ Tech-dev'; bw = f.getlength(bt) + 44
     d.rounded_rectangle([40, 40, 40 + bw, 104], 14, fill=(10, 14, 26, 235), outline=TH['accent'] + (255,), width=3)
     d.text((62, 47), bt, font=f, fill=WHITE)
+    if EP.get('host') is not False and os.path.exists(os.path.join(HOST_DIR, f"{tb.get('host', 'shocked')}.png")):
+        hp = Image.open(os.path.join(HOST_DIR, f"{tb.get('host', 'shocked')}.png")).convert('RGBA'); hp = hp.crop(hp.getbbox())
+        hs_ = 640 / hp.height; hp = hp.resize((int(hp.width * hs_), 640), Image.LANCZOS)
+        img.alpha_composite(hp, (tw_ - hp.width - 10, th_ - hp.height)); d = ImageDraw.Draw(img)   # Shivam's character on every thumbnail
     if tb.get('badge'):
         bl = tb['badge'].split(); r = 92; cx, cy = tw_ - 60 - r, 60 + r
         d.ellipse([cx - r, cy - r, cx + r, cy + r], fill=TH['warm'], outline=(5, 8, 20), width=6)
