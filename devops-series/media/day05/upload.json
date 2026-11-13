@@ -1,0 +1,76 @@
+{
+ "title": "DevOps vs SRE vs CloudOps: Roles and Career Map | DevOps & SRE Zero to Hero Day 5",
+ "description": "DevOps engineer, SRE or cloud engineer: what is the real difference? Day 5 explains what each role owns, where platform and DevSecOps fit, how SLOs and error budgets work, and which career path fits you, with real terminal checks for each role.\n\nI'm Shivam Singh Verma, a DevOps & SRE engineer with 5 years of experience building CI/CD pipelines, running cloud infrastructure on AWS & GCP, and managing projects.\n\n📺 Day 5 of 100 · DevOps & SRE Zero to Hero: a free course with a new episode every Thursday at 8 PM IST.\n\n⏱️ Chapters\n0:00 Intro\n0:35 Yesterday\n0:57 The DevOps engineer\n1:19 The SRE\n1:52 CloudOps\n2:14 Side by side\n2:50 Hands-on\n4:04 Real story\n5:02 Career map\n5:39 Common mistake\n6:02 Interview corner\n6:28 Quiz\n6:40 Recap\n\n🔑 What you'll learn\n• What a DevOps engineer owns\n• Where SRE came from (Google) and what an SRE owns\n• What CloudOps owns: IAM, cost, health, compliance\n• Platform engineering and DevSecOps in one minute\n• DevOps vs SRE vs CloudOps side by side\n• Error budget maths: 99.9% = 43.2 minutes a month\n• One incident shared across three roles\n• A common career path and how to choose\n• A 20-second interview answer\n\n🧾 Cheat sheet (copy & practice)\ngit log --since=\"7 days ago\" --oneline | wc -l\nuptime\nsystemctl --failed\naws sts get-caller-identity --query Account --output text\nawk 'BEGIN{print 30*24*60*0.001}'\n\n🎤 Interview question: What is the difference between DevOps and SRE?\n\n🧠 Quiz: A 99.99% target allows about how much downtime in 30 days? A) About 4.3 minutes B) About 43 minutes C) About 7 hours D) About 3 days (answer in the comments, reveal in the next episode)\n\n📝 Homework: Read 3 job ads, list the tools they ask for, and comment the tool that appears most.\n\n➡️ Next: Day 6: Should you learn DevOps and Cloud in 2027? (next Thursday, 8 PM IST)\n\n🔔 Subscribe to Tech-dev for practical DevOps, SRE, Cloud, Linux & Git videos.\n\n💬 Which role pulls you most: DevOps, SRE, CloudOps or Platform?\n\n#DevOps #SRE #CloudOps #DevOpsCareer #DevOpsZeroToHero #TechDev",
+ "tags": [
+  "devops vs sre",
+  "sre vs devops",
+  "devops vs cloud engineer",
+  "cloudops",
+  "what is sre",
+  "devops career path",
+  "devops roles",
+  "error budget",
+  "platform engineer",
+  "devops for beginners",
+  "free devops course",
+  "devops zero to hero",
+  "devops day 5",
+  "devops interview questions",
+  "tech-dev"
+ ],
+ "duration": 436.3,
+ "chapters": [
+  [
+   0,
+   "Intro"
+  ],
+  [
+   35.90995833333333,
+   "Yesterday"
+  ],
+  [
+   57.389958333333325,
+   "The DevOps engineer"
+  ],
+  [
+   79.20995833333332,
+   "The SRE"
+  ],
+  [
+   112.87995833333332,
+   "CloudOps"
+  ],
+  [
+   134.15995833333332,
+   "Side by side"
+  ],
+  [
+   170.7499583333333,
+   "Hands-on"
+  ],
+  [
+   244.78995833333326,
+   "Real story"
+  ],
+  [
+   302.58995833333324,
+   "Career map"
+  ],
+  [
+   339.38995833333325,
+   "Common mistake"
+  ],
+  [
+   362.18995833333327,
+   "Interview corner"
+  ],
+  [
+   388.1699583333333,
+   "Quiz"
+  ],
+  [
+   400.5799583333333,
+   "Recap"
+  ]
+ ]
+}
