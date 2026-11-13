@@ -1,0 +1,181 @@
+# DevOps & SRE Zero to Hero — Day 6: Should you learn DevOps and Cloud in 2027? Engine v2, Mission Control look.
+P = 'shivam@tech-dev:~$'
+P6 = 'shivam@tech-dev:~/day6$'
+
+EP = {
+    'series': 'devops', 'number': 6, 'badge': 'DAY 6/100', 'badge_long': 'DAY 6 OF 100',
+    'scenes': [
+        # ---------------- hook + title ----------------
+        {'type': 'hook', 'art': 'mc_alert', 'chapter': 'Intro',
+         'say': "AI can write the code. So why learn DevOps and cloud in twenty twenty-seven? Simple: the code still has to *run* somewhere. And at 3 AM, a chatbot does not get paged. You do.",
+         'label': 'The 2027 question', 'line': 'Will AI replace DevOps?',
+         'stats': [('AI', 'writes the first draft', 'accent'), ('3 AM', 'a human still gets paged', 'bad')], 'punch': 'An honest answer, today.'},
+        {'type': 'title', 'art': 'mc_room', 'intro': True,
+         'say': "This is Day 6 of DevOps and SRE, Zero to Hero. Today: *should you learn DevOps and cloud in 2027?* An honest answer, with the good and the hard parts.",
+         'title': ['Learn DevOps and', 'Cloud in 2027?'], 'sub': 'An honest look at demand, AI and your first job'},
+        {'type': 'bullets', 'art': 'mc_room', 'label': "Today's mission", 'title': 'By the end you will know',
+         'items': [('01', 'Why this field still matters', 'accent'), ('02', 'What AI changes, and what it cannot', 'accent'),
+                   ('03', 'The hard truth about the first job', 'warm'), ('04', 'Why fundamentals beat tool lists', 'ok'),
+                   ('05', 'How to review AI output, hands-on', 'purple')],
+         'say': "By the end you will know why this field still matters, what AI changes and what it cannot, the hard truth about getting a first job, and how to *review* AI output safely."},
+
+        # ---------------- recap of Day 5 ----------------
+        {'type': 'bullets', 'art': 'mc_sunrise', 'chapter': 'Yesterday', 'label': 'Day 5 recap', 'title': 'DevOps, SRE, CloudOps',
+         'items': [('1', 'DevOps: ship fast and safely', 'accent'), ('2', 'SRE: reliability with SLOs', 'warm'),
+                   ('3', 'CloudOps: healthy, safe, affordable cloud', 'ok'), ('4', 'Titles overlap, read the job ad', 'purple')],
+         'say': "Quick recap of Day 5. DevOps ships fast, SRE protects reliability with SLOs, CloudOps keeps the cloud healthy, and job *titles overlap*, so read the ad."},
+        {'type': 'quiz', 'art': 'mc_sunrise', 'question': 'A 99.99% target allows about how much downtime in 30 days?',
+         'options': ['About 4.3 minutes', 'About 43 minutes', 'About 7 hours', 'About 3 days'], 'answer': 0,
+         'say': "Yesterday's quiz: ninety-nine point nine nine percent over thirty days. The answer is A, about *four point three minutes*. Thirty times twenty-four times sixty, times zero point zero zero zero one."},
+
+        # ---------------- the case for ----------------
+        {'type': 'statement', 'art': 'mc_cloud', 'chapter': 'The case for learning it', 'kicker': 'Reason 1',
+         'text': 'Everything has to run somewhere.', 'sub': 'Apps, AI models, data pipelines: all need servers, networks and pipelines.',
+         'say': "Reason one. Every app, every AI model, every data pipeline has to *run somewhere*. That needs servers, networks, pipelines and monitoring. Someone has to build and operate all that."},
+        {'type': 'statement', 'art': 'mc_cloud', 'kicker': 'Reason 2',
+         'text': 'More generated code means more to deploy and secure.', 'sub': 'Faster writing makes the delivery and operations side busier, not emptier.',
+         'say': "Reason two. When writing code gets faster, there is *more* code to test, ship, secure and monitor. The delivery and operations side gets busier, not emptier."},
+        {'type': 'statement', 'art': 'mc_cloud', 'kicker': 'Reason 3',
+         'text': 'Accountability cannot be outsourced to a tool.', 'sub': 'Someone owns the outage, the bill and the security finding.',
+         'say': "Reason three. Somebody owns the outage, the cloud bill, and the security finding. A tool can *suggest*, but a person has to decide, and be accountable."},
+        {'type': 'statement', 'art': 'mc_cloud', 'kicker': 'Reason 4',
+         'text': 'The skills travel.', 'sub': 'Linux, networking, Git and cloud are useful in almost every tech job.',
+         'say': "Reason four. The skills *travel*. Linux, networking, Git and cloud help you in almost any tech role. Even if you change direction later, none of this is wasted."},
+
+        # ---------------- AI ----------------
+        {'type': 'compare', 'art': 'mc_pipe', 'chapter': 'What AI changes', 'label': 'AI helps, you decide', 'cols': ['AI helps with', 'You still own'],
+         'rows': [('Writing', 'Draft a Dockerfile, YAML, Terraform', 'Review, test, understand it'),
+                  ('Debugging', 'Suggest likely causes', 'Confirm in the real logs'),
+                  ('Incidents', 'Summarise logs and timelines', 'Decide: rollback or not'),
+                  ('Security, cost', 'Flag risky settings', 'Accept the risk, answer for it')],
+         'say': "So what does AI change? It drafts Dockerfiles, YAML and Terraform, suggests causes, and summarises logs. But *you* review it, confirm it in real logs, decide the rollback, and answer for the result."},
+        {'type': 'swap', 'art': 'mc_pipe', 'label': 'The skill shift', 'old': 'Memorise syntax', 'new': 'Understand and verify',
+         'sub': 'Knowing why a command is safe matters more than typing it',
+         'say': "The skill shifts. Memorising syntax matters less. *Understanding and verifying* matters more. Knowing why a command is safe beats being able to type it from memory."},
+
+        # ---------------- hands-on ----------------
+        {'type': 'statement', 'art': 'mc_terminal', 'chapter': 'Hands-on', 'kicker': 'Hands-on',
+         'text': 'An AI wrote this script. Would you run it?', 'sub': 'Ubuntu 24.04 · bash · safe demo, nothing is deleted',
+         'say': "Let's prove it with a demo. An AI assistant gave you a cleanup script. Would you run it? We will test it safely, using echo, so nothing is actually deleted."},
+        {'type': 'terminal', 'art': 'mc_terminal', 'cam': 'still', 'title': 'The generated script',
+         'steps': [{'cmd': 'mkdir -p ~/day6 && cd ~/day6', 'out': [], 'prompt': P},
+                   {'cmd': 'cat cleanup.sh', 'out': ['#!/bin/bash', '# clean old build files', 'rm -rf $BUILD_DIR/*'], 'prompt': P6, 'at': .4}],
+         'note': {'title': 'Looks fine?', 'text': 'It is one line. But what if BUILD_DIR is empty?', 'at': .65},
+         'say': "It looks harmless. One line: remove everything inside the build dir. But what happens if that variable is *empty* on a fresh server?"},
+        {'type': 'terminal', 'art': 'mc_terminal', 'cam': 'still', 'title': 'Dry run with echo',
+         'steps': [{'cmd': 'unset BUILD_DIR', 'out': [], 'prompt': P6},
+                   {'cmd': 'echo "rm -rf $BUILD_DIR/*"', 'out': ['!rm -rf /*'], 'prompt': P6, 'at': .35}],
+         'note': {'label': 'Danger', 'title': 'An empty variable', 'text': 'The command becomes rm -rf slash star. That wipes the server.', 'at': .6},
+         'hold': 0.8,
+         'say': "Unset the variable, and put echo in front. Look at the result: *rm minus rf slash star*. With an empty variable, this script would try to wipe the entire server."},
+        {'type': 'terminal', 'art': 'mc_terminal', 'cam': 'still', 'title': 'The fix: set -u',
+         'steps': [{'cmd': "bash -c 'set -u; echo \"rm -rf $BUILD_DIR/*\"'", 'out': ['!bash: line 1: BUILD_DIR: unbound variable'], 'prompt': P6}],
+         'note': {'title': 'set -u', 'text': 'Stops the script when a variable is not set. Pair it with set -e from Day 2.', 'at': .55},
+         'say': "The fix is one flag. Set minus u makes bash *stop* on an unset variable instead of silently using nothing. Pair it with set minus e from Day 2, and the script fails safely."},
+        {'type': 'terminal', 'art': 'mc_terminal', 'cam': 'still', 'title': 'What AI cannot see: your server',
+         'steps': [{'cmd': 'df -h /', 'out': ['Filesystem      Size  Used Avail Use% Mounted on', '/dev/nvme0n1p1   20G   19G  1.0G  95% /'], 'prompt': P6}],
+         'note': {'title': 'Context', 'text': 'A generated fix does not know the disk is 95% full.', 'at': .55},
+         'say': "Here is something else a chatbot cannot see: your live server. This disk is ninety-five percent full. A generated fix has no idea. *You* bring the context."},
+        {'type': 'statement', 'art': 'mc_terminal', 'kicker': 'What just happened',
+         'text': 'Understanding caught what a copy-paste would miss.', 'sub': 'Review habit: read it, dry-run it, then run it.',
+         'say': "Notice what saved us. Not typing speed. *Understanding*. Read the script, dry-run it with echo, then run it. That review habit is the real skill of 2027."},
+
+        # ---------------- real story ----------------
+        {'type': 'bullets', 'art': 'mc_incident', 'chapter': 'Real story', 'label': 'A pattern from my work', 'title': 'The empty variable on a new agent',
+         'items': [('Change', 'A cleanup step added to a Jenkins job', 'warm'), ('Review', 'A teammate asks: what if this variable is empty?', 'accent'),
+                   ('Test', 'Dry run on a new build agent shows the risk', 'bad'), ('Fix', 'set -u plus a guard before every rm', 'ok')],
+         'say': "A pattern I have seen in real pipelines. Someone adds a cleanup step to a Jenkins job. In review, a teammate asks: what if this variable is empty on a *new build agent*?"},
+        {'type': 'bars', 'art': 'mc_incident', 'label': 'Cost of the review question',
+         'bars': [('Asked in code review', .05, 'ok', '≈ 2 min'), ('Found after it ran', 1.0, 'bad', 'a very bad day')],
+         'punch': 'One question. A very different outcome.',
+         'say': "A dry run on the new agent showed the risk. Fixing it took two minutes in review. After it ran, it could have meant a rebuilt agent and a *very bad day*."},
+        {'type': 'statement', 'art': 'mc_incident', 'kicker': 'Lesson',
+         'text': 'The valuable engineer asks the right question.', 'sub': 'Who writes the first draft matters less than who reviews it.',
+         'say': "The lesson: the valuable engineer is the one who asks *the right question*. It matters less who wrote the first draft, and far more who reviewed it."},
+
+        # ---------------- hard truth ----------------
+        {'type': 'statement', 'art': 'mc_pad', 'chapter': 'The hard truth', 'kicker': 'Honest part',
+         'text': 'The first job is competitive.', 'sub': 'No course guarantees a job, including this one.',
+         'say': "Now the honest part. The first job in this field is *competitive*. No course can promise you a job, and that includes this one. Anyone who promises a fixed salary is selling something."},
+        {'type': 'bullets', 'art': 'mc_pad', 'label': 'What actually stands out', 'title': 'Show, do not just list',
+         'items': [('1', 'Projects you built and can explain', 'ok'), ('2', 'A GitHub repo with real pipelines and Terraform', 'ok'),
+                   ('3', 'Solid Linux and networking basics', 'ok'), ('4', 'Clear explanations of why, not just how', 'ok'),
+                   ('✗', 'A resume that is only a list of tool names', 'bad')],
+         'say': "What stands out: projects you built and can *explain*, a GitHub repo with real pipelines, solid Linux and networking, and clear answers to why. A list of tool names does not."},
+        {'type': 'chips', 'art': 'mc_pad', 'label': 'Fundamentals first, tools second',
+         'chips': ['Linux', 'Networking', 'Git', 'Cloud basics', 'Containers', 'CI/CD', 'Terraform', 'Kubernetes', 'Monitoring'],
+         'punch': 'Tools change. Fundamentals stay.',
+         'say': "Tools change every few years. *Fundamentals stay*: Linux, networking, Git, cloud basics. Learn those first, then containers, pipelines, Terraform, Kubernetes and monitoring. That is the order of this course."},
+
+        # ---------------- who should / should not ----------------
+        {'type': 'compare', 'art': 'mc_blueprint', 'chapter': 'Is it for you?', 'label': 'Good fit or not', 'cols': ['Good fit if you', 'Think twice if you'],
+         'rows': [('Style', 'Like solving puzzles', 'Want only a quick shortcut'), ('Work', 'Enjoy automating boring things', 'Hate the terminal'),
+                  ('Pressure', 'Stay calm when things break', 'Want zero on-call ever'), ('Learning', 'Will practise every week', 'Will only watch videos')],
+         'say': "Is it for you? A good fit if you like solving puzzles, automating boring things, and staying calm when things break. Think twice if you want a shortcut, or only watch videos and *never practise*."},
+        {'type': 'statement', 'art': 'mc_blueprint', 'kicker': 'My honest answer', 'text': 'Yes, learn it. But learn it properly.',
+         'sub': 'Fundamentals · projects · review habit',
+         'say': "My honest answer. Yes, learn DevOps and cloud in twenty twenty-seven. But learn it *properly*: fundamentals, real projects, and the habit of reviewing everything you run."},
+
+        # ---------------- common mistake ----------------
+        {'type': 'statement', 'art': 'mc_alert', 'chapter': 'Common mistake', 'kicker': 'Mistake',
+         'text': '"The AI wrote it, so it must be right."', 'sub': 'Pasting output into production without reading it.',
+         'say': "The biggest mistake of this era: *the AI wrote it, so it must be right*. Pasting generated commands into production without reading them is how outages are made."},
+        {'type': 'bullets', 'art': 'mc_alert', 'label': 'The review habit', 'title': 'Before you run anything',
+         'items': [('1', 'Read every line: do you know what it does?', 'ok'), ('2', 'Dry-run it: echo, plan, --dry-run', 'ok'),
+                   ('3', 'Try it in a test environment first', 'ok'), ('4', 'Have a rollback ready', 'ok'),
+                   ('✗', 'Never run what you cannot explain', 'bad')],
+         'say': "The habit. Read every line. Dry-run it with echo, terraform plan, or a dry run flag. Try it in a test environment. Have a rollback ready. And *never run what you cannot explain*."},
+
+        # ---------------- interview ----------------
+        {'type': 'qa', 'art': 'mc_room', 'chapter': 'Interview corner',
+         'question': 'How is AI changing DevOps work?',
+         'points': ['It speeds up drafts: scripts, YAML, Terraform', 'Humans still review, test and own the outcome'],
+         'say': "Interview question: how is AI changing DevOps work? Say this. It speeds up *first drafts* of scripts, YAML and Terraform. But humans still review, test, and own the outcome."},
+        {'type': 'qa', 'art': 'mc_room', 'question': 'How is AI changing DevOps work?',
+         'points': ['It speeds up drafts: scripts, YAML, Terraform', 'Humans still review, test and own the outcome',
+                    'Review skill matters more: dry runs, plans, rollbacks', 'Example: set -u caught an empty variable'],
+         'say': "Then add: review skill matters *more* now, dry runs, plans and rollbacks. And give a concrete example, like set minus u catching an empty variable before it deleted anything."},
+
+        # ---------------- quiz ----------------
+        {'type': 'quiz', 'art': 'mc_room', 'chapter': 'Quiz', 'question': 'What does set -u do in a bash script?',
+         'options': ['Updates all packages', 'Stops on an unset variable', 'Runs the script as root', 'Hides all errors'], 'answer': None,
+         'say': "Your quiz for today. What does *set minus u* do in a bash script? Post A, B, C or D in the comments. I'll reveal the answer next Thursday."},
+
+        # ---------------- recap ----------------
+        {'type': 'bullets', 'art': 'mc_sunrise', 'chapter': 'Recap', 'label': 'Day 6 recap', 'title': 'What you learned',
+         'items': [('1', 'Everything runs somewhere: the field stays needed', 'accent'), ('2', 'AI drafts, humans review and own it', 'warm'),
+                   ('3', 'The first job is competitive: show projects', 'bad'), ('4', 'Fundamentals first, tools second', 'ok'),
+                   ('5', 'Read it, dry-run it, then run it', 'ok')],
+         'say': "Recap. Everything runs somewhere, so the field stays needed. AI drafts, humans review and own it. The first job is competitive, so show projects. Fundamentals first. And *read, dry-run, then run*."},
+        {'type': 'statement', 'art': 'mc_sunrise', 'kicker': 'Remember', 'text': 'AI writes drafts. You own production.',
+         'sub': 'Homework: ask an AI for a script, then list 3 things you would verify before running it.',
+         'say': "Remember: AI writes drafts, *you* own production. Homework: ask any AI tool for a small script, then comment three things you would verify before running it."},
+        {'type': 'outro', 'art': 'mc_room', 'kicker': 'Next Thursday · Day 7', 'next': ['Your roadmap, how to introduce', 'yourself, and a day in the job'],
+         'cta': 'New lesson every Thursday · 8 PM IST',
+         'say': "Next Thursday, on Day 7: the full hundred-day roadmap, how to introduce yourself, and what a DevOps engineer's day looks like. Subscribe to Tech-dev. New lesson every Thursday at 8 PM."},
+    ],
+    'thumb': {'art': 'mc_cloud', 'big': '2027?', 'lines': ['learn DevOps', 'and Cloud'], 'badge': 'DAY 6', 'color': 'warm'},
+    'upload': {
+        'title': 'Should You Learn DevOps and Cloud in 2027? (Honest Answer) | DevOps & SRE Zero to Hero Day 6',
+        'hook': 'With AI writing code, is DevOps and cloud still worth learning in 2027? Day 6 gives an honest answer: why the field still matters, what AI changes and what it cannot, the hard truth about the first job, and a hands-on demo of reviewing AI-written scripts safely with set -u.',
+        'learn': ['Four reasons the field still matters', 'What AI helps with and what humans still own',
+                  'The skill shift: understand and verify, not just type', 'Hands-on: dry-run a risky cleanup script with echo',
+                  'Fix an empty-variable bug with set -u', 'The honest truth about the first job',
+                  'Fundamentals first, tools second', 'Who it is for and who should think twice', 'A 20-second interview answer'],
+        'commands': ['cat cleanup.sh', 'unset BUILD_DIR', 'echo "rm -rf $BUILD_DIR/*"',
+                     "bash -c 'set -u; echo \"rm -rf $BUILD_DIR/*\"'", 'df -h /'],
+        'interview': 'How is AI changing DevOps work?',
+        'quiz': 'What does set -u do in a bash script? A) Updates all packages B) Stops on an unset variable C) Runs the script as root D) Hides all errors',
+        'homework': 'Ask an AI tool for a small script and comment three things you would verify before running it.',
+        'next': 'Day 7: Roadmap + how to introduce yourself + a DevOps engineer\'s day (next Thursday, 8 PM IST)',
+        'question': 'Are you worried about AI and your DevOps career? Tell me in the comments.',
+        'hashtags': ['#DevOps', '#Cloud', '#AI', '#DevOpsCareer', '#DevOpsZeroToHero', '#TechDev'],
+        'tags': ['should i learn devops in 2027', 'is devops worth it', 'devops and ai', 'will ai replace devops engineers', 'cloud career 2027',
+                 'devops career', 'devops for beginners', 'set -u bash', 'bash script safety', 'free devops course',
+                 'devops zero to hero', 'devops day 6', 'devops interview questions', 'tech-dev'],
+    },
+}
+
+# Shivam's Chatterbox clone only, no music in long videos (PIPELINE.md); host = Shivam's character (engine host layer)
+EP['voice'] = 'chatterbox-shivam'
+EP['music'] = 'none'
