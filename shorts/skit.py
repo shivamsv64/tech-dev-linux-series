@@ -25,6 +25,7 @@ BOIL_FPS = 10
 CTA_CLIP = os.path.join(ROOT, 'voice', 'assets', 'cta.mp3')
 CTA_TEXT = 'Watch the full *episode* on Tech-dev, and subscribe!'
 VOICE = 'am_michael'
+SPEED = 1.05
 CAP_Y = 1350          # caption centre (kept above YouTube's bottom title/buttons)
 SAFE_X = (60, 960)    # keep text left of YouTube's right-side buttons
 
@@ -51,7 +52,7 @@ def tts_clip(text, cache):
     import tts
     text = re.sub(r'(^|\s)--(\w)', r'\1dash dash \2', text.replace('*', ''))
     text = re.sub(r'(^|\s)-(\w)\b', r'\1dash \2', text)
-    parts = [tts.synth_sentence(s, VOICE, 1.05, cache) for s in tts.sentences(text)]
+    parts = [tts.synth_sentence(s, VOICE, SPEED, cache) for s in tts.sentences(text)]
     gap = np.zeros(int(0.1 * tts.SR), np.float32)
     return np.concatenate([np.concatenate([p, gap]) for p in parts])[:-len(gap)]
 
@@ -788,6 +789,9 @@ def main():
     spec = load(sys.argv[1]); outdir = sys.argv[2]
     os.makedirs(outdir, exist_ok=True)
     cache = os.path.join(os.path.expanduser('~/.cache'), 'td-skit-tts')
+    global VOICE, SPEED
+    if spec.get('voice'):   # e.g. 'chatterbox-shivam': lines pre-filled into <outdir>/vo by voice/prefill_engine_vo.py
+        VOICE = spec['voice']; SPEED = spec.get('speed', 1.0); cache = os.path.join(outdir, 'vo')
     scenes, total = build(spec, cache)
     print(f'Short length: {total:.1f}s')
     for s in scenes:
