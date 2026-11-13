@@ -93,9 +93,30 @@
    "phase": "1 Foundations",
    "topic": "DevOps vs SRE vs CloudOps: roles and career map",
    "lead": "Ollie",
-   "status": "in_progress_local",
+   "status": "scheduled",
    "claimed_by": "mac",
-   "claimed_at": "2026-11-13T14:55:00+05:30"
+   "claimed_at": "2026-11-13T14:55:00+05:30",
+   "route": "vidiq",
+   "uploaded_via": "zapier",
+   "yt_state": "scheduled_on_youtube",
+   "key": "TD-devops-day05",
+   "video_id": "5ASYhE8ARhw",
+   "title": "DevOps vs SRE vs CloudOps: Roles and Career Map | DevOps & SRE Zero to Hero Day 5",
+   "live": "2026-11-15T20:00:00+05:30",
+   "youtube_publish_at": "2026-11-15T20:00:00+05:30",
+   "voice": "chatterbox-shivam",
+   "music": "none",
+   "short": {
+    "status": "scheduled",
+    "route": "vidiq",
+    "uploaded_via": "zapier",
+    "yt_state": "scheduled_on_youtube",
+    "key": "TD-devops-day05-short",
+    "video_id": "U9sdIxcI-Ec",
+    "title": "DevOps vs SRE vs CloudOps in 30 Seconds #shorts #devops",
+    "live": "2026-11-16T13:30:00+05:30",
+    "youtube_publish_at": "2026-11-16T13:30:00+05:30"
+   }
   },
   {
    "day": 6,
