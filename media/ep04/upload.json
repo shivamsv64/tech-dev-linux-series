@@ -1,0 +1,64 @@
+{
+ "title": "mkdir -p, touch, rm and rmdir Explained (And the rm -rf Space Mistake) | Linux Zero to Hero Ep 4",
+ "description": "There is no Trash on a Linux server. Episode 4 teaches how to create and delete files and folders with mkdir -p, touch, rm -i, rm -r and rmdir, how to build a release folder layout with one command, and how one stray space in rm -rf can delete a whole project.\n\nI'm Shivam Singh Verma, a DevOps & SRE engineer with 5 years of experience building CI/CD pipelines, running cloud infrastructure on AWS & GCP, and managing projects.\n\n📺 Linux Zero to Hero, Episode 4: a free course with new episodes every Saturday at 5 PM IST.\n\n⏱️ Chapters\n0:00 Intro\n0:22 Recap\n0:48 Your toolkit\n1:02 mkdir\n1:53 touch\n2:15 Deleting\n3:33 Real SRE story\n4:21 Common mistake\n5:39 Interview corner\n5:55 Quiz\n\n🔑 What you'll learn\n• mkdir, mkdir with several names, and quotes for names with spaces\n• mkdir -p: create parents and rerun safely; -v to see what was created\n• touch: empty files and updating timestamps\n• rm vs rmdir vs rm -r, and why rmdir is the safe one\n• rm flags: -i, -I, -r, -v, -f\n• Building a release layout on an EC2 server with one command\n• The stray space in rm -rf build/ * and how echo previews it\n• GNU rm and the root folder failsafe\n\n🧾 Cheat sheet (copy & practice)\nmkdir demo\nmkdir reports logs\nmkdir \"my reports\"\nmkdir -p a/b/c\nmkdir -pv reports/2026/nov\ntouch notes.txt\nls -l notes.txt\nrm -i notes.txt\nrmdir logs\nrm -r reports\nrm -rv a\nmkdir -pv app/releases/v42/{bin,config,logs} app/shared\nls -R app/releases\necho rm -rf build/ *\nrm -rf build/*\n\n🎤 Interview question: How do you delete files safely on a production server?\n\n🧠 Quiz: Which command deletes a folder that still contains files? (answer in the comments, reveal in the next episode)\n\n📝 Homework: build a release layout in /tmp with one mkdir -p command, remove it with rm -rv, and comment the folders you created\n\n➡️ Next: Ep 5: Copy, move, rename and wildcards: cp -r -p, mv, *, ?, [ ], {a,b} (Saturday, 5 PM IST)\n\n🔔 Subscribe to Tech-dev for practical DevOps, SRE, Cloud, Linux & Git videos.\n\n💬 Have you ever deleted the wrong folder? Tell me what happened in the comments.\n\n#Linux #DevOps #SRE #LinuxCommands #TechDev",
+ "tags": [
+  "linux commands",
+  "mkdir -p",
+  "touch command",
+  "rm command",
+  "rm -rf",
+  "rmdir",
+  "linux delete folder",
+  "create folder linux",
+  "linux for beginners",
+  "linux zero to hero",
+  "linux file management",
+  "ubuntu 24.04",
+  "devops",
+  "sre",
+  "tech-dev"
+ ],
+ "duration": 406.0,
+ "chapters": [
+  [
+   0,
+   "Intro"
+  ],
+  [
+   22.639958333333333,
+   "Recap"
+  ],
+  [
+   48.949958333333335,
+   "Your toolkit"
+  ],
+  [
+   62.52995833333333,
+   "mkdir"
+  ],
+  [
+   113.78995833333333,
+   "touch"
+  ],
+  [
+   135.75995833333334,
+   "Deleting"
+  ],
+  [
+   213.59995833333335,
+   "Real SRE story"
+  ],
+  [
+   261.3099583333333,
+   "Common mistake"
+  ],
+  [
+   339.7199583333333,
+   "Interview corner"
+  ],
+  [
+   355.8599583333333,
+   "Quiz"
+  ]
+ ]
+}
