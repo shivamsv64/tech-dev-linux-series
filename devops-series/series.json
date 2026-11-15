@@ -130,7 +130,20 @@
    "phase": "1 Foundations",
    "topic": "Should you learn DevOps and Cloud in 2027?",
    "lead": "Kukdu",
-   "status": "planned"
+   "status": "scheduled",
+   "claimed_by": "mac",
+   "claimed_at": "2026-11-15T18:15:00+05:30",
+   "route": "zapier",
+   "uploaded_via": "zapier",
+   "yt_state": "scheduled_on_youtube",
+   "key": "TD-devops-day06",
+   "video_id": "Jg-UxcUEDio",
+   "title": "The Whole DevOps Map in 5 Minutes (What AI Can't Do) | Day 6",
+   "live": "2026-11-19T20:00:00+05:30",
+   "youtube_publish_at": "2026-11-19T20:00:00+05:30",
+   "voice": "chatterbox-shivam",
+   "music": "none",
+   "format": "living-diagram"
   },
   {
    "day": 7,
