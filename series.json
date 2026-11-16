@@ -90,7 +90,29 @@
   {
    "ep": 5,
    "date": "2026-11-04",
-   "status": "planned"
+   "status": "planned",
+   "short": {
+    "status": "scheduled",
+    "route": "zapier",
+    "uploaded_via": "zapier",
+    "yt_state": "scheduled_on_youtube",
+    "key": "TD-linux-ep05-short",
+    "video_id": "KBjYjMPhbIM",
+    "title": "When mv Silently Overwrites Your Config #shorts #linux",
+    "live": "2026-11-22T12:30:00+05:30",
+    "youtube_publish_at": "2026-11-22T12:30:00+05:30",
+    "ai_label": true,
+    "host": "none",
+    "voice": "elevenlabs-rahul",
+    "language": "hinglish",
+    "instagram": {
+     "status": "draft",
+     "via": "vidiq",
+     "post_id": "c2b5ded7-9855-4d14-b24b-4afb6faf20d6",
+     "live": "2026-11-22T12:30:00+05:30",
+     "note": "draft only, waiting for Shivam's yes"
+    }
+   }
   },
   {
    "ep": 6,
