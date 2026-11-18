@@ -71,20 +71,26 @@
    "phase": "1 Foundations",
    "topic": "Agile, Scrum and Jira for DevOps teams",
    "lead": "Bablu",
-   "status": "scheduled",
-   "title": "Agile, Scrum and Jira, Explained for DevOps | DevOps & SRE Zero to Hero Day 4",
-   "live": "2026-11-04T20:00:00+05:30",
-   "planner": "https://app.metricool.com/planner/calendar?blogId=7777398&openWithPostUuid=-216011104453836696",
-   "metricool_id": 416342247,
-   "engine": "v2",
-   "voice_chars": 0,
+   "status": "in_progress_local",
+   "claimed_by": "mac",
+   "claimed_at": "2026-11-18",
+   "format": "master10-hindi",
+   "title": "Agile, Scrum aur Jira 10 Minutes Mein Master Karo | DevOps Day 4 (Hindi)",
+   "live": "2026-11-19T20:00:00+05:30",
+   "engine": "living-diagram",
+   "out_dir": "out/devops-ep04",
+   "_legacy_v2_scheduled": {
+    "live": "2026-11-04T20:00:00+05:30",
+    "metricool_id": 416342247,
+    "planner": "https://app.metricool.com/planner/calendar?blogId=7777398&openWithPostUuid=-216011104453836696"
+   },
    "short": {
-    "status": "scheduled",
-    "title": "POV: Day 9 of a 10-Day Sprint #shorts #devops",
-    "live": "2026-11-05T13:30:00+05:30",
-    "metricool_id": 416345791,
-    "planner": "https://app.metricool.com/planner/calendar?blogId=7777398&openWithPostUuid=-2154112162440395069",
-    "engine": "skit"
+    "status": "in_progress_local",
+    "live": "2026-11-20T13:30:00+05:30",
+    "_legacy_v2_scheduled": {
+     "live": "2026-11-05T13:30:00+05:30",
+     "metricool_id": 416345791
+    }
    }
   },
   {
