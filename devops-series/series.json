@@ -171,9 +171,21 @@
    "day": 7,
    "date": "2026-11-07",
    "phase": "1 Foundations",
-   "topic": "Roadmap + how to introduce yourself + a DevOps engineer's day",
+   "topic": "new-tech: AI CLI agents for DevOps (alt: Master Docker) - final at greenlight",
    "lead": "Mitthu",
-   "status": "planned"
+   "status": "in_progress_local",
+   "_legacy_topic": "Roadmap + how to introduce yourself + a DevOps engineer's day",
+   "claimed_by": "mac",
+   "claimed_at": "2026-11-20",
+   "format": "master10-hindi",
+   "live": "2026-11-26T20:00:00+05:30",
+   "engine": "living-diagram",
+   "out_dir": "out/prep/devops/07m/long",
+   "short": {
+    "status": "in_progress_local",
+    "live": "2026-11-27T13:30:00+05:30",
+    "out_dir": "out/prep/devops/07m/short"
+   }
   },
   {
    "day": 8,
