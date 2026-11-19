@@ -90,7 +90,7 @@
   {
    "ep": 5,
    "date": "2026-11-04",
-   "status": "planned",
+   "status": "in_progress_local",
    "short": {
     "status": "scheduled",
     "route": "zapier",
@@ -112,7 +112,15 @@
      "live": "2026-11-22T12:30:00+05:30",
      "note": "draft only, waiting for Shivam's yes"
     }
-   }
+   },
+   "claimed_by": "mac",
+   "claimed_at": "2026-11-20",
+   "format": "master10-hindi",
+   "topic": "Linux Permissions (chmod, chown, umask, special bits)",
+   "title": "Linux Permissions 10 Minute Mein Master Karo (Hindi)",
+   "live": "2026-11-21T17:00:00+05:30",
+   "engine": "living-diagram",
+   "out_dir": "out/prep/linux/05m/long"
   },
   {
    "ep": 6,
